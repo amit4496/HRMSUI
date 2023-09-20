@@ -143,6 +143,9 @@ const DasNav = () => {
         <div className="container-fluid homeBox NAVVVV">
           <img className="Ahompng" src={mg} alt="ahom" />
 
+          
+
+          <div className="dropdown">
           <div className="Notification ">
             <button
               type="button"
@@ -153,7 +156,7 @@ const DasNav = () => {
               <NotificationsIcon className="bell-icon" />
               {notificationCount > 0 && <span className="badge "></span>}
             </button>
-            {showPopup(
+            {showPopup && (
               <div className="popup">
                 <div className="popup-content">
                   <span
@@ -176,7 +179,6 @@ const DasNav = () => {
               </div>
             )}
           </div>
-          <div className="dropdown">
             <img src={imageUrl} alt="Profile" className="profile-icon" />
 
             <span className="dropdown-toggle" data-bs-toggle="dropdown">

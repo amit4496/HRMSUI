@@ -19,8 +19,8 @@
   
 .Notification {
 
-  width: 10%;
-  margin-left: 73%;
+  /* width: 10%; */
+  margin: auto;
 
   .popup {
     width: 20%;

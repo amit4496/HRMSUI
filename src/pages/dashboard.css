@@ -1,6 +1,6 @@
 .carddisplay {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -8,7 +8,7 @@
 .card {
   position: relative;
   /* width: 100%; */
-  max-width: 20%;
+  /* max-width: 20%; */
   height: 10%;
   margin-bottom: 20px;
   border-radius: 10px;
@@ -32,7 +32,7 @@
 
 @media screen and (min-width: 481px) and (max-width: 768px) {
   .card {
-    width: 100%;
+    width: 48%;
     height: 8%;
     padding: 15px;
   }
@@ -50,9 +50,9 @@
 
 @media screen and (min-width: 1025px) {
   .card {
-    width: calc(33.33% - 20px);
+    width: 23%;
     height: 10%;
-    margin-right: 20px;
+    /* margin-right: 20px; */
     padding: 20px;
     margin-bottom: 20px;
   }
@@ -272,4 +272,67 @@ li:hover {
   left: 0;
   margin: 52% 0% 0% 32%;
   color: #333;
+}
+
+@media screen and (max-width: 770px){
+
+  .carddisplay11{
+    justify-content: unset;
+  }
+
+  .card5,.card6{
+    width: 36%;
+    max-height: 56vh !important;
+
+  }
+
+  .carddisplay11 :nth-child(2){
+    width: 48% !important;
+  }
+
+  li{
+    width: fit-content;
+    font-size: 12px;
+  }
+
+  .h4, h4 {
+    font-size: calc(1em + .3vw);
+
+}
+
+.card6 div{
+  margin: auto;
+}
+
+.NOdataa {
+  margin: 52% 0% 0% 29%
+}
+
+}
+
+@media screen and (max-width: 580px){
+  /* .carddisplay11{
+    justify-content: unset;
+  } */
+
+  .h4, h4 {
+    font-size: calc(1.275rem + .3vw);
+}
+
+li{
+  font-size: 18px;
+}
+
+  .card5,.card6{
+    width: 100%;
+    /* max-height: 56vh !important; */
+
+  }
+
+  .carddisplay11 :nth-child(2){
+    width: 100% !important;
+  }
+  .NOdataa{
+    margin: 0;
+  }
 }
