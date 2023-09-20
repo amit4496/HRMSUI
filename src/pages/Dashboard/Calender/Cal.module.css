@@ -1,0 +1,79 @@
+.calender {
+
+
+  width: 30%;
+  height: 50vh;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.5), rgba(43, 255, 227, 0.5));
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+ 
+  border: none;
+  box-shadow: 0 14px 14px rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  margin-top: 0.8%;
+  margin-left: 0; /* Change margin-left to 0 to align the calendar to the left */
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.Calender1{
+  display: flex;
+}
+
+.notificationbar{
+  background-color: rgb(77, 209, 47)(172, 152, 152);
+
+  /* position:absolute;
+  bottom: 1%;
+  right: 5%; */
+}
+
+
+@keyframes fadeIn {
+
+  0% {
+
+    opacity: 0; /* Start with opacity 0 */
+
+  }
+
+  100% {
+
+    opacity: 1; /* Transition to opacity 1 */
+
+  }
+
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+
+  /* Adjust the CSS properties for screens with a maximum width of 768px */
+
+  .calender {
+
+    width: 100%;
+
+    margin-left: 0;
+
+  }
+
+}
+
+
+
+
+@media only screen and (max-width: 480px) {
+
+  /* Adjust the CSS properties for screens with a maximum width of 480px */
+
+  .calender {
+    height: auto;
+    margin: 0;
+    padding: 10px;
+
+  }
+
+}

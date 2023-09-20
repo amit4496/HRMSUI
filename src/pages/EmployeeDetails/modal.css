@@ -1,0 +1,5 @@
+.modal {
+  filter: drop-shadow(10px 10px 10px rgb(170, 170, 170));
+  background-color: transparent;
+  backdrop-filter: blur(6px);
+}

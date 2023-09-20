@@ -1,0 +1,404 @@
+.NAVVVV{
+  background: linear-gradient(
+    to right,
+    white,
+    #ffa500,
+    #ff6347
+  );
+  
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+  color: #fff; 
+}
+
+
+.navbarBg {
+  align-items: center;
+  height: 60px; 
+
+  
+.Notification {
+
+  width: 10%;
+  margin-left: 73%;
+
+  .popup {
+    width: 20%;
+    position: absolute;
+    margin-left: -4%;
+    margin-top: 4%;
+    display: inline-block;
+    padding: 10px;
+    z-index: 999;
+    border-radius: 8px;
+
+    /* Glass blur effect */
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.2
+    ); /* Transparent white background */
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(10px); /* For Safari */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    animation: popup 0.3s linear;
+  }
+
+  .popup-content {
+    width: auto; /* Adjust the width as desired */
+    max-height: 300px; /* Adjust the maximum height as needed */
+    overflow-y: auto;
+    margin: 2%;
+    color: #000;
+    padding: 10px;
+
+    scrollbar-width: auto; /* "thin" or "auto" to show scrollbar only when needed */
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+  }
+}
+.badge {
+  font-size: 0.6rem; /* Adjust the size as desired */
+   /* Adjust the padding as needed */
+  color: black;
+  background-color: wheat;
+  float: right;
+  margin-top: 1.5%;
+  
+  position: fixed;
+}
+
+}
+
+
+
+
+
+@keyframes popup {
+  from {
+    transform: scale(0%);
+  }
+  to {
+    transform: scale(100%);
+  }
+}
+
+.popup-content::-webkit-scrollbar {
+  width: 4px; /* Adjust the width of the scrollbar */
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+  background-color: rgba(112, 112, 112, 0); /* Customize the thumb color */
+  border-radius: 6px; /* Adjust the border radius as desired */
+}
+
+.popup-content::-webkit-scrollbar-track {
+  background-color: transparent; /* Customize the track color */
+}
+
+.notification-item {
+  background-color: transparent;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(122, 70, 70, 0.995);
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.notification-item:last-child {
+  margin-bottom: 0;
+}
+
+.notification-item {
+  position: relative;
+}
+
+.notification-time {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  background-color: transparent;
+  font-size: 12px;
+}
+
+@keyframes notification {
+  0% {
+    rotate: 0deg;
+  }
+  10% {
+    rotate: 10deg;
+  }
+  30% {
+    rotate: -10deg;
+  }
+  45% {
+    rotate: 5deg;
+  }
+  55% {
+    rotate: -5deg;
+  }
+  60% {
+    rotate: 0deg;
+  }
+}
+.shake {
+  animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.bell-button {
+  background-color: transparent;
+  border: none;
+}
+
+.bell-icon {
+  font-size: 1x; /* Adjust the size as desired */
+  color: #1a1717; /* Set the desired color */
+}
+.bell-button:hover {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+  /* Adjust the styles for screens with a maximum width of 768px (e.g., tablets) */
+  .popup {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjust the styles for screens with a maximum width of 480px (e.g., smartphones) */
+  .popup {
+    max-width: 50%;
+  }
+}
+
+
+
+.navbarBg a {
+  color: #fff; /* Set link color */
+  text-decoration: none; /* Remove default underline */
+  margin: 0 15px; /* Add some spacing between navbar items */
+  padding: 10px 15px; /* Add padding for better clickability */
+  border-radius: 3px; /* Add some border radius for a slightly rounded appearance */
+  transition: background-color 0.3s ease; /* Add a smooth transition effect on hover */
+}
+
+.navbarBg a:hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Add a transparent background color on hover */
+}
+
+
+.profile-icon {
+  width: 30px; /* Set the appropriate width and height for your profile icon */
+  height: 30px;
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Preserve the aspect ratio of the image */
+}
+
+/* Styles for the dropdown container */
+.dropdown {
+  /* position: fixed; */
+  /* align-items:end; */
+  display: flex;
+  padding-right: 2%;
+  margin-right: 0%;
+  border-radius: 10%;
+}
+
+/* Styles for the profile icon image */
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: 7%;
+  pointer-events: none; 
+}
+
+/* Styles for the dropdown toggle */
+.dropdown-toggle {
+  padding: 20px;
+  cursor: pointer;
+}
+
+/* Styles for the dropdown menu */
+.dropdown-menu {
+  font-family: Poppins, sans-serif;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: transparent;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 8px 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  display: none;
+  min-width: 120px;
+  z-index: 1;
+}
+
+/* Styles for the dropdown menu items */
+.dropdown-item {
+  display: block;
+  padding: 8px 16px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+/* Hover effect for dropdown menu items */
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Styles for the user name inside the dropdown menu */
+.dropdown-menu i {
+  font-family: Poppins, sans-serif;
+  display: block;
+  padding: 8px 16px;
+}
+
+/* Styles for the logout button inside the dropdown menu */
+.dropdown-menu button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #333;
+  padding: 8px 16px;
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+/* Hover effect for the logout button */
+.dropdown-menu button:hover {
+  background-color: #f0f0f0;
+}
+/* Add this CSS code to your existing CSS file or create a new CSS file for the modal styles */
+
+/* Profile Modal Styles */
+.profile-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 30px;
+  transform: translate(-50%, -50%);
+  background-color: transparent; /* Updated background color to include transparency */
+  backdrop-filter: blur(30px); /* Apply the glass effect with a blur */
+  border: 1px solid #ccc;
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+  min-width: 300px;
+}
+
+.profile-modal h3 {
+  margin-bottom: 20px;
+}
+
+.current-profile-photo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.current-profile-photo img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+/* Styling for the file input container */
+.file-input {
+  /* Add your desired styles here */
+  /* For example: */
+  display: block;
+  margin-bottom: 10px;
+}
+
+
+.file-input {
+ 
+  display: block;
+  margin-bottom: 10px;
+  position: relative; /* Add this to enable positioning the pseudo-element */
+}
+
+/* Styling for the file input itself - hide it */
+.file-input input[type="file"] {
+  /* Hide the default file input button */
+  display: none;
+}
+
+/* Styling for the custom file input button */
+.file-input::before {
+  content: 'Select Photo'; /* Text displayed on the button */
+  display: inline-block;
+  padding: 2%;
+  background-color: #e14256;
+  color: rgb(255, 255, 255);
+  border-radius: 6%;
+  cursor: pointer;
+  position: absolute; /* Position the custom button over the hidden input */
+  top: 0;
+  left: 0;
+}
+
+/* Optional hover style for the custom file input button */
+.file-input:hover::before {
+  background-color: #f40000;
+}
+
+
+/* Close button */
+.profile-modal button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.profile-modal button:hover {
+  background-color: #0056b3;
+}
+
+.PersonName {
+  font-family: Poppins, sans-serif;
+}
+
+.Uploadddd{
+  cursor: pointer;
+}
+.Uploadddd:hover{
+  zoom: 1.1;
+}

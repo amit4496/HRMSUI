@@ -1,0 +1,77 @@
+.button {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  border: none;
+
+  background-color: #eab77c;
+  overflow: hidden;
+}
+
+.button,
+.button__icon,
+.button__text {
+  border-radius: 10px;
+  filter: drop-shadow(10px 10px 10px rgb(87, 81, 80));
+  transition: all 0.3s;
+}
+
+.button .button__text {
+  transform: translateX(22px);
+  color: #fff;
+  font-weight: 600;
+}
+
+.button .button__icon {
+  position: absolute;
+  transform: translateX(109px);
+  height: 100%;
+  width: 41px;
+  background-color: #fea72d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button .svg {
+  width: 20px;
+  fill: #fff;
+}
+
+.button:hover {
+  background: #ee7213;
+}
+
+.button:hover .button__text {
+  color: transparent;
+}
+
+.button:hover .button__icon {
+  width: 150px;
+  transform: translateX(0);
+}
+
+.button:active .button__icon {
+  background-color: #efa02b;
+  animation: move 1s infinite;
+}
+
+.button:active {
+  border: 1px solid #f19328;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

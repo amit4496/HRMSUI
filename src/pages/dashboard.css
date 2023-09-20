@@ -1,0 +1,275 @@
+.carddisplay {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card {
+  position: relative;
+  /* width: 100%; */
+  max-width: 20%;
+  height: 10%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  color: #fff;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+
+  transition: transform 0.3s, box-shadow 0.3s;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 480px) {
+  .card {
+    width: 100%;
+    height: 8%;
+    padding: 10px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .card {
+    width: 100%;
+    height: 8%;
+    padding: 15px;
+  }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .card {
+    width: 48%;
+    height: 10%;
+    padding: 20px;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .card {
+    width: calc(33.33% - 20px);
+    height: 10%;
+    margin-right: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .card:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+
+.card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.card1 {
+  background: linear-gradient(45deg, #038f3b, #07ba43);
+}
+
+.card2 {
+  background: linear-gradient(45deg, #9933cc, #cc66ff);
+}
+
+.card3 {
+  background: linear-gradient(45deg, #eca539, #f7af1f);
+}
+
+.card4 {
+  background: linear-gradient(45deg, #0fb8b8, #47dddd);
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.card p {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.event-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.event-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.event-list li:last-child {
+  border-bottom: none;
+}
+
+.event-list li .event-time {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.event-list li .event-title {
+  font-size: 18px;
+  color: #555;
+}
+
+.calendar-container {
+  width: 400px;
+  margin-left: 40px;
+}
+
+.event-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.event-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.event-time {
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.event-title {
+  font-weight: bold;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+/* dashboard.css */
+.carddisplay11 {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* CSS style */
+.card11 {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(0, 0, 0, 0.2) inset; /* Adds a box shadow with a 10px vertical offset, 20px blur radius, and a transparency of 0.3 */
+  overflow-y: scroll; /* Allows vertical scrolling if the content overflows */
+  border: 2px solid #ccc; /* Adds a 1px solid border with the color #ccc */
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.1) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.1) 75%,
+    transparent 75%,
+    transparent
+  ); /* Creates a linear gradient with alternating colors #f5f5f5 and #d8d8d8 */
+  color: #666; /* Sets the text color to #666 (a shade of gray) */
+  padding: 30px; /* Adds 20px padding inside the card */
+  margin: 10px; /* Adds 10px margin around the card */
+  text-align: center; /* Centers the text inside the card horizontally */
+  border-radius: 17px; /* Adds rounded corners with a radius of 10px */
+  position: relative; /* Sets the position of the card to relative */
+  /* background-image: "https://opensource-demo.orangehrmlive.com/web/images/dashboard_empty_widget_watermark.png"; */
+}
+
+/* Hide the scrollbar */
+.card11::-webkit-scrollbar {
+  display: none;
+}
+
+/* Add styles for the new containers */
+.card5 {
+  width: 30%;
+  height: 50vh;
+  background-color: #f1f1f1;
+}
+
+.card6 {
+  width: 30%;
+  height: 50vh;
+  background-color: #f9f9f9;
+}
+
+/* Additional styling for the lists */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 8px;
+  align-content: center;
+}
+
+li {
+  align-content: center;
+  font-family: Poppins, sans-serif;
+  font-size: 18px;
+  color: #4287f5; /* Blue color for the list items */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-radius: 10px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Add hover effect for better user interaction */
+li:hover {
+  color: #59a1ff; /* Light blue color for the hover effect */
+  transform: scale(
+    1.1
+  ); /* Slightly scale up the element on hover for a 3D effect */
+}
+
+.upcoming {
+  font-family: Poppins, sans-serif;
+}
+
+.marquee-container {
+  position: relative;
+}
+
+.marquee-content {
+  position: relative;
+  overflow: hidden;
+  height: 100px; /* Set the desired height for the marquee */
+}
+
+.marquee {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: -100%; /* Adjust this value to set the distance the marquee scrolls */
+  }
+}
+
+.nodata {
+  border-radius: 10px;
+  width: 70%;
+}
+
+.NOdataa {
+  position: absolute;
+  left: 0;
+  margin: 52% 0% 0% 32%;
+  color: #333;
+}
