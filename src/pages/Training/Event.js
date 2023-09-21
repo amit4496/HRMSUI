@@ -236,7 +236,7 @@ const Event = () => {
           <br />
 
           <MaterialTable
-            style={{ width: "80vw" }}
+            style={{ width: "76vw",margin:"0 auto" }}
             title="Event Details"
             data={ticketDetails}
             columns={[

@@ -98,7 +98,7 @@ const ApplyWFH = () => {
         <h2>Request For Work From Home</h2>
         <hr />
         <div>
-          <div className="row ">
+          <div className="row "  style={{"align-items": "baseline","gap": "2rem","justify-content": "space-between"}}>
             <div className="col-sm-3">
               <label for="cars" id="label">
                 Select Id :<span style={{ color: "red" }}> * </span>

@@ -257,7 +257,7 @@ const LeaveRecordDetails = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container container-w">
         <div className="d-flex">
           <h3>Add Leave Record </h3>
         </div>
@@ -352,7 +352,7 @@ const LeaveRecordDetails = () => {
           <br />
 
           <MaterialTable
-            style={{ width: "80vw" }}
+            style={{ width: "76vw" }}
             title="Leave Record Details"
             data={ticketDetails}
             columns={[
@@ -411,7 +411,7 @@ const LeaveRecordDetails = () => {
         </form>
       </div>
 
-      <div className="container">
+      <div className="container container-w">
         <Modal show={showModal} onHide={() => setShowModal(false)}>
           <Form>
             <Modal.Header closeButton>

@@ -249,7 +249,7 @@ const Employee = () => {
           <br></br>
 
           <MaterialTable
-            style={{ width: "80vw" }}
+            style={{ width: "76vw",margin:"0 auto" }}
             title="Training Record"
             data={ticketDetails}
             columns={[

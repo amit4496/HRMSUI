@@ -165,7 +165,7 @@ const AdvanceSalary = () => {
   };
 
   return (
-    <div>
+    <div className="container-w container">
       <div className="container">
         <h3>Advance Salary</h3>
         <div className="bg-light">

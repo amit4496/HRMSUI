@@ -118,7 +118,7 @@ const UserMasterData = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container" id="user-master-data">
       <div>
         <h2>User Master Data</h2>
       </div>

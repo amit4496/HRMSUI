@@ -26,7 +26,7 @@ const ResignationDetails = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container container-w">
         <h4>Resignation </h4>
         <hr />
         <MaterialTable

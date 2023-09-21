@@ -202,7 +202,7 @@ function OverTimeReport() {
         </button>
       </form>
       <br></br>
-      <MaterialTable
+      <MaterialTable style={{width:'78vw',margin:"0 auto"}}
         columns={[
           { title: "ID", field: "id" },
           { title: "Employee Name", field: "selectEmployee" },

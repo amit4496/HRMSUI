@@ -158,7 +158,7 @@ const Termination = () => {
   }, []);
 
   return (
-    <div className="container2">
+    <div className="container2 container-w">
       <h2>Termination Details</h2>
       <hr />
       <div className="bg-light">

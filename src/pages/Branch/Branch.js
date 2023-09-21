@@ -228,7 +228,7 @@ const Branch = () => {
           <br />
           <br />
           <MaterialTable
-            style={{ width: "80vw" }}
+            style={{ width: "76vw"}}
             title="Branch Record"
             data={ticketDetails}
             columns={[

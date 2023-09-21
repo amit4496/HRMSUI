@@ -208,6 +208,10 @@ main {
     margin-right: auto;
     cursor: pointer;
   }
+
+  #user-master-data{
+    margin-left: -1rem;
+  }
 }
 
 /* }
@@ -336,6 +340,9 @@ main {
   font-size: 15px;
 }
 @media (max-width: 576px) {
+  #user-master-data{
+    margin-left: 0%;
+  }
   .table-responsive {
     max-height: 300px;
     overflow-y: auto;
@@ -413,7 +420,7 @@ input::-webkit-inner-spin-button {
   align-items: center;
   flex-direction: column;
   height: auto;
-  width: 25%;
+  width: 100%;
   padding: 1rem;
 }
 .all {
@@ -859,4 +866,18 @@ table th {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.7);
+}
+
+/* m */
+#mui-8,#mui-88,#mui-1148, #mui-28, #mui-48,#mui-68,#mui-80,#mui-44,#mui-40,#mui-20,#mui-32,#mui-100,#mui-112{
+  margin-bottom: 0%;
+}
+
+.css-29rnav-MuiTableCell-root-MuiTablePagination-root{
+  -webkit-justify-content: flex-start !important;
+    justify-content: flex-start !important;
+}
+
+.container-w{
+  width: 80vw;
 }

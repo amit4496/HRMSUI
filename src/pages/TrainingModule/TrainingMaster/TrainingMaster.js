@@ -130,11 +130,11 @@ const TrainingMaster = () => {
   }, []);
 
   return (
-    <div className="container2">
+    <div className="container2 container">
       <h2>Training Master</h2>
       <hr />
       <div className="bg-light">
-        <div className="row ">
+        <div className="row " style={{gap:"2rem"}}>
           <div className="col-sm-4">
             <label for="cars" id="label">
               Employee Id :<span style={{ color: "red" }}> * </span>{" "}

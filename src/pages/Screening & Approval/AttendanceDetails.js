@@ -120,7 +120,7 @@ function AttendanceDetails() {
   return (
     <>
       <form>
-        <div className="container">
+        <div className="container container-w">
           <h2>Attendance Details</h2>
           <hr></hr>
 

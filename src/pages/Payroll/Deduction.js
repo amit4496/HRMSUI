@@ -258,7 +258,7 @@ const Deduction = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container container-w">
         <div className="d-flex">
           <h3>Deduction Details</h3>
         </div>

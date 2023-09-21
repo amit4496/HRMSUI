@@ -221,7 +221,7 @@ function MonthwiseReport() {
       </div>
       <br></br>
       <MaterialTable
-        style={{ width: "80vw" }}
+        style={{ width: "78vw", margin:'0 auto'}}
         columns={[
           { title: "ID", field: "id" },
           { title: "Employee Name", field: "selectEmployee" },

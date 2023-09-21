@@ -380,7 +380,7 @@ function SalarySlipAll() {
   };
 
   return (
-    <div className="container">
+    <div className="container container-w ">
       <h1>Generate Salary Of All Employees</h1>
       <hr />
       <div className="row">

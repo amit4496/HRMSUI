@@ -124,7 +124,7 @@ const OvertimeReport = () => {
         <h4>Add OverTime</h4>
         <hr />
         <div className="bg-light">
-          <div className="row ">
+          <div className="row " style={{rowGap: "2rem"}}>
             <div className="col-sm-4 mt-2">
               <label for="cars" id="label">
                 Employee Name:<span style={{ color: "red" }}> * </span>
@@ -173,7 +173,7 @@ const OvertimeReport = () => {
               )}
             </div>
 
-            <div className="col-sm-2">
+            <div className="col-sm-4">
               <label class="form-label">
                 Start Time :<span style={{ color: "red" }}> * </span>
               </label>
@@ -190,7 +190,7 @@ const OvertimeReport = () => {
                 <span className="Errorsmessage">{errors.startTime}</span>
               )}
             </div>
-            <div className="col-sm-2">
+            <div className="col-sm-4">
               <label class="form-label">
                 EndTime:<span style={{ color: "red" }}> * </span>
               </label>

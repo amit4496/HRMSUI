@@ -97,12 +97,12 @@ const TrainingToFeedback = () => {
   };
 
   return (
-    <div className="container2">
+    <div className="container2 container">
       <h2>Feedback Of Trainee</h2>
       <hr />
       <form>
         <div className="bg-light">
-          <div className="row ">
+          <div className="row " style={{gap:"2rem"}}>
             <div className="col-sm-6">
               <label for="cars" id="label">
                 Employee Name :<span style={{ color: "red" }}> * </span>

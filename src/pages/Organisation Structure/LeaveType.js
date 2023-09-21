@@ -265,7 +265,7 @@ const LeaveType = () => {
 
       <br></br>
       <MaterialTable
-        style={{ width: "80vw" }}
+        style={{ width: "78vw",    margin: "0 auto" }}
         columns={[
           {
             title: "Sr.No.",

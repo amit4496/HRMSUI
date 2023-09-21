@@ -74,7 +74,7 @@ const TotalLeaveRequest = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container container-w">
         <h4>Total Leave Approved</h4>
         <hr />
         <MaterialTable

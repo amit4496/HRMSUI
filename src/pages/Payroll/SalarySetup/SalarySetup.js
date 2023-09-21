@@ -414,7 +414,7 @@ const SalarySetup = () => {
           </div>
         </div>
       ) : (
-        <form>
+        <form className="container-w">
           <div>
             <center className="mt-2">
               <h1>

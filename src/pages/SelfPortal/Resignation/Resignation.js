@@ -93,7 +93,7 @@ const Resignation = () => {
         <h2>Resignation</h2>
         <hr />
         <div>
-          <div className="row ">
+          <div className="row " style={{"align-items": "baseline","gap": "2rem"}}>
             <div className="col-sm-3">
               <label for="cars" id="label">
                 Select Id :<span style={{ color: "red" }}> * </span>
