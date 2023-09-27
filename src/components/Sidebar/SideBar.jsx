@@ -6,6 +6,7 @@ import {
   FaUserEdit,
   FaUserGraduate,
   FaUsers,
+  
 } from "react-icons/fa";
 import { BiAlignLeft } from "react-icons/bi";
 import {
@@ -21,6 +22,7 @@ import {
   BsInfoSquareFill,
   BsPersonLinesFill,
 } from "react-icons/bs";
+import {GrDocumentPerformance } from 'react-icons/gr';
 
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -316,6 +318,23 @@ const routes = [
       },
     ],
   },
+
+           //add performance//
+ {
+  path: "/performance",
+  name: "Performance",
+  icon: <GrDocumentPerformance/>,
+
+  subRoutes: [
+    {
+      path: "/performance/addEmployeeperformance",
+      name:"Add Performance",
+      icon: <AiOutlineCaretRight />,
+
+
+    }
+  ]
+ }
 ];
 
 const roleName = localStorage.getItem("role");

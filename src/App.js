@@ -60,6 +60,8 @@ import LeaveRecordDetails from "./pages/Screening & Approval/LeaveRecordDetails"
 import ApplyWFH from "./pages/SelfPortal/ApplyWFH";
 import WFHDetails from "./pages/Screening & Approval/WFHDetails";
 import Termination from "./pages/Screening & Approval/Termination";
+import AddEmployeePerformance from "./pages/Performance/AddEmployeePerformance.js";
+//import AddEmployeePerformance from "./pages/Performance/AddEmployeePerformance.js";
 
 function App() {
   const [logged, setLogged] = useState(false);
@@ -103,6 +105,7 @@ function App() {
               <SideBar>
                 <DasNav />
                 <UserMaster />
+
               </SideBar>
             }
           />
@@ -544,6 +547,18 @@ function App() {
         )}
         {logged && (role === "ADMIN" || role === "HR") && (
           <Route
+            path="/performance/addEmployeeperformance"
+            element={
+              <SideBar>
+                <DasNav/>
+                <AddEmployeePerformance/>
+              </SideBar>
+            }
+          />
+        )}
+        
+        {logged && (role === "ADMIN" || role === "HR") && (
+          <Route
             path="/branch/Branch"
             element={
               <SideBar>
@@ -564,6 +579,7 @@ function App() {
             }
           />
         )}
+         
       </Routes>
     </>
   );
