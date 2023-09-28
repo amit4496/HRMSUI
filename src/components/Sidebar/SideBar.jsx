@@ -6,7 +6,6 @@ import {
   FaUserEdit,
   FaUserGraduate,
   FaUsers,
-  
 } from "react-icons/fa";
 import { BiAlignLeft } from "react-icons/bi";
 import {
@@ -22,7 +21,7 @@ import {
   BsInfoSquareFill,
   BsPersonLinesFill,
 } from "react-icons/bs";
-import {GrDocumentPerformance } from 'react-icons/gr';
+import {GrDocumentPerformance} from "react-icons/gr"
 
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -41,32 +40,32 @@ const routes = [
     subRoutes: [
       {
         path: "/menuMaster/UserMaster",
-        name: "User Master",
+        name: "Add User",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/menuMaster/UserMasterData",
-        name: "User Master Data",
+        name: "User Record",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/menuMaster/AddEmployee",
-        name: "Add Employee",
+        name: "Add Employee Information",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/menuMaster/DepartmentMaster",
-        name: "Department Master",
+        name: "Add Department",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/menuMaster/DesignationMaster",
-        name: "Designation Master",
+        name: "Add Designation",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/menuMaster/EmploymentTypeMaster",
-        name: "Employment Type Master",
+        name: "Employment Type",
         icon: <AiOutlineCaretRight />,
       },
     ],
@@ -105,7 +104,7 @@ const routes = [
     subRoutes: [
       {
         path: "/selfPortal/AttendanceDetails",
-        name: "Attendance Details",
+        name: "HR Attendance Details",
         icon: <AiOutlineCaretRight />,
       },
       {
@@ -115,12 +114,12 @@ const routes = [
       },
       {
         path: "/selfPortal/ViewShift",
-        name: "View Employee Shift",
+        name: "Employee Shift",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/selfPortal/Resignation",
-        name: "Resignation",
+        name: "Resignation Request",
         icon: <AiOutlineCaretRight />,
       },
       {
@@ -142,7 +141,7 @@ const routes = [
       },
       {
         path: "/screening&Approval/PendingLeaveApproval",
-        name: " Pending Leave Approval",
+        name: " Leave Request",
         icon: <AiOutlineCaretRight />,
       },
       {
@@ -157,18 +156,18 @@ const routes = [
       },
       {
         path: "/leaveRecordDetails",
-        name: "Leave Record Details",
-        icon: <AiOutlineCaretRight/>
+        name: "Total Available Leaves",
+        icon: <AiOutlineCaretRight />
       },
       {
         path: "/approvalForWFH",
-        name: "Work From Home Details",
-        icon: <AiOutlineCaretRight/>
+        name: "Work From Home Request",
+        icon: <AiOutlineCaretRight />
       },
       {
         path: "/termination",
-        name: "Termination Details",
-        icon: <AiOutlineCaretRight/>
+        name: "Termination Log",
+        icon: <AiOutlineCaretRight />
       }
     ],
   },
@@ -189,7 +188,7 @@ const routes = [
       },
       {
         path: "/payroll/advanceSalary",
-        name: "Advancy Salary",
+        name: "Advance Salary",
         icon: <AiOutlineCaretRight />,
       },
       {
@@ -224,17 +223,27 @@ const routes = [
     subRoutes: [
       {
         path: "/trainingModule/TainingMaster",
-        name: "Training To Employee",
+        name: "Add Training Type",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/trainingModule/RegisterEmployee",
-        name: "Registered Emp For Training",
+        name: "Training Record",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/trainingModule/TrainingToFeedback",
-        name: "Training To Feedback",
+        name: "Training Feedback",
+        icon: <AiOutlineCaretRight />,
+      },
+      {
+        path: "/Training/Training",
+        name: "Training Details",
+        icon: <AiOutlineCaretRight />,
+      },
+      {
+        path: "/Training/Event",
+        name: "Event",
         icon: <AiOutlineCaretRight />,
       },
     ],
@@ -251,7 +260,7 @@ const routes = [
       },
       {
         path: "/attendance/UploadBulkAttendance",
-        name: "Upload Bulk Attendance",
+        name: "Upload Batch Attendance",
         icon: <AiOutlineCaretRight />,
       },
       {
@@ -261,12 +270,12 @@ const routes = [
       },
       {
         path: "/attendance/ViewOtReport",
-        name: "View OverTime Report",
+        name: "OverTime Report Viewer",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/attendance/MonthwiseReport",
-        name: "Monthwise Report",
+        name: "Monthly Attendence Overview",
         icon: <AiOutlineCaretRight />,
       },
     ],
@@ -278,34 +287,25 @@ const routes = [
     subRoutes: [
       {
         path: "/ShiftManagement/AddShift",
-        name: "Add Shift",
+        name: "Shift Scheduling",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/ShiftManagement/ViewEmployeeShift",
-        name: "View Employee Shift",
+        name: "Employee Shift Details",
         icon: <AiOutlineCaretRight />,
       },
     ],
   },
 
-  {
-    path: "/Training",
-    name: "Training",
-    icon: <FaUserGraduate />,
-    subRoutes: [
-      {
-        path: "/Training/Training",
-        name: "Training",
-        icon: <AiOutlineCaretRight />,
-      },
-      {
-        path: "/Training/Event",
-        name: "Event",
-        icon: <AiOutlineCaretRight />,
-      },
-    ],
-  },
+  // {
+  //   path: "/Training",
+  //   name: "Training",
+  //   icon: <FaUserGraduate />,
+  //   subRoutes: [
+
+  //   ],
+  // },
   {
     path: "/branch",
     name: "Branch",
@@ -318,23 +318,22 @@ const routes = [
       },
     ],
   },
+  //add performance//
+  {
+    path: "/performance",
+    name: "Performance",
+    icon: <GrDocumentPerformance />,
 
-           //add performance//
- {
-  path: "/performance",
-  name: "Performance",
-  icon: <GrDocumentPerformance/>,
-
-  subRoutes: [
-    {
-      path: "/performance/addEmployeeperformance",
-      name:"Add Performance",
-      icon: <AiOutlineCaretRight />,
+    subRoutes: [
+      {
+        path: "/performance/addEmployeeperformance",
+        name: "Add Performance",
+        icon: <AiOutlineCaretRight />,
 
 
-    }
-  ]
- }
+      }
+    ]
+  }
 ];
 
 const roleName = localStorage.getItem("role");
