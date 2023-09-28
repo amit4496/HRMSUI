@@ -6,7 +6,7 @@ import { getData } from "../../Services/Api";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 
-function AddEmployeePerformance() {
+function WFHfeedback() {
   const [formData, setFormData] = useState({
     name: "",
     startdate: "",
@@ -18,18 +18,27 @@ function AddEmployeePerformance() {
   const [error, setError] = useState(false);
   const [name, setName] = useState("");
   const [selectValue, setSelectValue] = useState("");
+  const [errorShow, setErrorShow] = useState(false);
   const [user, setUser] = useState("");
   const [form, setForm] = useState({
     month: "",
     feedback: "",
   });
+  const [data, setData] = useState({
+    employeeId: localStorage.getItem("employeeId"),
+    description: "",
+    date: "",
+    name: localStorage.getItem("user"),
+  });
+  const [errors, setErrors] = useState({
+    employeeId: localStorage.getItem("employeeId"),
+    description: "",
+    date: "",
+    name: localStorage.getItem("user"),
+  });
 
   const addNewEntry = (newEntry) => {
     setView([...view, newEntry]);
-  };
-
-  const selectedValue = (e) => {
-    setSelectValue(e.target.value);
   };
 
   const handleChange = (e) => {
@@ -53,13 +62,19 @@ function AddEmployeePerformance() {
     }
   };
 
+  const inputChangeHandler = (e) => {
+    const { name, value } = e.target;
+    let newData = { ...data };
+    newData[name] = value;
+    setData(newData);
+  };
+
   const inputChangeHandler1 = (e) => {
     const { name, value } = e.target;
 
     setForm({ ...form, [name]: value });
 
     if (name === "feedback") {
-      // Update the feedback in the table dynamically
       const updatedView = view.map((entry) => {
         if (entry.id === form.id) {
           return { ...entry, feedback: value };
@@ -67,81 +82,51 @@ function AddEmployeePerformance() {
         return entry;
       });
       setView(updatedView);
-      
     }
-
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formattedMonth = format(new Date(form.month), "MMMM yyyy");
+  
+    // Validate the form.month value as a date
+    const selectedDate = new Date(form.month);
+    if (isNaN(selectedDate) || selectedDate.toString() === 'Invalid Date') {
+      Swal.fire("Error", "Please select a valid date.", "error");
+      return;
+    }
+  
+    const formattedMonth = format(selectedDate, "MMMM yyyy");
     const month1 = formattedMonth.toUpperCase();
-
-    axios
-      .post(
-        "https://apihrms.atwpl.com/OverTime/byDate",
-        {
-          ...formData,
-          month: month1,
-        },
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response, "eeee");
-        // Filter the data based on the selected month and set it in the state
-        const filteredData = response.data.Data.filter(
-          (item) => item.Month === month1
-        );
-
-        // Add the new entry to the view state with a unique ID
-        const newEntry = {
-          id: view.length + 1,
-          selectEmployee: formData.name,
-          description: selectValue,
-          Month: month1,
-          feedback: form.feedback,
-        };
-        addNewEntry(newEntry);
-
-        Swal.fire("Success", "Data Fetched Successfully", "success");
-        setTimeout(function () {
-          Swal.close();
-        }, 1000);
-
-        setFormData({
-          name: "",
-        });
-        setForm({
-          month: "",
-          feedback: "",
-        });
-        setName("");
-        setUser("");
-        setSelectValue(""); // Clear the select value
-      })
-      .catch((error) => {
-        Swal.fire("Error", error.response.data.error_message, "error");
-        setTimeout(function () {
-          Swal.close();
-        }, 1000);
-        setFormData({
-          name: "",
-        });
-        setForm({
-          month: "",
-          feedback: "",
-        });
-        setName("");
-        setUser("");
-        setView([]);
-        console.log(error.response.data.error_message);
-      });
+  
+    // Create a new entry object
+    const newEntry = {
+      id: view.length + 1, // Generate a unique ID for the entry
+      selectEmployee: formData.name,
+      Date: form.month, // Use the selected date
+      description: form.feedback,
+    };
+  
+    // Add the new entry to the view state
+    setView([...view, newEntry]);
+  
+    Swal.fire("Success", "Data Fetched Successfully", "success");
+    setTimeout(function () {
+      Swal.close();
+    }, 1000);
+  
+    // Reset form fields
+    setFormData({
+      name: "",
+    });
+    setForm({
+      month: "",
+      feedback: "",
+    });
+    setName("");
+    setUser("");
+    setSelectValue(""); // Clear the select value
   };
+  
 
   const FetchData = () => {
     getData(Employeee)
@@ -156,11 +141,10 @@ function AddEmployeePerformance() {
     FetchData();
   }, []);
 
-  console.error(view);
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2>Performance Details</h2>
+        <h2>Feedback</h2>
         <hr />
         <div className="row">
           <div className="col-sm-4">
@@ -180,7 +164,10 @@ function AddEmployeePerformance() {
             />
             <datalist id="employee">
               {xyz.map((saurabh) => (
-                <option value={saurabh.employeeName} key={saurabh.employeeName}></option>
+                <option
+                  value={saurabh.employeeName}
+                  key={saurabh.employeeName}
+                ></option>
               ))}
             </datalist>
             {error ? (
@@ -205,52 +192,32 @@ function AddEmployeePerformance() {
             >
               <option>select user Id</option>
               {xyz?.map((e) => (
-                <option value={e.username} key={e.username}>{e.username}</option>
+                <option value={e.username} key={e.username}>
+                  {e.username}
+                </option>
               ))}
             </select>
           </div>
 
-          <div className="col-sm-4">
-            <label className="form-label">
-              Month Name :<span style={{ color: "red" }}> * </span>
+          <div className="col-sm-3">
+            <label for="cars" id="label">
+              Date :<span style={{ color: "red" }}> * </span>{" "}
             </label>
             <br />
             <input
-              value={form.month}
-              type="month"
+              value={data.date}
+              type="date"
               className="form-control"
-              id="month"
-              name="month"
-              onChange={inputChangeHandler1}
-              required
-            />
-          </div>
-
-          <div className="col-sm-4">
-            <label className="form-label" htmlFor="month" id="label">
-              Performance:<span style={{ color: "red" }}> * </span>
-            </label>
-            <select
-              value={selectValue}
-              className="form-select"
+              id="formGroupExampleInput"
               aria-label="Default select example"
-              name="feedback"
-              onChange={selectedValue}
-              required
-            >
-              <option value="" selected>
-                Select
-              </option>
-              <option value="Excellent">Excellent</option>
-              <option value="Good">Good</option>
-              <option value="Below Average">Below Average</option>
-              <option value="Poor">Poor</option>
-            </select>
+              name="date"
+              onChange={inputChangeHandler}
+            />
           </div>
 
           <div className="col-sm-6 mt-2">
             <label htmlFor="cars" id="label">
-              Feedback :<span style={{ color: "red" }}>*</span>
+              Work Feedback :<span style={{ color: "red" }}>*</span>
             </label>
             <br />
             <textarea
@@ -275,15 +242,14 @@ function AddEmployeePerformance() {
         columns={[
           { title: "ID", field: "id" },
           { title: "Employee Name", field: "selectEmployee" },
-          { title: "Month", field: "Month" },
-          { title: "Performance", field: "description" },
-          { title: "Feedback", field: "feedback" },
+          { title: "Date", field: "Date" },
+          { title: "Work Feedback", field: "description" },
         ]}
         data={view}
-        title="Performance Record"
+        title=" Record"
       />
     </>
   );
 }
 
-export default AddEmployeePerformance;
+export default WFHfeedback;

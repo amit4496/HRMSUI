@@ -165,10 +165,16 @@ const routes = [
         icon: <AiOutlineCaretRight />
       },
       {
+        path: "/WFHfeedback",
+        name: "Work From Home feedback",
+        icon: <AiOutlineCaretRight />
+      },
+      {
         path: "/termination",
         name: "Termination Log",
         icon: <AiOutlineCaretRight />
-      }
+      },
+      
     ],
   },
   {

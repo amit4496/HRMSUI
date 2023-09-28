@@ -61,6 +61,7 @@ import ApplyWFH from "./pages/SelfPortal/ApplyWFH";
 import WFHDetails from "./pages/Screening & Approval/WFHDetails";
 import Termination from "./pages/Screening & Approval/Termination";
 import AddEmployeePerformance from "./pages/Performance/AddEmployeePerformance.js";
+import WFHfeedback from "./pages/Screening & Approval/WFHfeedback";
 //import AddEmployeePerformance from "./pages/Performance/AddEmployeePerformance.js";
 
 function App() {
@@ -331,6 +332,17 @@ function App() {
               <SideBar>
                 <DasNav />
                 <WFHDetails/>
+              </SideBar>
+            }
+          />
+        )}
+        {logged && (role === "ADMIN" || role === "HR") && (
+          <Route
+            path="/WFHfeedback"
+            element={
+              <SideBar>
+                <DasNav />
+                <WFHfeedback/>
               </SideBar>
             }
           />
