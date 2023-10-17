@@ -1,0 +1,26 @@
+
+  
+
+  .flex-container-1{
+    display: flex;
+    gap: 13px;
+    
+  }
+  .col-sm-4{
+    flex-grow: 1;
+    
+  }
+
+  @media (max-width: 429px) {
+ .flex-container-1{
+ flex-flow: column;
+
+ }
+
+  }
+  @media (max-width: 574px) {
+    #wap{
+      
+    }
+    
+  }

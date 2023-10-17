@@ -104,7 +104,7 @@ const routes = [
     subRoutes: [
       {
         path: "/selfPortal/AttendanceDetails",
-        name: "HR Attendance Details",
+        name: "Attendance Details",
         icon: <AiOutlineCaretRight />,
       },
       {
@@ -126,6 +126,17 @@ const routes = [
         path: "/selfPortal/applyForWFH",
         name: "Add Work From Home",
         icon: <AiOutlineCaretRight />,
+
+      },
+      {
+        path: "/selfPortal/holidaycalendar",
+        name: "HolidayCalendar",
+        icon: <AiOutlineCaretRight />,
+      },
+      {
+        path: "/selfPortal/ticketRaise",
+        name: "TicketRaise",
+        icon: <AiOutlineCaretRight />,
       },
     ],
   },
@@ -141,17 +152,22 @@ const routes = [
       },
       {
         path: "/screening&Approval/PendingLeaveApproval",
-        name: " Leave Request",
+        name: " Pending Leave Approval",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/screening&Approval/TotalLeaveRequest",
-        name: "Total Leave Approval",
+        name: "Total Leave Request",
         icon: <AiOutlineCaretRight />,
       },
       {
         path: "/screening&Approval/ResignationDetails",
         name: "Resignation Details",
+        icon: <AiOutlineCaretRight />,
+      },
+      {
+        path: "/screening&Approval/TotalRaiseTicket",
+        name: "TotalRaiseTicket",
         icon: <AiOutlineCaretRight />,
       },
       {
@@ -218,6 +234,11 @@ const routes = [
       {
         path: "/organisationStructure/LeaveType",
         name: "Leave Type",
+        icon: <AiOutlineCaretRight />,
+      },
+      {
+        path: "/organisationStructure/requirementdetail",
+        name: "RequirementDetail",
         icon: <AiOutlineCaretRight />,
       },
     ],

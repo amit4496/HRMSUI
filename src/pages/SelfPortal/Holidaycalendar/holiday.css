@@ -1,0 +1,36 @@
+/* Default styles for larger screens */
+.holiday {
+    text-align: center;
+    margin: 20px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(50px); /* Initially, move the image down by 50px */
+    animation: slideIn 0.5s ease forwards;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  /* Define the slide-in animation */
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Media query for screens with a maximum width of 768px (e.g., tablets) */
+  @media (max-width: 768px) {
+    .holiday {
+      margin: 10px;
+    }
+  }
+  
+  /* Media query for screens with a maximum width of 480px (e.g., mobile phones) */
+  @media (max-width: 480px) {
+    .holiday {
+      margin: 5px;
+    }
+  }
+  

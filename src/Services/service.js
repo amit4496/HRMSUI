@@ -1,5 +1,5 @@
-export const baseUrl = "https://apihrms.atwpl.com";
-// export const baseUrl = "http://localhost:8081";
+  export const baseUrl = "https://apihrms.atwpl.com";
+//   export const baseUrl = "http://localhost:8081";
 
 //api end points
 

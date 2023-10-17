@@ -217,14 +217,14 @@ const AddHoliday = () => {
   return (
     <>
       <div className="container">
-        <h4>Add Holiday</h4>
+        <h4>Add Holiday/ WFH</h4>
         {/* <button type="button" class="btn btn-primary sm-4 mt-2">Add Holiday Master</button>    */}
         <hr />
         <div>
           <div className="bg-light">
             <div className="row">
               <div className="col-sm-6">
-                <label class="form-label">Holiday Name:<span style={{ color: "red" }}> * </span></label>
+                <label class="form-label">Holiday Name/WFH:<span style={{ color: "red" }}> * </span></label>
                 <br />
                 <input
                   placeholder="Enter Holiday Name"
@@ -243,7 +243,7 @@ const AddHoliday = () => {
               </div>
 
               <div className="col-sm-6">
-                <label class="form-label">Holiday Type:<span style={{ color: "red" }}> * </span></label>
+                <label class="form-label">Holiday Type/WFH:<span style={{ color: "red" }}> * </span></label>
                 <br />
                 <input
                   placeholder="Enter Holiday Type"
@@ -310,12 +310,12 @@ const AddHoliday = () => {
       style={{ width: "78vw",    margin: "0 auto" }}
         columns={[
           {
-            title: "Holiday Name",
+            title: "Holiday Name/WFH",
             field: "holidayName",
           },
 
           {
-            title: "Holiday Type",
+            title: "Holiday Type/WFH",
             field: "holidayType",
           },
           {
@@ -347,7 +347,7 @@ const AddHoliday = () => {
           }
         ]}
         data={holidayDetails}
-        title="Holiday Record"
+        title="Holiday Record/WFH Record"
       />
       <div className="container">
     <Modal show={showModal} onHide={() => setShowModal(false)}>

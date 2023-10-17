@@ -62,6 +62,11 @@ import WFHDetails from "./pages/Screening & Approval/WFHDetails";
 import Termination from "./pages/Screening & Approval/Termination";
 import AddEmployeePerformance from "./pages/Performance/AddEmployeePerformance.js";
 import WFHfeedback from "./pages/Screening & Approval/WFHfeedback";
+
+import HolidayCalendar from "./pages/SelfPortal/Holidaycalendar/HolidayCalendar";
+import RequirementDetail from "./pages/Organisation Structure/RequirementDetail";
+import TicketRaise from "./pages/SelfPortal/TicketRaise/TicketRaise";
+import TotalRaiseTicket from "./pages/Screening & Approval/TotalRaiseTicket";
 //import AddEmployeePerformance from "./pages/Performance/AddEmployeePerformance.js";
 
 function App() {
@@ -270,6 +275,18 @@ function App() {
               }
             />
           )}
+          {logged &&
+          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+            <Route
+              path="/selfPortal/ticketRaise"
+              element={
+                <SideBar>
+                  <DasNav />
+                <TicketRaise/>
+                </SideBar>
+              }
+            />
+          )}
         {logged && (role === "ADMIN" || role === "HR") && (
           <Route
             path="/screening&Approval/AttendanceDetails"
@@ -303,6 +320,18 @@ function App() {
             }
           />
         )}
+         {logged &&
+          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+            <Route
+              path="/selfPortal/HolidayCalendar"
+              element={
+                <SideBar>
+                  <DasNav />
+                 <HolidayCalendar/>
+                </SideBar>
+              }
+            />
+          )}
         {logged && (role === "ADMIN" || role === "HR") && (
           <Route
             path="/leaveRecordDetails"
@@ -321,6 +350,17 @@ function App() {
               <SideBar>
                 <DasNav />
                 <ResignationDetails />
+              </SideBar>
+            }
+          />
+        )}
+         {logged && (role === "ADMIN" || role === "HR") && (
+          <Route
+            path="/screening&Approval/TotalRaiseTicket"
+            element={
+              <SideBar>
+                <DasNav />
+             <TotalRaiseTicket/> 
               </SideBar>
             }
           />
@@ -420,6 +460,17 @@ function App() {
               <SideBar>
                 <DasNav />
                 <LeaveType />
+              </SideBar>
+            }
+          />
+        )}
+        {logged && (role === "ADMIN" || role === "HR") && (
+          <Route
+            path="/organisationStructure/requirementdetail"
+            element={
+              <SideBar>
+                <DasNav />
+                <RequirementDetail/>
               </SideBar>
             }
           />

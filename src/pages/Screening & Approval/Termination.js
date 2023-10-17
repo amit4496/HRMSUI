@@ -304,7 +304,7 @@ const Termination = () => {
               field: "terminationDate",
             },
             {
-              title: "Descripyion",
+              title: "Description",
               field: "description",
             },
           ]}

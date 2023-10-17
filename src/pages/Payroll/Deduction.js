@@ -288,7 +288,7 @@ const Deduction = () => {
 
             <div className="col-sm-4 my-3">
               <label htmlFor="formGroupExampleInput" id="label">
-                LUF: <span style={{ color: "red" }}> * </span>
+              Leave Unpaid For: <span style={{ color: "red" }}> * </span>
               </label>
               <br />
               <input

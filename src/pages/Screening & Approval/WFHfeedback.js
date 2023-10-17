@@ -88,9 +88,13 @@ function WFHfeedback() {
   const handleSubmit = (e) => {
     e.preventDefault();
   
-    // Validate the form.month value as a date
-    const selectedDate = new Date(form.month);
-    if (isNaN(selectedDate) || selectedDate.toString() === 'Invalid Date') {
+    // Split the date string into parts
+    const dateParts = data.date.split("-");
+  
+    // Create a Date object
+    const selectedDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+  
+    if (isNaN(selectedDate)) {
       Swal.fire("Error", "Please select a valid date.", "error");
       return;
     }
@@ -100,14 +104,17 @@ function WFHfeedback() {
   
     // Create a new entry object
     const newEntry = {
-      id: view.length + 1, // Generate a unique ID for the entry
+      id: view.length + 1,
       selectEmployee: formData.name,
-      Date: form.month, // Use the selected date
+      Date: selectedDate, // Store the Date object
       description: form.feedback,
     };
   
     // Add the new entry to the view state
     setView([...view, newEntry]);
+  
+    // Clear the date field after submission
+    setData({ ...data, date: "" }); // Reset the date field to an empty string
   
     Swal.fire("Success", "Data Fetched Successfully", "success");
     setTimeout(function () {
@@ -127,6 +134,7 @@ function WFHfeedback() {
     setSelectValue(""); // Clear the select value
   };
   
+  
 
   const FetchData = () => {
     getData(Employeee)
@@ -144,7 +152,7 @@ function WFHfeedback() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2>Feedback</h2>
+        <h2>WFH Feedback</h2>
         <hr />
         <div className="row">
           <div className="col-sm-4">
@@ -238,16 +246,25 @@ function WFHfeedback() {
       </form>
       <br />
       <MaterialTable
-        style={{ width: "78vw", margin: "0 auto" }}
-        columns={[
-          { title: "ID", field: "id" },
-          { title: "Employee Name", field: "selectEmployee" },
-          { title: "Date", field: "Date" },
-          { title: "Work Feedback", field: "description" },
-        ]}
-        data={view}
-        title=" Record"
-      />
+  style={{ width: "78vw", margin: "0 auto" }}
+  columns={[
+    { title: "ID", field: "id" },
+    { title: "Employee Name", field: "selectEmployee" },
+    {
+      title: "Date",
+      field: "Date", // Make sure it matches the key in your data object
+      render: (rowData) => {
+        // Format the date here
+        const formattedDate = format(rowData.Date, "dd/MM/yyyy");
+        return formattedDate;
+      },
+    },
+    { title: "Work Feedback", field: "description" },
+  ]}
+  data={view}
+  title=" Record"
+/>
+
     </>
   );
 }

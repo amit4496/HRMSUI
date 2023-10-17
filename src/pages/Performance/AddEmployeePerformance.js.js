@@ -6,7 +6,7 @@ import { getData } from "../../Services/Api";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
 
-function AddEmployeePerformance() {
+  function AddEmployeePerformance() {
   const [formData, setFormData] = useState({
     name: "",
     startdate: "",
@@ -19,18 +19,24 @@ function AddEmployeePerformance() {
   const [name, setName] = useState("");
   const [selectValue, setSelectValue] = useState("");
   const [user, setUser] = useState("");
+  const [project, setProject]= useState("");
   const [form, setForm] = useState({
     month: "",
     feedback: "",
   });
-
+ 
   const addNewEntry = (newEntry) => {
     setView([...view, newEntry]);
   };
-
+   console.warn(addNewEntry);
   const selectedValue = (e) => {
     setSelectValue(e.target.value);
   };
+  const NoProject =(e)=>{
+   setProject(e.target.value);
+
+  }
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,43 +82,49 @@ function AddEmployeePerformance() {
     e.preventDefault();
     const formattedMonth = format(new Date(form.month), "MMMM yyyy");
     const month1 = formattedMonth.toUpperCase();
-
+    
     axios
       .post(
         "https://apihrms.atwpl.com/OverTime/byDate",
         {
-          ...formData,
+          EmpId: formData.name,
+          name: formData.name,
+          designation: user,
           month: month1,
+          feedback: form.feedback,
+          performanceStatus: selectValue,
+          NoOfProject: project,
         },
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "application/json",
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
         }
       )
       .then((response) => {
         console.log(response, "eeee");
-        // Filter the data based on the selected month and set it in the state
-        const filteredData = response.data.Data.filter(
-          (item) => item.Month === month1
-        );
-
+    
         // Add the new entry to the view state with a unique ID
         const newEntry = {
           id: view.length + 1,
           selectEmployee: formData.name,
           description: selectValue,
           Month: month1,
+          Project: project,
           feedback: form.feedback,
+
         };
         addNewEntry(newEntry);
-
+    
+        // Fetch data again after successfully submitting the form
+        FetchData(); // Call FetchData here
+    
         Swal.fire("Success", "Data Fetched Successfully", "success");
         setTimeout(function () {
           Swal.close();
         }, 1000);
-
+    
         setFormData({
           name: "",
         });
@@ -122,7 +134,7 @@ function AddEmployeePerformance() {
         });
         setName("");
         setUser("");
-        setSelectValue(""); // Clear the select value
+        setSelectValue("");
       })
       .catch((error) => {
         Swal.fire("Error", error.response.data.error_message, "error");
@@ -139,9 +151,15 @@ function AddEmployeePerformance() {
         setName("");
         setUser("");
         setView([]);
+        setSelectValue("");
+        setProject("");
+    
         console.log(error.response.data.error_message);
       });
   };
+  
+  
+  
 
   const FetchData = () => {
     getData(Employeee)
@@ -226,7 +244,7 @@ function AddEmployeePerformance() {
             />
           </div>
 
-          <div className="col-sm-4">
+          <div className="col-sm-4 ">
             <label className="form-label" htmlFor="month" id="label">
               Performance:<span style={{ color: "red" }}> * </span>
             </label>
@@ -248,7 +266,31 @@ function AddEmployeePerformance() {
             </select>
           </div>
 
-          <div className="col-sm-6 mt-2">
+          <div className="col-sm-4">
+            <label className="form-label" htmlFor="month" id="label">
+              Completed Projects:<span style={{ color: "red" }}> * </span>
+            </label>
+            <select
+              value={project}
+              className="form-select"
+              aria-label="Default select example"
+              name="feedback"
+              onChange={NoProject}
+              required
+            >
+              <option value="" selected>
+                Select
+              </option>
+              <option value="one">1</option>
+              <option value="two">2</option>
+              <option value="three">3</option>
+              <option value="four">4</option>
+              <option value="five">5</option>
+              <option value="six">6</option>
+            </select>
+          </div>
+
+          <div className="col-sm-3 mt-2 ">
             <label htmlFor="cars" id="label">
               Feedback :<span style={{ color: "red" }}>*</span>
             </label>
@@ -256,7 +298,6 @@ function AddEmployeePerformance() {
             <textarea
               type="text"
               className="form-control"
-              style={{ height: "70px", width: "453px" }}
               name="feedback"
               value={form.feedback}
               onChange={inputChangeHandler1}
@@ -276,7 +317,8 @@ function AddEmployeePerformance() {
           { title: "ID", field: "id" },
           { title: "Employee Name", field: "selectEmployee" },
           { title: "Month", field: "Month" },
-          { title: "Performance", field: "description" },
+          { title: "Performance", field: "decription" },
+          { title: "Completed Project", field: "Project" },
           { title: "Feedback", field: "feedback" },
         ]}
         data={view}
