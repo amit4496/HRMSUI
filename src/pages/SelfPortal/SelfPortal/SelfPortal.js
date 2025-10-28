@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import classes from "./SelfPortal.module.css";
+import { BASE_URL } from "../../helper";
 function SelfPortal() {
   
   const [data, setData] = useState({
@@ -23,7 +24,7 @@ function SelfPortal() {
     //   .then((res) => {
     //     console.log(res.data);
     //   });
-    fetch("https://apihrms.atwpl.com/travelOverview",{
+    fetch(`${BASE_URL}/travelOverview`,{
       method:"POST",
       headers:{"Content-Type":"application/json","Accept":"application/json"},
       body:JSON.stringify(data)

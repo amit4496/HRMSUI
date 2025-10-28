@@ -1,9 +1,8 @@
-import { baseUrl } from "./service";
-
+import { BASE_URL } from "../pages/helper";
 
 export async function postData(data, urlPath) {
   console.log(urlPath,  localStorage.getItem("token"), "Pathh");
-  const res = await fetch(baseUrl + urlPath, {
+  const res = await fetch(BASE_URL + urlPath, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -12,7 +11,7 @@ export async function postData(data, urlPath) {
       "Content-Type": "application/json",
       Origin: process.env.ORIGIN,
       Authorization: "Bearer " + localStorage?.getItem("token"),
-      host: baseUrl,
+      host: BASE_URL,
       Accept: "*/*",
     },
     body: JSON.stringify(data),
@@ -23,7 +22,7 @@ export async function postData(data, urlPath) {
 
 
 export async function deleteData(data, urlPath) {
-  const res = await fetch(baseUrl + urlPath, {
+  const res = await fetch(BASE_URL + urlPath, {
     method: "delete",
     mode: "cors",
     cache: "no-cache",
@@ -32,7 +31,7 @@ export async function deleteData(data, urlPath) {
       "Content-Type": "application/json",
       Origin: process.env.ORIGIN,
       Authorization: "Bearer " + localStorage.getItem("token"),
-      host: baseUrl,
+      host: BASE_URL,
       Accept: "*/*",
       
     },
@@ -42,7 +41,7 @@ export async function deleteData(data, urlPath) {
   return await res;
 }
 export async function patchData(data, urlPath) {
-  const res = await fetch(baseUrl + urlPath, {
+  const res = await fetch(BASE_URL + urlPath, {
     method: "PATCH",
     mode: "cors",
     cache: "no-cache",
@@ -51,7 +50,7 @@ export async function patchData(data, urlPath) {
       "Content-Type": "application/json",
       Origin: process.env.ORIGIN,
       Authorization: "Bearer " + localStorage.getItem("token"),
-      host: baseUrl,
+      host: BASE_URL,
       Accept: "*/*",
     },
     body: JSON.stringify(data),
@@ -61,7 +60,7 @@ export async function patchData(data, urlPath) {
 }
 
 export async function postDataAuth(data, urlPath) {
-  const res = await fetch(baseUrl + urlPath, {
+  const res = await fetch(BASE_URL + urlPath, {
     method: "POST",
     mode: "cors",
     cache: "no-cache",
@@ -71,7 +70,7 @@ export async function postDataAuth(data, urlPath) {
       // Origin: process.env.ORIGIN,
       Origin: process.env.ORIGIN ,
       Authorization: "Bearer " + localStorage.setItem("token"),
-      host: baseUrl,
+      host: BASE_URL,
       Accept: "*/*",
       // AcceptEncoding: "gzip, deflate, br"
     },
@@ -84,7 +83,7 @@ export async function postDataAuth(data, urlPath) {
 export async function getData(urlPath) {
   let accessTokenKey = "";
   accessTokenKey = localStorage.getItem("token");
-  const res = await fetch(baseUrl + urlPath, {
+  const res = await fetch(BASE_URL + urlPath, {
     method: "GET",
     mode: "cors",
     cache: "no-cache",

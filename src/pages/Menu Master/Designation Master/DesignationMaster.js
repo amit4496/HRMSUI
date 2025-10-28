@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../../helper";
 
 const DesignationMaster = () => {
   const [data, setData] = useState({
@@ -108,7 +109,7 @@ const DesignationMaster = () => {
             timer: 1000, // Timer set to 1000 milliseconds (1 second)
             showConfirmButton: false,
           });
-          fetch(`https://apihrms.atwpl.com/designation/designation/${id}`, {
+          fetch(`${BASE_URL}/designation/designation/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -153,7 +154,7 @@ const DesignationMaster = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/designation/update/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/designation/update/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

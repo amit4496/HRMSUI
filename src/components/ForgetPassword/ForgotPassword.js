@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import { BASE_URL } from "../../pages/helper";
 
 const ForgotPassword = (props) => {
   const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ const ForgotPassword = (props) => {
     } else {
       setLoading(true);
       axios
-        .post("https://apihrms.atwpl.com/api/forgot-password/email", null, {
+        .post(`${BASE_URL}/api/forgot-password/email`, null, {
           params: {
             userName: formData.userName,
           },
@@ -92,7 +93,7 @@ const ForgotPassword = (props) => {
     } else {
       setLoading(true);
       axios
-        .post("https://apihrms.atwpl.com/api/forgot-password/email", null, {
+        .post(`${BASE_URL}/api/forgot-password/email`, null, {
           params: {
             userName: formData.userName,
           },
@@ -131,7 +132,7 @@ const ForgotPassword = (props) => {
     } else {
       setLoading(true);
       axios
-        .post("https://apihrms.atwpl.com/api/forgot-password/verifyOtp", null, {
+        .post(`${BASE_URL}/api/forgot-password/verifyOtp`, null, {
           params: {
             userName: formData.userName,
             otp: formData.otp,

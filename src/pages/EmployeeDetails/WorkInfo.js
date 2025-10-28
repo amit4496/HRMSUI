@@ -6,6 +6,7 @@ import axios from "axios";
 import { Button, Modal, Form } from "react-bootstrap";
 import { getAllEmp } from "../../Services/service";
 import swal from "sweetalert";
+import { BASE_URL } from "../helper";
 
 const WorkInfo = () => {
   const [ticketDetails, setTicketDetails] = useState([]);
@@ -56,7 +57,7 @@ const WorkInfo = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/work/update/${selectedRow.workId}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/work/update/${selectedRow.workId}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

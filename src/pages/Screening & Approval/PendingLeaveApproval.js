@@ -5,6 +5,7 @@ import { Button, Spinner } from "react-bootstrap";
 import { getData } from "../../Services/Api";
 import { get_leave } from "../../Services/service";
 import { RiRefreshLine } from "react-icons/ri"; // Import the desired icon from react-icons
+import { BASE_URL } from "../helper";
 
 const PendingLeaveApproval = () => {
   const [leave, setLeave] = useState([]);
@@ -32,7 +33,7 @@ const PendingLeaveApproval = () => {
 
   const handleAction = async (id, status) => {
     // Add your handleAction logic here
-    const url = `https://apihrms.atwpl.com/CreateLeaveRequest/put/${id}`; // Replace with your API endpoint
+    const url = `${BASE_URL}/CreateLeaveRequest/put/${id}`; // Replace with your API endpoint
     const payload = { status: status.toString() }; // Replace with your data object
 
     setSelectedId(id);

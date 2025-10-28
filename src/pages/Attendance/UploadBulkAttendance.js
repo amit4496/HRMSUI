@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "../helper";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
 
@@ -14,7 +15,7 @@ function App() {
     formData.append("file", selectedFile);
     // Make an HTTP POST request to the server
     axios
-      .post("https://apihrms.atwpl.com/attendance/upload", formData, {
+      .post(`${BASE_URL}/attendance/upload`, formData, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
           "Content-Type": "multipart/form-data",

@@ -9,6 +9,7 @@ import axios from "axios";
 import { designation, department, Employeee } from "../../Services/service";
 import swal from "sweetalert";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../helper";
 
 const BasicInfo = () => {
   const [ticketDetails, setTicketDetails] = useState([]);
@@ -89,7 +90,7 @@ const BasicInfo = () => {
             timer: 1000, // Timer set to 1000 milliseconds (1 second)
             showConfirmButton: false,
           });
-          fetch(`https://apihrms.atwpl.com/basic/delete/${employeeId}`, {
+          fetch(`${BASE_URL}/basic/delete/${employeeId}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -144,7 +145,7 @@ const BasicInfo = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/basic/update/${selectedRow.employeeId}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/basic/update/${selectedRow.employeeId}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

@@ -8,6 +8,7 @@ import { get_shift } from "../../Services/service";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../helper";
 
 const ViewEmployeeShift = () => {
   const [data, setData] = useState([]);
@@ -54,7 +55,7 @@ const ViewEmployeeShift = () => {
             "Your file has been deleted.",
             "success"
           );
-          fetch(`https://apihrms.atwpl.com/shiftManagement/addShift/${id}`, {
+          fetch(`${BASE_URL}/shiftManagement/addShift/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -95,7 +96,7 @@ const ViewEmployeeShift = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/shiftManagement/update/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/shiftManagement/update/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

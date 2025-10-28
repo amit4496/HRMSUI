@@ -4,6 +4,7 @@ import MaterialTable from "@material-table/core";
 import Swal from "sweetalert2";
 import { Employeee } from "../../Services/service";
 import { getData } from "../../Services/Api";
+import { BASE_URL } from "../helper";
 
 function AttendanceDetails() {
   const [formData, setFormData] = useState({
@@ -70,7 +71,7 @@ function AttendanceDetails() {
       });
     } else {
       axios
-        .post("https://apihrms.atwpl.com/attendance/status", formData, {
+        .post(`${BASE_URL}/attendance/status`, formData, {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization: "Bearer " + localStorage.getItem("token"),

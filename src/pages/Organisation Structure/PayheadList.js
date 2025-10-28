@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BASE_URL } from "../helper";
 import React, { useEffect, useState } from "react";
 
 const PayheadList = () => {
@@ -20,12 +21,12 @@ const changeHandler=(event)=>{
 }
 const deleteHandler=(e,id)=>{
   e.preventDefault()
-  axios.delete(`https://apihrms.atwpl.com/payHead/deletepayheadmaster/${id}`).then(res=>console.log(res))
+  axios.delete(`${BASE_URL}/payHead/deletepayheadmaster/${id}`).then(res=>console.log(res))
 }
 
 useEffect(()=>{
   
-  fetch("https://apihrms.atwpl.com/payHead/PayheadMasterDetail").then(res=>res.json()).then(value=>setContacts(value))
+  fetch(`${BASE_URL}/payHead/PayheadMasterDetail`).then(res=>res.json()).then(value=>setContacts(value))
 },[contacts])
 
 const showHandler=(e)=>{
@@ -37,7 +38,7 @@ const showHandler=(e)=>{
 const submitHandler=(event)=>{
   event.preventDefault();
   console.log(data);
-  fetch("https://apihrms.atwpl.com/payHead/PayheadMaster",{
+  fetch(`${BASE_URL}/payHead/PayheadMaster`,{
       method:"POST",
       headers:{"content-Type": "application/json", "Accept": "application/json"},
       body:JSON.stringify(data)
@@ -204,7 +205,7 @@ const submitHandler=(event)=>{
 //    setContacts(newContacts)
 //    console.log(contacts)
 
-//    fetch("https://apihrms.atwpl.com/PayheadMaster",{
+//    fetch("http://localhost:8081/PayheadMaster",{
 //     method:"POST",
 //     headers:{"content-Type": "application/json", "Accept": "application/json"},
 //     body:JSON.stringify(data)

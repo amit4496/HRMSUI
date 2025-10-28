@@ -5,6 +5,7 @@ import { Button, Spinner } from "react-bootstrap";
 import { getData } from "../../Services/Api";
 import { get_leave } from "../../Services/service";
 import { RiRefreshLine } from "react-icons/ri";
+import { BASE_URL } from "../helper";
 
 const TotalRaiseTicket = () => {
   const [leave, setLeave] = useState([]);
@@ -34,7 +35,7 @@ const TotalRaiseTicket = () => {
   }, []);
 
   const handleAction = async (id, status) => {
-    const url = `https://apihrms.atwpl.com/CreateLeaveRequest/put/${id}`; // Replace with your API endpoint
+  const url = `${BASE_URL}/CreateLeaveRequest/put/${id}`;
     const payload = { status: status.toString() }; // Replace with your data object
 
     setSelectedId(id);

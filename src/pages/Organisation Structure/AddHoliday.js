@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../helper";
 
 const AddHoliday = () => {
   const [holidayDetails, setHolidayDetails] = useState([]);
@@ -141,7 +142,7 @@ const AddHoliday = () => {
             timer: 1000,
             showConfirmButton: false,
           });
-          fetch(`https://apihrms.atwpl.com/holiday/leaveDetail/${id}`, {
+          fetch(`${BASE_URL}/holiday/leaveDetail/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -185,7 +186,7 @@ const AddHoliday = () => {
   };
 
   const handleUpdate = async () => {
-        const url = `https://apihrms.atwpl.com/holiday/edit/${selectedRow.id}`; // Replace with your updated API endpoint
+  const url = `${BASE_URL}/holiday/edit/${selectedRow.id}`;
         try {
           const response = await axios.put(url, editData, {
             headers: {

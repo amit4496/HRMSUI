@@ -5,6 +5,7 @@ import { Button, Spinner } from "react-bootstrap";
 import { getData } from "../../Services/Api";
 import { get_WFH, get_leave } from "../../Services/service";
 import { RiRefreshLine } from "react-icons/ri"; // Import the desired icon from react-icons
+import { BASE_URL } from "../helper";
 
 const WFHDetails = () => {
   const [leave, setLeave] = useState([]);
@@ -32,7 +33,7 @@ const WFHDetails = () => {
 
   const handleAction = async (id, status) => {
     // Add your handleAction logic here
-    const url = `https://apihrms.atwpl.com/WFH/updateStatus/${id}`; // Replace with your API endpoint
+  const url = `${BASE_URL}/WFH/updateStatus/${id}`;
     const payload = { status: status.toString() }; // Replace with your data object
 
     setSelectedId(id);

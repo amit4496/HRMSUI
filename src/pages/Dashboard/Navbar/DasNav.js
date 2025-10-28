@@ -12,6 +12,7 @@ import { FaTimes } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
 import { Button } from "react-bootstrap";
 import { FolderUp } from "lucide-react";
+import { BASE_URL } from "../../helper";
 
 const DasNav = () => {
   const location = useNavigate();
@@ -63,7 +64,7 @@ const DasNav = () => {
 
     try {
       const response = await axios.post(
-        "https://apihrms.atwpl.com/image",
+        `${BASE_URL}/image`,
         formData,
         {
           headers: {
@@ -98,7 +99,7 @@ const DasNav = () => {
       formData1.append("employeeId", employeeId);
 
       const response = await axios.post(
-        "https://apihrms.atwpl.com/image/get",
+        `${BASE_URL}/image/get`,
         formData1,
         {
           headers: {

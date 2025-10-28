@@ -2,6 +2,7 @@ import { useState,useEffect } from "react";
 import swal from 'sweetalert';
 import { getData } from "../../../Services/Api";
 import { User, get_jobtitle } from "../../../Services/service";
+import { BASE_URL } from "../../helper";
 
 const AddJobVacancy = () => {
   const [data,setData]=useState({
@@ -25,7 +26,7 @@ const[active,setActive]=useState([]);
  }
  const submitHandler=(e)=>{
   // console.log(JSON.stringify(data))
-  fetch("https://apihrms.atwpl.com/vancancies/vacancy", {
+  fetch(`${BASE_URL}/vancancies/vacancy`, {
       method: "POST",
       headers:{ "Content-Type": "application/json",
       Accept: "*/*" ,

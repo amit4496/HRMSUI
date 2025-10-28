@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import MaterialTable from "@material-table/core";
 import Swal from "sweetalert2";
-
-import swal from "sweetalert";
-import { Button } from "react-bootstrap";
-import { getData } from "../../Services/Api";
-import { get_shift } from "../../Services/service";
+import { BASE_URL } from "../helper";
 
 const ViewShift = () => {
   const [data, setData] = useState([]);
@@ -41,7 +37,7 @@ const ViewShift = () => {
   //         'Your file has been deleted.',
   //         'success'
   //       )
-  //       fetch(`https://apihrms.atwpl.com/shiftManagement/addShift/${id}`,{
+  //       fetch(`http://localhost:8081/shiftManagement/addShift/${id}`,{
   //         method:'DELETE',
   //         headers: {
   //           "Content-Type": "application/json",
@@ -70,7 +66,7 @@ const ViewShift = () => {
 
   const fetchData = () => {
     // const idString = String(Id); // Convert Id to a string
-    fetch(`https://apihrms.atwpl.com/shiftManagement/viewEmployee/${Id}`, {
+    fetch(`${BASE_URL}/shiftManagement/viewEmployee/${Id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

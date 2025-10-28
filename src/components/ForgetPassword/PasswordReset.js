@@ -4,6 +4,7 @@ import ahom from "../img/AhomNew.png";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router";
+import { BASE_URL } from "../../pages/helper";
 
 const PasswordReset = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -53,7 +54,7 @@ const PasswordReset = () => {
     }
 
     axios
-      .post("https://apihrms.atwpl.com/api/forgot-password/reset", null, {
+      .post(`${BASE_URL}/api/forgot-password/reset`, null, {
         params: {
           userName: formData.userName,
           otp: formData.otp,

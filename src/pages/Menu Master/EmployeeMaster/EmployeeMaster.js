@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import { getData } from "../../../Services/Api";
 import { Basic_Employee } from "../../../Services/service";
+import { BASE_URL } from "../../helper";
 // import MaterialTable from 'material-table';
 // import { SaveAlt } from '@material-ui/icons';
 
@@ -38,7 +39,7 @@ const EmployeeMaster = () => {
             timer: 1000, // Timer set to 1000 milliseconds (1 second)
             showConfirmButton: false,
           });
-          fetch(`https://apihrms.atwpl.com/basic/delete/${employeeId}`, {
+          fetch(`${BASE_URL}/basic/delete/${employeeId}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",

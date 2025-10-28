@@ -7,6 +7,7 @@ import { Post_department, get_department } from "../../../Services/service";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../../helper";
 
 const DepartmentMaster = () => {
   const [data, setData] = useState({
@@ -115,7 +116,7 @@ const DepartmentMaster = () => {
             timer: 1000, // Timer set to 1000 milliseconds (1 second)
             showConfirmButton: false,
           });
-          fetch(`https://apihrms.atwpl.com/department/delete/${id}`, {
+          fetch(`${BASE_URL}/department/delete/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -159,7 +160,7 @@ const DepartmentMaster = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/department/update/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/department/update/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

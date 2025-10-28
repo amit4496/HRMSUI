@@ -1,16 +1,11 @@
 import MaterialTable from "@material-table/core";
-
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
-
 import { Button, Spinner } from "react-bootstrap";
-
 import { getData } from "../../Services/Api";
-
 import { resignationDetails } from "../../Services/service";
+import { BASE_URL } from "../helper";
 
- 
 
 const ResignationDetails = () => {
 
@@ -53,55 +48,30 @@ const ResignationDetails = () => {
  
 
   const handleAction = (id, status) => {
-
     // Disable the buttons and show a loading spinner
-
     setSelectedId(id);
-
     setIsLoading(true);
 
- 
-
     // Make an API request to update the status
-
     axios
-
-      .post(`https://apihrms.atwpl.com/updateResignationStatus`, { id, status })
-
+      .post(`${BASE_URL}/updateResignationStatus`, { id, status })
       .then((response) => {
-
         if (response.data.Status === 200) {
-
           // Update the ticketDetails state to reflect the change
-
           const updatedTicketDetails = ticketDetails.map((item) => {
-
             if (item.id === id) {
-
               return {
-
                 ...item,
-
                 status: status.toString(), // Update the status
-
               };
-
             }
-
             return item;
-
           });
 
- 
-
           setTicketDetails(updatedTicketDetails);
-
         } else {
-
           // Handle error scenario
-
           console.error("Failed to update status");
-
         }
 
       })

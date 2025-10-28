@@ -3,6 +3,7 @@ import swal from 'sweetalert';
 import MaterialTable from "@material-table/core";
 import { getData } from "../../../Services/Api";
 import { get_jobtitle } from "../../../Services/service";
+import { BASE_URL } from "../../helper";
 // import { json } from "react-router-dom";
 
 const AddJobTitle = () => {
@@ -24,7 +25,7 @@ const AddJobTitle = () => {
       alert("Please enter jobTitle")
     } else{
 
-    fetch("https://apihrms.atwpl.com/addJobTitle/save", {
+    fetch(`${BASE_URL}/addJobTitle/save`, {
       method: "POST",
       headers: { "Content-Type": "application/json", 
       Accept: "*/*",

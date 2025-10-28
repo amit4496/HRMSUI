@@ -5,6 +5,7 @@ import { Employeee } from "../../Services/service";
 import { getData } from "../../Services/Api";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
+import { BASE_URL } from "../helper";
 
   function AddEmployeePerformance() {
   const [formData, setFormData] = useState({
@@ -85,7 +86,7 @@ import { format } from "date-fns";
     
     axios
       .post(
-        "https://apihrms.atwpl.com/OverTime/byDate",
+        `${BASE_URL}/OverTime/byDate`,
         {
           EmpId: formData.name,
           name: formData.name,

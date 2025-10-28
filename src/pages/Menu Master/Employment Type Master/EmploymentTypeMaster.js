@@ -7,6 +7,7 @@ import { getAllEmp, post_Employement } from "../../../Services/service";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../../helper";
 
 const EmploymentTypeMaster = () => {
   const [data, setData] = useState({ employmentType: "", description: "" });
@@ -124,7 +125,7 @@ const EmploymentTypeMaster = () => {
             timer: 1000, // Timer set to 1000 milliseconds (1 second)
             showConfirmButton: false,
           });
-          fetch(`https://apihrms.atwpl.com/employment/delete/${id}`, {
+          fetch(`${BASE_URL}/employment/delete/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -178,7 +179,7 @@ const EmploymentTypeMaster = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/employment/update/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/employment/update/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

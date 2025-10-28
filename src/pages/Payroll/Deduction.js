@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../helper";
 
 const Deduction = () => {
   const [data, setData] = useState({
@@ -157,7 +158,7 @@ const Deduction = () => {
             showConfirmButton: false,
           });
           console.log(id);
-          fetch(`https://apihrms.atwpl.com/deduction/delete/${id}`, {
+          fetch(`${BASE_URL}/deduction/delete/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -217,7 +218,7 @@ const Deduction = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/deduction/update/${selectedRow.id}`; // Replace with your updated API endpoint
+  const url = `${BASE_URL}/deduction/update/${selectedRow.id}`;
     try {
       const response = await axios.put(url, editData, {
         headers: {

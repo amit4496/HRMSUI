@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { Button, Form, Modal } from "react-bootstrap";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../helper";
 
 const LeaveType = () => {
   const [leaveDetails, setLeaveDetails] = useState([]);
@@ -129,7 +130,7 @@ const LeaveType = () => {
             timer: 1000,
             showConfirmButton: false,
           });
-          fetch(`https://apihrms.atwpl.com/leave/leaveType/${id}`, {
+          fetch(`${BASE_URL}/leave/leaveType/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -173,7 +174,7 @@ const LeaveType = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/leave/leaveType/${selectedRow.id}`; // Replace with your updated API endpoint
+  const url = `${BASE_URL}/leave/leaveType/${selectedRow.id}`;
     try {
       const response = await axios.put(url, editData, {
         headers: {

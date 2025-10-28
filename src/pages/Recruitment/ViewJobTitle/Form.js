@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
+import { BASE_URL } from "../../helper";
 
 const ViewJobTitle = () => {
   const [show, setShow] = useState([]);
@@ -14,7 +15,7 @@ const ViewJobTitle = () => {
   const submitHandler = async(e) => {
     e.preventDefault();
 
-     fetch("https://apihrms.atwpl.com/addJobTitle/getJob", {
+     fetch(`${BASE_URL}/addJobTitle/getJob`, {
       headers: {
         Accept: 'application/json',
       },

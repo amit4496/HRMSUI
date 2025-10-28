@@ -10,6 +10,7 @@ import { get_branch, post_branch } from "../../Services/service";
 // import { Form } from "react-router-dom";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../helper";
 
 const Branch = () => {
   const [data, setData] = useState({
@@ -108,7 +109,7 @@ const Branch = () => {
             "Your file has been deleted.",
             "success"
           );
-          fetch(`https://apihrms.atwpl.com/branch/delete/${id}`, {
+          fetch(`${BASE_URL}/branch/delete/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -155,7 +156,7 @@ const Branch = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/branch/update/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/branch/update/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

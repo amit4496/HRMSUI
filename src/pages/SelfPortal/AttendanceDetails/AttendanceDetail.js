@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { getData } from "../../../Services/Api";
 import { Employeee } from "../../../Services/service";
 import { Email } from "@material-ui/icons";
+import { BASE_URL } from "../../helper";
 
 function AttendanceDetail() {
   const [formData, setFormData] = useState({
@@ -83,7 +84,7 @@ function AttendanceDetail() {
       });
     } else {
       axios
-        .post("https://apihrms.atwpl.com/attendance/status", formData, {
+        .post(`${BASE_URL}/attendance/status`, formData, {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization: "Bearer " + localStorage.getItem("token"),

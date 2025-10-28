@@ -7,6 +7,7 @@ import MaterialTable from "@material-table/core";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../helper";
 
 const LeaveRecordDetails = () => {
   const initialState = { 
@@ -197,7 +198,7 @@ const LeaveRecordDetails = () => {
             "Your file has been deleted.",
             "success"
           );
-          fetch(`https://apihrms.atwpl.com/event/delete/${id}`, {
+          fetch(`${BASE_URL}/event/delete/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -227,7 +228,7 @@ const LeaveRecordDetails = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/event/update/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/event/update/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

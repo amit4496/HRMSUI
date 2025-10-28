@@ -8,6 +8,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import swal from "sweetalert";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../../helper";
 
 const UserMasterData = () => {
   const [data, setData] = useState({
@@ -50,7 +51,7 @@ const UserMasterData = () => {
             showConfirmButton: false,
           });
 
-          fetch(`https://apihrms.atwpl.com/employees/delete/${id}`, {
+          fetch(`${BASE_URL}/employees/delete/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -89,7 +90,7 @@ const UserMasterData = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/employees/update/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/employees/update/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

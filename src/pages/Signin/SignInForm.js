@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "./SignIn.module.css";
+import { BASE_URL } from "../helper";
 
 const SignInForm = (props) => {
   const [username, setUsername] = useState("");
@@ -34,7 +35,7 @@ const SignInForm = (props) => {
     setError(null);
 
     try {
-      const response = await fetch("https://apihrms.atwpl.com/login", {
+      const response = await fetch(`${BASE_URL}/login`, {
         method: "POST",
         body: JSON.stringify({ username, password }),
         headers: { "Content-Type": "application/json" },

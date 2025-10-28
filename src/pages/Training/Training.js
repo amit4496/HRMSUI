@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import { Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { BASE_URL } from "../helper";
 
 const Employee = () => {
   const [data, setData] = useState({ trainingName: "", description: "" });
@@ -118,7 +119,7 @@ const Employee = () => {
           });
           debugger;
           console.log(id);
-          fetch(`https://apihrms.atwpl.com/trainingName/delete/${id}`, {
+          fetch(`${BASE_URL}/trainingName/delete/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -164,7 +165,7 @@ const Employee = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/trainingName/update/${selectedRow.id}`; // Replace with your updated API endpoint
+  const url = `${BASE_URL}/trainingName/update/${selectedRow.id}`;
     try {
       const response = await axios.put(url, editData, {
         headers: {

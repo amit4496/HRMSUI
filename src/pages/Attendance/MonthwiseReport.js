@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { BASE_URL } from "../helper";
 import MaterialTable from "@material-table/core";
 import { getData, postData } from "../../Services/Api";
 import {
@@ -79,7 +80,7 @@ function MonthwiseReport() {
       });
     } else {
       axios
-        .post("https://apihrms.atwpl.com/attendance/byDate", formData, {
+        .post(`${BASE_URL}/attendance/byDate`, formData, {
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization: "Bearer " + localStorage.getItem("token"),

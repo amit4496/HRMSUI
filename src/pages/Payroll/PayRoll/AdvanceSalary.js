@@ -10,6 +10,7 @@ import MaterialTable from "@material-table/core";
 import { Button, Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { BASE_URL } from "../../helper";
 
 const AdvanceSalary = () => {
   const [data, setData] = useState({
@@ -128,7 +129,7 @@ const AdvanceSalary = () => {
   const [selectedRow, setSelectedRow] = useState(null);
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/advance/updatePerMonth/${selectedRow.employeeId}`;
+  const url = `${BASE_URL}/advance/updatePerMonth/${selectedRow.employeeId}`;
     try {
       const response = await axios.put(url, editData, {
         headers: {

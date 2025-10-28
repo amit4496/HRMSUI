@@ -1,6 +1,7 @@
 
 
 import { useState } from "react";
+import { BASE_URL } from "../../helper";
 
 const UserApproval = () => {
 const [data,setData]=useState({
@@ -16,7 +17,7 @@ const inputChangeHandler=(e)=>{
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(JSON.stringify(data))
-    fetch('https://apihrms.atwpl.com/saveApproval', {
+    fetch(`${BASE_URL}/saveApproval`, {
 
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },

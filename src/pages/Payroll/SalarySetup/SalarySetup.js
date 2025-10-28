@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import mg from "./Ahom Logo.png";
 import axios from "axios";
 import { format } from "date-fns";
+import { BASE_URL } from "../../helper";
 
 const SalarySetup = () => {
   const [data, setData] = useState([]);
@@ -88,7 +89,7 @@ const SalarySetup = () => {
     const formattedMonth = format(new Date(form.month), "MMMM yyyy");
     const month1 = formattedMonth.toUpperCase();
 
-    axios.post("https://apihrms.atwpl.com/salarySlip/getById", {
+    axios.post(`${BASE_URL}/salarySlip/getById`, {
       ...formData,
       month: month1,
     }, {

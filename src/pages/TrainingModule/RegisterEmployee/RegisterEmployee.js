@@ -13,6 +13,7 @@ import swal from "sweetalert";
 import { Trash2 } from "lucide-react";
 import view from "../../../../src/components/img/folder-unscreen.gif";
 import { Button, Modal, Form } from "react-bootstrap";
+import { BASE_URL } from "../../helper";
 
 const RegisterEmployee = () => {
   const [ticketDetails, setTicketDetails] = useState([]);
@@ -63,7 +64,7 @@ const RegisterEmployee = () => {
             "Your file has been deleted.",
             "success"
           );
-          fetch(`https://apihrms.atwpl.com/employee/delete/${id}`, {
+          fetch(`${BASE_URL}/employee/delete/${id}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",
@@ -129,7 +130,7 @@ const RegisterEmployee = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/employee/edit/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/employee/edit/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

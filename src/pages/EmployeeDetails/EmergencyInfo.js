@@ -9,6 +9,7 @@ import jsPDF from "jspdf";
 import "./modal.css";
 import "jspdf-autotable";
 import swal from "sweetalert";
+import { BASE_URL } from "../helper";
 
 const EmergencyInfo = () => {
   const [ticketDetails, setTicketDetails] = useState([]);
@@ -46,7 +47,7 @@ const EmergencyInfo = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `https://apihrms.atwpl.com/emergency/update/${selectedRow.id}`; // Replace with your updated API endpoint
+    const url = `${BASE_URL}/emergency/update/${selectedRow.id}`; // Replace with your updated API endpoint
     try {
       const response = await axios.put(url, editData, {
         headers: {

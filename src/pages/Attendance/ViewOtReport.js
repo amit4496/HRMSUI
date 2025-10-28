@@ -5,6 +5,7 @@ import { Employeee } from "../../Services/service";
 import { getData } from "../../Services/Api";
 import Swal from "sweetalert2";
 import { format } from "date-fns";
+import { BASE_URL } from "../helper";
 
 function OverTimeReport() {
   const [formData, setFormData] = useState({
@@ -66,8 +67,7 @@ function OverTimeReport() {
     const month1 = formattedMonth.toUpperCase();
 
     axios
-      .post(
-        "https://apihrms.atwpl.com/OverTime/byDate",
+      .post(`${BASE_URL}/OverTime/byDate`,
         {
           ...formData,
           month: month1,

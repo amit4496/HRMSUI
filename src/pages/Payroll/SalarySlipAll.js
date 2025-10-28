@@ -5,6 +5,7 @@ import { Button, Form } from "react-bootstrap";
 import { getData } from "../../Services/Api";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { BASE_URL } from "../helper";
 import view from "../../../src/components/img/folder-unscreen.gif";
 import {
   department,
@@ -135,7 +136,7 @@ function SalarySlipAll() {
       });
 
       const response = await axios.post(
-        "https://apihrms.atwpl.com/salarySlip/save",
+        `${BASE_URL}/salarySlip/save`,
         { month: formattedDate },
         {
           headers: {
@@ -198,7 +199,7 @@ function SalarySlipAll() {
         year: "numeric",
       });
 
-      const url = `https://apihrms.atwpl.com/salarySlip/export-to-excel/${formattedDate}`;
+  const url = `${BASE_URL}/salarySlip/export-to-excel/${formattedDate}`;
 
       const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -252,7 +253,7 @@ function SalarySlipAll() {
   const handleUpdate = async () => {
     // setEditMode(false);
 
-    const url = `https://apihrms.atwpl.com/salarySlip/update/${selectedRowData.slipId}`; // Replace with your updated API endpoint
+  const url = `${BASE_URL}/salarySlip/update/${selectedRowData.slipId}`;
     try {
       const response = await axios.put(url, selectedRowData, {
         headers: {
@@ -356,7 +357,7 @@ function SalarySlipAll() {
             timer: 1000, // Timer set to 1000 milliseconds (1 second)
             showConfirmButton: false,
           });
-          fetch(`https://apihrms.atwpl.com/salarySlip/delete/${slipId}`, {
+          fetch(`${BASE_URL}/salarySlip/delete/${slipId}`, {
             method: "DELETE",
             headers: {
               "Content-Type": "application/json",

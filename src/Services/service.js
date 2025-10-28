@@ -1,8 +1,3 @@
-  export const baseUrl = "https://apihrms.atwpl.com";
-//   export const baseUrl = "http://localhost:8081";
-
-//api end points
-
 export const register = "/signup";
 export const designation = "/designation/fetchAllDesignation";
 export const department = "/department/getAll"; //get
