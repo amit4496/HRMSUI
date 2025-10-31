@@ -59,3 +59,13 @@ export const get_trainingFeeback = "/training/getById/{id}";
 export const post_Termiantion = "/termination/save";
 export const get_feedback = "/training/getAll";
 export const get_Termiantion = "/termination/getAll";
+
+export const post_role = "/role/save";
+export const get_roles = "/role/getAll"; 
+export const update_role = "/role/update";
+
+export const get_permission_urls = "/permission/urls";
+export const post_permission = "/permission/save";
+export const put_permission = "/permission/save";
+export const delete_permission = "/permission/save";
+export const get_permissions = "/permission/getAll";

@@ -35,6 +35,8 @@ import UserMaster from "./pages/Menu Master/User Master/UserMaster";
 import DepartmentMaster from "./pages/Menu Master/Department Master/DepartmentMaster";
 import DesignationMaster from "./pages/Menu Master/Designation Master/DesignationMaster";
 import EmploymentTypeMaster from "./pages/Menu Master/Employment Type Master/EmploymentTypeMaster";
+import RoleMaster from "./pages/Menu Master/Role Master/RoleMaster";
+import ModuleMaster from "./pages/Menu Master/Module Master/ModuleMaster";
 import Training from "./pages/Training/Training";
 import SignIn from "./pages/Signin/SignIn";
 import Event from "./pages/Training/Event";
@@ -177,6 +179,28 @@ function App() {
               <SideBar>
                 <DasNav />
                 <EmploymentTypeMaster />
+              </SideBar>
+            }
+          />
+        )}
+        {logged && (role === "ADMIN" || role === "HR") && (
+          <Route
+            path="/menuMaster/RoleMaster"
+            element={
+              <SideBar>
+                <DasNav />
+                <RoleMaster />
+              </SideBar>
+            }
+          />
+        )}
+        {logged && (role === "ADMIN" || role === "HR") && (
+          <Route
+            path="/menuMaster/ModuleMaster"
+            element={
+              <SideBar>
+                <DasNav />
+                <ModuleMaster />
               </SideBar>
             }
           />
