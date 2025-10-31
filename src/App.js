@@ -9,6 +9,12 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+// Error handling imports
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import { ErrorProvider } from "./contexts/ErrorContext";
+import GlobalErrorHandler from "./components/GlobalErrorHandler/GlobalErrorHandler";
+import ErrorContextConnector from "./components/ErrorContextConnector/ErrorContextConnector";
+
 // Import your page components
 import Dashboard from "./pages/Dashboard";
 import AddEmployee from "./pages/Menu Master/AddEmployee/AddEmployee";
@@ -67,6 +73,7 @@ import HolidayCalendar from "./pages/SelfPortal/Holidaycalendar/HolidayCalendar"
 import RequirementDetail from "./pages/Organisation Structure/RequirementDetail";
 import TicketRaise from "./pages/SelfPortal/TicketRaise/TicketRaise";
 import TotalRaiseTicket from "./pages/Screening & Approval/TotalRaiseTicket";
+import TestErrorHandling from "./components/TestErrorHandling/TestErrorHandling";
 //import AddEmployeePerformance from "./pages/Performance/AddEmployeePerformance.js";
 
 function App() {
@@ -87,11 +94,14 @@ function App() {
   }, [location, navigate]);
 
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/reset" element={<PasswordReset />} />
+    <ErrorProvider>
+      <ErrorContextConnector>
+        <ErrorBoundary>
+          <GlobalErrorHandler />
+          <Routes>
+            <Route path="/" element={<SignIn />} />
+            <Route path="/forgotpassword" element={<ForgotPassword />} />
+            <Route path="/reset" element={<PasswordReset />} />
 
         {logged &&
           (role === "ADMIN" || role === "EMPLOYEE" || role === "HR") && (
@@ -642,9 +652,24 @@ function App() {
             }
           />
         )}
+        
+        {/* Test route for error handling - remove in production */}
+        {logged && (
+          <Route
+            path="/test-error-handling"
+            element={
+              <SideBar>
+                <DasNav />
+                <TestErrorHandling />
+              </SideBar>
+            }
+          />
+        )}
          
       </Routes>
-    </>
+        </ErrorBoundary>
+      </ErrorContextConnector>
+    </ErrorProvider>
   );
 }
 

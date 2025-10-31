@@ -5,6 +5,9 @@ import DasNav from "./Dashboard/Navbar/DasNav";
 import "./dashboard.css";
 import nodataimg from "../components/img/nodata.png";
 
+// Test component for 403 error handling
+import TestApi403 from "../components/TestApi403/TestApi403";
+
 import { getData } from "../Services/Api";
 import { User, get_leaveDetails, work_data } from "../Services/service";
 import { get_leave } from "../Services/service";
@@ -397,17 +400,17 @@ function Dashboard() {
     PieChart();
   }, []);
 
-  const labels = [...new Set(pie.map((item) => item.selectDepartment))];
-  const counts = pie.reduce((acc, item) => {
+  const labels = [...new Set(pie?.map((item) => item.selectDepartment))];
+  const counts = pie?.reduce((acc, item) => {
     if (item.selectDepartment in acc) {
       acc[item.selectDepartment]++;
     } else {
       acc[item.selectDepartment] = 1;
     }
     return acc;
-  }, {});
+  }, {}) ?? 0;
   const values = Object.values(counts);
-  const colors = generateRandomColors(pie.length);
+  const colors = generateRandomColors(pie?.length);
 
   const setChartData = {
     datasets: [
@@ -449,7 +452,7 @@ function Dashboard() {
   return (
     <div style={{ maxWidth: "100%" }}>
       <DasNav />
-
+      
       <div className="carddisplay">
         <div className="card card1">
           <h3>Permanent Employee</h3>
@@ -472,14 +475,14 @@ function Dashboard() {
       <div className="carddisplay11">
         <div className="card11 card5">
           <h4 className="upcoming">UPCOMING EVENTS</h4>
-          {upcomingEvents.length +
-            willjoiningDate.length +
-            willHoliday.length +
-            upcomingbirthday.length >
+          {upcomingEvents?.length +
+            willjoiningDate?.length +
+            willHoliday?.length +
+            upcomingbirthday?.length >
           4 ? (
             <marquee direction="up" scrollamount="5">
               <ul>
-                {upcomingEvents.map((e) => {
+                {upcomingEvents?.map((e) => {
                   const joiningDate = new Date(e.joiningDate);
                   const endDate = new Date(
                     joiningDate.getFullYear(),
@@ -500,7 +503,7 @@ function Dashboard() {
               </ul>
 
               <ul>
-                {upcomingbirthday.map((e) => {
+                {upcomingbirthday?.map((e) => {
                   const dobDate = new Date(e.dob);
                   const month = dobDate.toLocaleString("default", {
                     month: "long",
@@ -515,7 +518,7 @@ function Dashboard() {
                 })}
               </ul>
               <ul>
-                {willjoiningDate.map((e) => {
+                {willjoiningDate?.map((e) => {
                   const joining = new Date(e.joiningDate);
                   const month = joining.toLocaleString("default", {
                     month: "long",
@@ -530,7 +533,7 @@ function Dashboard() {
                 })}
               </ul>
               <ul>
-                {willHoliday.map((e) => {
+                {willHoliday?.map((e) => {
                   const holiday = new Date(e.fromDate);
                   const month = holiday.toLocaleString("default", {
                     month: "long",
@@ -548,13 +551,13 @@ function Dashboard() {
             </marquee>
           ) : (
             <div>
-              {willjoiningDate.length ||
-              upcomingbirthday.length ||
-              willHoliday.length ||
-              upcomingEvents.length ? (
+              {willjoiningDate?.length ||
+              upcomingbirthday?.length ||
+              willHoliday?.length ||
+              upcomingEvents?.length ? (
                 <>
                   <ul>
-                    {upcomingEvents.map((e) => {
+                    {upcomingEvents?.map((e) => {
                       const joiningDate = new Date(e.joiningDate);
                       const endDate = new Date(
                         joiningDate.getFullYear(),
@@ -575,7 +578,7 @@ function Dashboard() {
                     })}
                   </ul>
                   <ul>
-                    {upcomingbirthday.map((e) => {
+                    {upcomingbirthday?.map((e) => {
                       const dobDate = new Date(e.dob);
                       const month = dobDate.toLocaleString("default", {
                         month: "long",
@@ -590,7 +593,7 @@ function Dashboard() {
                     })}
                   </ul>
                   <ul>
-                    {willjoiningDate.map((e) => {
+                    {willjoiningDate?.map((e) => {
                       const joining = new Date(e.joiningDate);
                       const month = joining.toLocaleString("default", {
                         month: "long",
@@ -605,7 +608,7 @@ function Dashboard() {
                     })}
                   </ul>
                   <ul>
-                    {willHoliday.map((e) => {
+                    {willHoliday?.map((e) => {
                       const holiday = new Date(e.fromDate);
                       const month = holiday.toLocaleString("default", {
                         month: "long",
@@ -646,33 +649,33 @@ function Dashboard() {
 
         <div className="card11 card6">
           <h4 className="upcoming">TODAY'S EVENT</h4>
-          {todaysbirthday.length +
-            joiningDate.length +
-            todayHoliday.length +
-            todaysEvents.length >
+          {todaysbirthday?.length +
+            joiningDate?.length +
+            todayHoliday?.length +
+            todaysEvents?.length >
           4 ? (
             <marquee direction="up" scrollamount="5">
-              {todaysEvents.length || todaysbirthday.length ? (
+              {todaysEvents?.length || todaysbirthday?.length ? (
                 <>
-                  {todaysEvents.length > 0 && (
+                  {todaysEvents?.length > 0 && (
                     <ul>
-                      {todaysEvents.map((e) => (
+                      {todaysEvents?.map((e) => (
                         <li key={e.id}>
                           Provision period of {e.employeeName} is completed
                         </li>
                       ))}
                     </ul>
                   )}
-                  {joiningDate.length > 0 && (
+                  {joiningDate?.length > 0 && (
                     <ul>
-                      {joiningDate.map((e) => (
+                      {joiningDate?.map((e) => (
                         <li key={e.id}> {e.employeeName} Will Join Today</li>
                       ))}
                     </ul>
                   )}
-                  {todayHoliday.length > 0 && (
+                  {todayHoliday?.length > 0 && (
                     <ul>
-                      {todayHoliday.map((e) => (
+                      {todayHoliday?.map((e) => (
                         <li key={e.id}>
                           {" "}
                           Today is holiday Due to {e.holidayName}{" "}
@@ -680,9 +683,9 @@ function Dashboard() {
                       ))}
                     </ul>
                   )}
-                  {todaysbirthday.length > 0 && (
+                  {todaysbirthday?.length > 0 && (
                     <ul>
-                      {todaysbirthday.map((e) => (
+                      {todaysbirthday?.map((e) => (
                         <li key={e.id}>Happy BirthDay {e.employeeName}</li>
                       ))}
                     </ul>
@@ -694,36 +697,36 @@ function Dashboard() {
             </marquee>
           ) : (
             <div>
-              {todaysEvents.length ||
-              joiningDate.length ||
-              todaysbirthday.length ? (
+              {todaysEvents?.length ||
+              joiningDate?.length ||
+              todaysbirthday?.length ? (
                 <>
-                  {todaysEvents.length > 0 && (
+                  {todaysEvents?.length > 0 && (
                     <ul>
-                      {todaysEvents.map((e) => (
+                      {todaysEvents?.map((e) => (
                         <li key={e.id}>
                           Provision period of {e.employeeName} is completed
                         </li>
                       ))}
                     </ul>
                   )}
-                  {joiningDate.length > 0 && (
+                  {joiningDate?.length > 0 && (
                     <ul>
-                      {joiningDate.map((e) => (
+                      {joiningDate?.map((e) => (
                         <li key={e.id}>{e.employeeName} will Join Today</li>
                       ))}
                     </ul>
                   )}
-                  {todaysbirthday.length > 0 && (
+                  {todaysbirthday?.length > 0 && (
                     <ul>
-                      {todaysbirthday.map((e) => (
+                      {todaysbirthday?.map((e) => (
                         <li key={e.id}>Happy BirthDay {e.employeeName}</li>
                       ))}
                     </ul>
                   )}
-                  {todayHoliday.length > 0 && (
+                  {todayHoliday?.length > 0 && (
                     <ul>
-                      {todayHoliday.map((e) => (
+                      {todayHoliday?.map((e) => (
                         <li key={e.id}>
                           {" "}
                           Today is holiday Due to {e.holidayName}

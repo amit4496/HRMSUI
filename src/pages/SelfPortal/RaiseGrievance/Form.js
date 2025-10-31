@@ -14,7 +14,7 @@ function Form() {
     const newdata = { ...data };
     newdata[e.target.name] = e.target.value;
     setData(newdata);
-    
+
   }
   const handleSubmit = (e) => {
     console.log(JSON.stringify(data));
@@ -35,7 +35,7 @@ function Form() {
           body:JSON.stringify(data)
         }).then(()=>{
           console.log("Raise Grievances Accepted")
-    
+
         })
   };
 
@@ -89,8 +89,8 @@ function Form() {
           </label>
           <input
             onChange={handleInput}
-            value={data.uploadAttechment}
-            name="uploadAttechment"
+            value={data.uploadAttachment}
+            name="uploadAttachment"
             className="form-control"
             type="file"
             id="formFile"
@@ -114,7 +114,7 @@ function Form() {
         </div>
         <div className="col-sm-1"></div>
       </div>
-      
+
       <button className="btn btn-outline-success px-5 mx-5 btn-lg mt-4">Save</button>
     </form>
   );

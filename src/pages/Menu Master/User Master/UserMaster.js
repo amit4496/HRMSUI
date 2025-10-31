@@ -12,7 +12,6 @@ export default function UserMaster() {
     userName: "",
     password: "",
     confirmPassword: "",
-    departmentName: "",
     roles: "",
     employeeName: "",
   };
@@ -21,25 +20,10 @@ export default function UserMaster() {
   const [errors, setErrors] = useState({});
   const [errorShow, setErrorShow] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [dep, setDep] = useState([]);
-  const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-
-  const Department = () => {
-    getData(department)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data, "dep");
-        setDep(data?.Data);
-      })
-      .catch((err) => {
-        console.log("Error in categories from Post Form", err);
-        console.log(" code Error", err);
-      });
-  };
 
   const handleUser = (event) => {
     const { key } = event;
@@ -53,10 +37,6 @@ export default function UserMaster() {
       event.preventDefault();
     }
   };
-
-  useEffect(() => {
-    Department();
-  }, []);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -77,11 +57,6 @@ export default function UserMaster() {
       ...prevErrors,
       [name]: "",
     }));
-
-    // Update selected department
-    if (name === "departmentName") {
-      setSelectedDepartment(value);
-    }
 
     // Update selected role
     if (name === "roles") {
@@ -112,14 +87,12 @@ export default function UserMaster() {
           timer: 1000,
         });
         resetForm();
-        setSelectedDepartment("");
         setSelectedRole("");
       } else {
         setErrors({
           userName: res?.userName || res?.response,
           password: res?.password,
           confirmPassword: res.confirmPassword || res?.error_message,
-          departmentName: res.departmentName,
           roles: res?.roles,
           employeeName: res?.employeeName,
         });
@@ -188,37 +161,6 @@ export default function UserMaster() {
               />
               {errorShow && (
                 <span className="Errorsmessage">{errors.userName}</span>
-              )}
-            </Form.Group>
-
-            <Form.Group
-              as={Col}
-              sm={4}
-              controlId="validationCustom07"
-              className="mt-2"
-            >
-              <Form.Label>
-                Department Name :<span className="Errorsmessage"> * </span>{" "}
-              </Form.Label>
-              <select
-                className="form-select"
-                aria-label="Default select example"
-                name="departmentName"
-                onChange={handleChange}
-                value={selectedDepartment}
-              >
-                <option value="">Select Department</option>
-                {dep?.map((saurabh) => (
-                  <option
-                    key={saurabh.departmentName}
-                    value={saurabh.departmentName}
-                  >
-                    {saurabh.departmentName}
-                  </option>
-                ))}
-              </select>
-              {errorShow && (
-                <span className="Errorsmessage">{errors.departmentName}</span>
               )}
             </Form.Group>
           </Row>
@@ -298,7 +240,8 @@ export default function UserMaster() {
               className="mt-2"
             >
               <Form.Label>
-                Confirm Password :<span className="Errorsmessage"> * </span>{" "}
+                Confirm Password :
+                <span className="Errorsmessage"> * </span>{" "}
               </Form.Label>
               <div className="position-relative">
                 <Form.Control

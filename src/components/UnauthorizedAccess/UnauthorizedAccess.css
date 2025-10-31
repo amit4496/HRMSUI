@@ -1,0 +1,182 @@
+.unauthorized-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.unauthorized-modal {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 480px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+.unauthorized-content {
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.unauthorized-icon {
+  color: #e74c3c;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+.unauthorized-content h2 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.unauthorized-content p {
+  color: #7f8c8d;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.unauthorized-details {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+  border-left: 4px solid #e74c3c;
+}
+
+.error-code {
+  color: #e74c3c !important;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 10px !important;
+}
+
+.unauthorized-details p:last-child {
+  margin-bottom: 0 !important;
+  font-size: 14px;
+}
+
+.unauthorized-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.retry-btn,
+.home-btn,
+.custom-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.retry-btn {
+  background: #3498db;
+  color: white;
+}
+
+.retry-btn:hover {
+  background: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+.home-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.home-btn:hover {
+  background: #229954;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+}
+
+.custom-btn {
+  background: #9b59b6;
+  color: white;
+}
+
+.custom-btn:hover {
+  background: #8e44ad;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(155, 89, 182, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .unauthorized-modal {
+    width: 95%;
+    margin: 10px;
+  }
+  
+  .unauthorized-content {
+    padding: 30px 20px;
+  }
+  
+  .unauthorized-actions {
+    flex-direction: column;
+  }
+  
+  .retry-btn,
+  .home-btn,
+  .custom-btn {
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .unauthorized-content h2 {
+    font-size: 20px;
+  }
+}

@@ -19,37 +19,20 @@ async function enhancedFetch(url, options = {}, endpoint = '', method = 'GET') {
     const response = await fetch(url, options);
     
     // Handle API errors if error context is available
-    if (errorContextRef && response.status === 403) {
-      errorContextRef.setUnauthorizedError({
-        message: 'You are not authorized to access this resource',
-        endpoint,
-        method,
-        details: response.statusText
-      });
-      
-      // Return a special response object for 403 errors
-      return {
-        ...response,
-        isUnauthorized: true,
-        json: async () => ({ 
-          Status: 403, 
-          Message: 'Unauthorized access',
-          error_message: 'You are not authorized to access this resource' 
-        })
-      };
-    }
-    
-    // Handle other errors
-    if (errorContextRef && response.status >= 400 && response.status !== 403) {
-      errorContextRef.addNetworkError({
-        message: `Server error: ${response.status} ${response.statusText}`,
-        details: {
-          status: response.status,
-          statusText: response.statusText,
-          endpoint,
-          method
-        }
-      });
+    if (errorContextRef) {
+      const wasHandled = errorContextRef.handleApiError(response, endpoint, method);
+      if (wasHandled && response.status === 403) {
+        // Return a special response object for 403 errors
+        return {
+          ...response,
+          isUnauthorized: true,
+          json: async () => ({ 
+            Status: 403, 
+            Message: 'Unauthorized access',
+            error_message: 'You are not authorized to access this resource' 
+          })
+        };
+      }
     }
 
     return response;
@@ -71,7 +54,7 @@ async function enhancedFetch(url, options = {}, endpoint = '', method = 'GET') {
 }
 
 export async function postData(data, urlPath) {
-  console.log(urlPath, localStorage.getItem("token"), "Pathh");
+  console.log(urlPath, localStorage.getItem("token"), "Path");
   
   const options = {
     method: "POST",
@@ -91,7 +74,6 @@ export async function postData(data, urlPath) {
   return await enhancedFetch(BASE_URL + urlPath, options, urlPath, 'POST');
 }
 
-
 export async function deleteData(data, urlPath) {
   const options = {
     method: "DELETE",
@@ -110,6 +92,7 @@ export async function deleteData(data, urlPath) {
 
   return await enhancedFetch(BASE_URL + urlPath, options, urlPath, 'DELETE');
 }
+
 export async function patchData(data, urlPath) {
   const options = {
     method: "PATCH",
@@ -166,7 +149,60 @@ export async function getData(urlPath) {
   return await enhancedFetch(BASE_URL + urlPath, options, urlPath, 'GET');
 }
 
+// New enhanced functions with better error handling
+export async function putData(data, urlPath) {
+  const options = {
+    method: "PUT",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Origin: process.env.ORIGIN,
+      Authorization: "Bearer " + localStorage.getItem("token"),
+      host: BASE_URL,
+      Accept: "*/*",
+    },
+    body: JSON.stringify(data),
+  };
+
+  return await enhancedFetch(BASE_URL + urlPath, options, urlPath, 'PUT');
+}
+
 // Utility function to check if response is unauthorized
 export const isUnauthorizedResponse = (response) => {
   return response && response.isUnauthorized === true;
+};
+
+// Utility function to handle response with automatic error detection
+export const handleApiResponse = async (response, onSuccess, onError) => {
+  try {
+    if (isUnauthorizedResponse(response)) {
+      // 403 error is already handled by the error context
+      if (onError) {
+        onError(new Error('Unauthorized access'));
+      }
+      return null;
+    }
+
+    const data = await response.json();
+    
+    if (response.ok && data.Status === 200) {
+      if (onSuccess) {
+        onSuccess(data);
+      }
+      return data;
+    } else {
+      const error = new Error(data.error_message || data.Message || 'API request failed');
+      if (onError) {
+        onError(error);
+      }
+      throw error;
+    }
+  } catch (error) {
+    if (onError) {
+      onError(error);
+    }
+    throw error;
+  }
 };
