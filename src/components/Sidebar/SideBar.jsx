@@ -68,6 +68,21 @@ const routes = [
         name: "Employment Type",
         icon: <AiOutlineCaretRight />,
       },
+      {
+        path: "/menuMaster/RoleMaster",
+        name: "Role Master",
+        icon: <AiOutlineCaretRight />,
+      },
+      {
+        path: "/menuMaster/ModuleMaster",
+        name: "Module Master",
+        icon: <AiOutlineCaretRight />,
+      },
+      {
+        path: "/menuMaster/UserRoleMaster",
+        name: "User Role Master",
+        icon: <AiOutlineCaretRight />,
+      },
     ],
   },
   {

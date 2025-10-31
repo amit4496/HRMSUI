@@ -69,3 +69,9 @@ export const post_permission = "/permission/save";
 export const put_permission = "/permission/save";
 export const delete_permission = "/permission/save";
 export const get_permissions = "/permission/getAll";
+
+// User Role Master APIs
+export const get_employee_roles = "/employees/roles";
+export const post_employee_role = "/employees/{id}/roles";
+export const put_employee_roles = "/employees/{id}/roles";
+export const delete_employee_role = "/employees/{id}/roles";
