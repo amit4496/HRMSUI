@@ -38,6 +38,7 @@ const UserRoleMaster = () => {
   // Role management states
   const [roleData, setRoleData] = useState({
     selectedRoleId: "",
+    copyModules: false,
   });
   const [roleErrors, setRoleErrors] = useState({
     selectedRoleId: "",
@@ -47,10 +48,10 @@ const UserRoleMaster = () => {
   const [pendingRoleChanges, setPendingRoleChanges] = useState([]);
 
   const roleInputChangeHandler = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setRoleData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
     setRoleErrors((prevErrors) => ({
       ...prevErrors,
@@ -114,7 +115,8 @@ const UserRoleMaster = () => {
       // Use PUT for bulk update approach - send all roles for the user
       const roleUpdateData = {
         employeeId: empId,
-        roles: updatedRoles
+        roles: updatedRoles,
+        copyModules: roleData.copyModules
       };
 
       const resp = await postData(roleUpdateData, put_employee_roles.replace('{id}', empId));
@@ -152,7 +154,8 @@ const UserRoleMaster = () => {
       
       const roleUpdateData = {
         employeeId: empId,
-        roles: pendingRoleChanges
+        roles: pendingRoleChanges,
+        copyModules: roleData.copyModules
       };
 
       const resp = await postData(roleUpdateData, put_employee_roles.replace('{id}', empId));
@@ -177,6 +180,7 @@ const UserRoleMaster = () => {
   const resetRoleForm = () => {
     setRoleData({
       selectedRoleId: "",
+      copyModules: false,
     });
     setRoleErrors({
       selectedRoleId: "",
@@ -303,18 +307,36 @@ const UserRoleMaster = () => {
     }
 
     const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: "Delete Role Assignment",
+      html: `
+        <div class="text-start">
+          <p>Are you sure you want to remove this role assignment?</p>
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" id="removeRoleModules">
+            <label class="form-check-label" for="removeRoleModules">
+              Also remove role modules
+            </label>
+            <div class="form-text">Check this to remove modules associated with this role</div>
+          </div>
+        </div>
+      `,
       icon: "question",
       showCancelButton: true,
       confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!"
+      cancelButtonText: "No, cancel!",
+      preConfirm: () => {
+        const checkbox = document.getElementById('removeRoleModules');
+        return {
+          removeRoleModules: checkbox.checked
+        };
+      }
     });
 
     if (result.isConfirmed) {
       try {
         const empId = getEmployeeId(selectedUser);
         console.log("Delete role using employee ID:", empId);
+        console.log("Remove role modules:", result.value.removeRoleModules);
         
         if (!empId) {
           swal("Error", "Employee ID not found", "error");
@@ -325,7 +347,10 @@ const UserRoleMaster = () => {
         const deleteEndpoint = delete_employee_role
           .replace('{id}', empId);
         
-        const deleteData = { roleId: roleId };
+        const deleteData = { 
+          roleId: roleId,
+          removeRoleModules: result.value.removeRoleModules
+        };
         
         const resp = await fetch(`${BASE_URL}${deleteEndpoint}`, {
           method: "DELETE",
@@ -555,6 +580,25 @@ const UserRoleMaster = () => {
                       </Button>
                     </Col>
                   )}
+                </Row>
+
+                {/* Copy Modules Checkbox */}
+                <Row className="mt-3">
+                  <Col md={12}>
+                    <Form.Group>
+                      <Form.Check
+                        type="checkbox"
+                        id="copyModules"
+                        name="copyModules"
+                        checked={roleData.copyModules}
+                        onChange={roleInputChangeHandler}
+                        label="Copy modules from existing roles"
+                      />
+                      <Form.Text className="text-muted">
+                        Backend will handle module copying logic based on this flag
+                      </Form.Text>
+                    </Form.Group>
+                  </Col>
                 </Row>
                 
                 {/* Show preview of selected role */}

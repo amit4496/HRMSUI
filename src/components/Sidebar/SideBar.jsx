@@ -395,7 +395,7 @@ console.log("roleeeeeee", roleName);
 // }
 
 const SideBar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const [modifiedRoutes, setModifiedRoutes] = useState([]);
 
