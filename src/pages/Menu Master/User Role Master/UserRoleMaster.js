@@ -444,7 +444,7 @@ const UserRoleMaster = () => {
             },
             {
               title: "Email",
-              field: "email",
+              field: "userName",
               width: "20%"
             },
             {

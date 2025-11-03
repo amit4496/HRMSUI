@@ -551,10 +551,6 @@ const ModuleMaster = () => {
             data={ticketDetails}
             columns={[
               {
-                title: "ID",
-                field: "id",
-              },
-              {
                 title: "Module ID",
                 field: "module_id",
               },
