@@ -54,21 +54,10 @@ const ModuleMaster = () => {
   const handleModule = (event) => {
     const { key } = event;
 
-    // Block input that consists of spaces only for module_id
-    if (event.target.name === 'module_id' && /^\s+$/.test(key) && event.target.value.trim() === "") {
-      event.preventDefault();
-      return;
-    }
-
     // Allow alphanumeric and special characters for URLs and controller names
     if (event.target.name === 'controller_url' || event.target.name === 'controller_name') {
       // Allow more characters for URLs and controller names
       if (!/^[a-zA-Z0-9\s/_.-]+$/.test(key)) {
-        event.preventDefault();
-      }
-    } else if (event.target.name === 'module_id') {
-      // More restrictive for module ID
-      if (!/^[a-zA-Z0-9_-]+$/.test(key)) {
         event.preventDefault();
       }
     }
@@ -91,7 +80,7 @@ const ModuleMaster = () => {
     console.log(JSON.stringify(data));
 
     // Validation
-    if (!data.module_id || !data.controller_name || !data.controller_url) {
+    if (!data.controller_name || !data.controller_url) {
       swal("Error", "Please fill all required fields", "error");
       return;
     }
@@ -110,7 +99,10 @@ const ModuleMaster = () => {
 
       for (const roleId of data.roleIds) {
         try {
-          const roleModuleUrl = `${save_role_modules}?roleId=${roleId}&moduleIds=${data.module_id}&controllerName=${encodeURIComponent(data.controller_name)}&controllerUrl=${encodeURIComponent(data.controller_url)}`;
+          let roleModuleUrl = `${save_role_modules}?roleId=${roleId}&controllerName=${encodeURIComponent(data.controller_name)}&controllerUrl=${encodeURIComponent(data.controller_url)}`;
+          if (data.module_id) {
+            roleModuleUrl += `&moduleIds=${data.module_id}`;
+          }
 
           const roleResponse = await postData({}, roleModuleUrl);
           const roleResult = await roleResponse.json();
@@ -310,6 +302,7 @@ const ModuleMaster = () => {
     setSelectedRow(rowData);
     setEditData({
       id: rowData.id,
+      module_id: rowData.module_id,
       controller_name: rowData.controller_name,
       controller_url: rowData.controller_url,
     });
@@ -437,28 +430,7 @@ const ModuleMaster = () => {
           <h6>Add/Edit Module-URL Mapping</h6>
           
           <div className="row">
-            <div className="col-lg-3 col-md-3">
-              <label htmlFor="module_id" id="label">
-                Module ID:
-                <span style={{ color: "red" }}>*</span>
-              </label>
-              <br />
-              <input
-                value={data.module_id}
-                type="text"
-                className="form-control"
-                id="module_id"
-                name="module_id"
-                onChange={inputChangeHandler}
-                placeholder="Enter Module ID"
-                onKeyPress={handleModule}
-              />
-              {errorShow && (
-                <span className="Errorsmessage">{errors.module_id}</span>
-              )}
-            </div>
-
-            <div className="col-lg-4 col-md-4">
+            <div className="col-lg-6 col-md-6">
               <label htmlFor="controller_name" id="label">
                 Controller Name:
                 <span style={{ color: "red" }}>*</span>
@@ -479,7 +451,7 @@ const ModuleMaster = () => {
               )}
             </div>
 
-            <div className="col-lg-5 col-md-5">
+            <div className="col-lg-6 col-md-6">
               <label htmlFor="controller_url" id="label">
                 Controller URL:
                 <span style={{ color: "red" }}>*</span>
@@ -550,10 +522,6 @@ const ModuleMaster = () => {
             title="Module-URL Permissions"
             data={ticketDetails}
             columns={[
-              {
-                title: "Module ID",
-                field: "module_id",
-              },
               {
                 title: "Controller Name",
                 field: "controller_name",
