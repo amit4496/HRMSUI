@@ -129,6 +129,25 @@ export async function patchData(data, urlPath) {
   return await enhancedFetch(BASE_URL + urlPath, options, urlPath, 'PATCH');
 }
 
+export async function putData(data, urlPath) {
+  const options = {
+    method: "PUT",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Origin: process.env.ORIGIN,
+      Authorization: "Bearer " + localStorage.getItem("token"),
+      host: BASE_URL,
+      Accept: "*/*",
+    },
+    body: JSON.stringify(data),
+  };
+
+  return await enhancedFetch(BASE_URL + urlPath, options, urlPath, 'PUT');
+}
+
 export async function postDataAuth(data, urlPath) {
   const options = {
     method: "POST",

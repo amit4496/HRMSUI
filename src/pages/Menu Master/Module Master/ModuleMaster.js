@@ -393,7 +393,7 @@ const ModuleMaster = () => {
           <br />
 
           <MaterialTable
-            style={{ width: "90vw" }}
+            style={{ width: "100%", maxWidth: "100%" }}
             title="Module-URL Permissions"
             data={ticketDetails}
             columns={[

@@ -62,7 +62,7 @@ export const get_Termiantion = "/termination/getAll";
 
 export const post_role = "/role/save";
 export const get_roles = "/role/getAll"; 
-export const update_role = "/role/update";
+export const update_role = "/role/update/{id}";
 
 export const get_permission_urls = "/permission/urls";
 export const post_permission = "/permission/save";
@@ -70,7 +70,6 @@ export const put_permission = "/permission/save";
 export const delete_permission = "/permission/save";
 export const get_permissions = "/permission/getAll";
 
-// User Role Master APIs
 export const get_employee_roles = "/employees/roles";
 export const post_employee_role = "/employees/{id}/roles";
 export const put_employee_roles = "/employees/{id}/roles";

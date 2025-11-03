@@ -426,7 +426,7 @@ const UserRoleMaster = () => {
         <h6>Manage User Role Assignments</h6>
 
         <MaterialTable
-          style={{ width: "95vw" }}
+          style={{ width: "100%", maxWidth: "100%" }}
           title="Employee Role Assignments"
           data={ticketDetails}
           columns={[

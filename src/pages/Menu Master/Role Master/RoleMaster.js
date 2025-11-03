@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MaterialTable from "@material-table/core";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
-import { getData, postData } from "../../../Services/Api";
+import { getData, postData, putData } from "../../../Services/Api";
 import { post_role, get_roles, update_role, get_permission_urls } from "../../../Services/service";
 import { Button, Modal, Form, Row, Col, Badge, ListGroup } from "react-bootstrap";
 import axios from "axios";
@@ -158,9 +158,9 @@ const RoleMaster = () => {
         modules: updatedModules
       };
 
-      const resp = await postData(roleUpdateData, update_role);
+      const resp = await putData(roleUpdateData, update_role.replace('{id}', selectedRow.roleId));
       const res = await resp.json();
-
+      console.log('after save response is', res)
       if (res.Status === 200) {
         swal("Success", editingModule ? "Module Updated Successfully" : "Module Added Successfully", "success");
         setSelectedRoleModules(updatedModules);
@@ -303,7 +303,7 @@ const RoleMaster = () => {
         modules: selectedRow.module || [] // Keep existing modules
       };
 
-      const resp = await postData(updateData, update_role);
+      const resp = await putData(updateData, update_role.replace('{id}', editData.roleId));
       const res = await resp.json();
 
       if (res.Status === 200) {
@@ -421,7 +421,7 @@ const RoleMaster = () => {
           <br />
 
           <MaterialTable
-            style={{ width: "95vw" }}
+            style={{ width: "100%", maxWidth: "100%" }}
             title="Role Records with Module Access"
             data={ticketDetails}
             columns={[
