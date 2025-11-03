@@ -35,7 +35,6 @@ const ModuleMaster = () => {
   const [selectedModuleRoles, setSelectedModuleRoles] = useState([]);
   const [editData, setEditData] = useState({
     id: "",
-    module_id: "",
     controller_name: "",
     controller_url: "",
   });
@@ -243,7 +242,7 @@ const ModuleMaster = () => {
             if (!moduleMap.has(moduleId)) {
               // Create new module entry
               moduleMap.set(moduleId, {
-                id: roleModule.id, // Use first occurrence ID as primary
+                id: roleModule.id || `${moduleId}_${Date.now()}`, // Use roleModule.id or generate unique ID
                 module_id: roleModule.moduleId,
                 controller_name: roleModule.controllerName || roleModule.controller_name || '',
                 controller_url: roleModule.controllerUrl || roleModule.controller_url || '',
@@ -309,23 +308,27 @@ const ModuleMaster = () => {
 
   const handleEdit = (rowData) => {
     setSelectedRow(rowData);
-    setEditData(rowData);
+    setEditData({
+      id: rowData.id,
+      controller_name: rowData.controller_name,
+      controller_url: rowData.controller_url,
+    });
     setShowModal(true);
   };
 
   const handleUpdate = async () => {
     try {
-      // Since we're using roleModule as single source of truth,
-      // we need to update all role assignments for this module
-      // This is complex - for now, show a message that editing should be done through role management
-      swal("Info", "To edit module details, please delete and recreate the module, or use the 'Manage Roles' feature to modify role assignments.", "info");
+      // Since we're using roleModule as single source of truth and module_id cannot be changed,
+      // we need to update all role assignments for this module with new controller details
+      // This is complex as it requires updating multiple roleModule entries
+      swal("Info", "Module editing is currently not supported. Please delete and recreate the module with new details, or use the 'Manage Roles' feature to modify role assignments.", "info");
       setShowModal(false);
       
       // TODO: Implement proper update logic that handles roleModule entries
       // This would require:
       // 1. Finding all roleModule entries for this moduleId
-      // 2. Updating each entry's controllerName and controllerUrl
-      // 3. Handling the complexity of multiple API calls
+      // 2. Updating each entry's controllerName and controllerUrl (module_id cannot be changed)
+      // 3. Handling the complexity of multiple API calls for each role assignment
       
     } catch (error) {
       console.error("Error:", error);
@@ -358,7 +361,7 @@ const ModuleMaster = () => {
       const currentModule = ticketDetails.find(item => item.id === selectedRow.id);
       const currentRoleObjects = currentModule?.assignedRoles || [];
       const currentRoleIds = currentRoleObjects.map(roleObj => String(roleObj.roleId));
-
+      
       // Find roles to add and remove
       const rolesToAdd = selectedModuleRoles.filter(roleId => !currentRoleIds.includes(String(roleId)));
       const rolesToRemove = currentRoleIds.filter(roleId => !selectedModuleRoles.includes(String(roleId)));
@@ -506,16 +509,16 @@ const ModuleMaster = () => {
               <br />
               <div className="d-flex flex-wrap">
                 {roles.map((role) => (
-                  <div key={role.id} className="form-check me-3 mb-2">
+                  <div key={role.roleId} className="form-check me-3 mb-2">
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      value={role.id}
-                      id={`role-${role.id}`}
-                      checked={data.roleIds.includes(role.id)}
-                      onChange={() => handleRoleSelection(role.id)}
+                      value={role.roleId}
+                      id={`role-${role.roleId}`}
+                      checked={data.roleIds.includes(role.roleId)}
+                      onChange={() => handleRoleSelection(role.roleId)}
                     />
-                    <label className="form-check-label" htmlFor={`role-${role.id}`}>
+                    <label className="form-check-label" htmlFor={`role-${role.roleId}`}>
                       {role.roleName}
                     </label>
                   </div>
@@ -574,19 +577,19 @@ const ModuleMaster = () => {
                   </span>
                 ),
               },
-              // {
-              //   title: "Manage Roles",
-              //   field: "manageRoles",
-              //   render: (rowData) => (
-              //     <Button
-              //       variant="info"
-              //       size="sm"
-              //       onClick={() => handleManageRoles(rowData)}
-              //     >
-              //       <Plus size={16} /> Roles
-              //     </Button>
-              //   ),
-              // },
+              {
+                title: "Manage Roles",
+                field: "manageRoles",
+                render: (rowData) => (
+                  <Button
+                    variant="info"
+                    size="sm"
+                    onClick={() => handleManageRoles(rowData)}
+                  >
+                    <Plus size={16} /> Roles
+                  </Button>
+                ),
+              },
               {
                 title: "Delete",
                 field: "actions",
@@ -627,7 +630,7 @@ const ModuleMaster = () => {
             </Modal.Header>
             <Modal.Body>
               <Row>
-                <Col md={6}>
+                <Col md={12}>
                   <Form.Group controlId="id">
                     <Form.Label>ID</Form.Label>
                     <Form.Control
@@ -636,17 +639,6 @@ const ModuleMaster = () => {
                       value={editData.id}
                       onChange={handleInputChange}
                       disabled
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="module_id">
-                    <Form.Label>Module ID</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="module_id"
-                      value={editData.module_id}
-                      onChange={handleInputChange}
                     />
                   </Form.Group>
                 </Col>
@@ -703,29 +695,28 @@ const ModuleMaster = () => {
             <hr />
             <Form>
               {roles.map((role) => {
-                const roleId = String(role.id); // Keep as string for consistency
-                const isChecked = selectedModuleRoles.includes(roleId);
-                
+                const id = String(role.roleId); // Keep as string for consistency
+                const isChecked = selectedModuleRoles.includes(id);
+
                 return (
-                  <div key={role.id} className="form-check mb-2">
+                  <div key={role.roleId} className="form-check mb-2">
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      id={`modal-role-${role.id}`}
+                      id={`modal-role-${role.roleId}`}
                       checked={isChecked}
-                      onChange={() => {
-                        if (isChecked) {
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        if (!checked) {
                           // Remove from selection
-                          const newRoles = selectedModuleRoles.filter(id => id !== roleId);
-                          setSelectedModuleRoles(newRoles);
+                          setSelectedModuleRoles(prev => prev.filter(rid => rid !== id));
                         } else {
-                          // Add to selection
-                          const newRoles = [...selectedModuleRoles, roleId];
-                          setSelectedModuleRoles(newRoles);
+                          // Add to selection (avoid duplicates)
+                          setSelectedModuleRoles(prev => prev.includes(id) ? prev : [...prev, id]);
                         }
                       }}
                     />
-                    <label className="form-check-label" htmlFor={`modal-role-${role.id}`}>
+                    <label className="form-check-label" htmlFor={`modal-role-${role.roleId}`}>
                       {role.roleName} - {role.description || ''}
                     </label>
                   </div>
