@@ -84,8 +84,12 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const role = localStorage.getItem("role");
-
+  const roleStr = localStorage.getItem("role");
+  const role = new Map(
+    roleStr.split(',').map(v=>[v,v])
+  );
+  console.log(role, 'role is')
+  console.log(role.has("ADMIN"))
   useEffect(() => {
     const token = sessionStorage.getItem("token");
 
@@ -107,7 +111,7 @@ function App() {
             <Route path="/reset" element={<PasswordReset />} />
 
         {logged &&
-          (role === "ADMIN" || role === "EMPLOYEE" || role === "HR") && (
+          (role.has("ADMIN") || role.has('EMPLOYEE') || role.has('HR')) && (
             <Route
               path="/Dashboard"
               element={
@@ -117,7 +121,7 @@ function App() {
               }
             />
           )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/UserMaster"
             element={
@@ -129,7 +133,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/UserMasterData"
             element={
@@ -140,7 +144,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/AddEmployee"
             element={
@@ -151,7 +155,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/DepartmentMaster"
             element={
@@ -162,7 +166,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/DesignationMaster"
             element={
@@ -173,7 +177,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/EmploymentTypeMaster"
             element={
@@ -184,7 +188,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/RoleMaster"
             element={
@@ -195,7 +199,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/ModuleMaster"
             element={
@@ -206,7 +210,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/menuMaster/UserRoleMaster"
             element={
@@ -217,7 +221,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/employeeDetails/employee/basicInfo"
             element={
@@ -228,7 +232,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/employeeDetails/employee/workInfo"
             element={
@@ -239,7 +243,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/employeeDetails/employee/bankInfo"
             element={
@@ -250,7 +254,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/employeeDetails/employee/emergencyInfo"
             element={
@@ -262,7 +266,7 @@ function App() {
           />
         )}
         {logged &&
-          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+          (role.has('ADMIN') || role.has('HR') || role.has('EMPLOYEE')) && (
             <Route
               path="/selfPortal/AttendanceDetails"
               element={
@@ -274,7 +278,7 @@ function App() {
             />
           )}
         {logged &&
-          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+          (role.has('ADMIN') || role.has('HR') || role.has('EMPLOYEE')) && (
             <Route
               path="/selfPortal/CreateLeave"
               element={
@@ -286,7 +290,7 @@ function App() {
             />
           )}
         {logged &&
-          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+          (role.has('ADMIN') || role.has('HR') || role.has('EMPLOYEE')) && (
             <Route
               path="/selfPortal/ViewShift"
               element={
@@ -298,7 +302,7 @@ function App() {
             />
           )}
         {logged &&
-          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+          (role.has('ADMIN') || role.has('HR') || role.has('EMPLOYEE')) && (
             <Route
               path="/selfPortal/Resignation"
               element={
@@ -310,7 +314,7 @@ function App() {
             />
           )}
           {logged &&
-          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+          (role.has('ADMIN') || role.has('HR') || role.has('EMPLOYEE')) && (
             <Route
               path="/selfPortal/applyForWFH"
               element={
@@ -322,7 +326,7 @@ function App() {
             />
           )}
           {logged &&
-          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+          (role.has('ADMIN') || role.has('HR') || role.has('EMPLOYEE')) && (
             <Route
               path="/selfPortal/ticketRaise"
               element={
@@ -333,7 +337,7 @@ function App() {
               }
             />
           )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/screening&Approval/AttendanceDetails"
             element={
@@ -344,7 +348,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/screening&Approval/PendingLeaveApproval"
             element={
@@ -355,7 +359,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/screening&Approval/TotalLeaveRequest"
             element={
@@ -367,7 +371,7 @@ function App() {
           />
         )}
          {logged &&
-          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+          (role.has('ADMIN') || role.has('HR') || role.has('EMPLOYEE')) && (
             <Route
               path="/selfPortal/HolidayCalendar"
               element={
@@ -378,7 +382,7 @@ function App() {
               }
             />
           )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/leaveRecordDetails"
             element={
@@ -389,7 +393,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/screening&Approval/ResignationDetails"
             element={
@@ -400,7 +404,7 @@ function App() {
             }
           />
         )}
-         {logged && (role === "ADMIN" || role === "HR") && (
+         {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/screening&Approval/TotalRaiseTicket"
             element={
@@ -411,7 +415,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/approvalForWFH"
             element={
@@ -422,7 +426,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/WFHfeedback"
             element={
@@ -433,7 +437,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/termination"
             element={
@@ -444,7 +448,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/payroll/SalarySetup"
             element={
@@ -455,7 +459,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/payroll/salarySlipAll"
             element={
@@ -466,7 +470,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/payroll/advanceSalary"
             element={
@@ -477,7 +481,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/payroll/deduction"
             element={
@@ -488,7 +492,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/organisationStructure/AddHoliday"
             element={
@@ -499,7 +503,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/organisationStructure/LeaveType"
             element={
@@ -510,7 +514,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/organisationStructure/requirementdetail"
             element={
@@ -521,7 +525,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/trainingModule/RegisterEmployee"
             element={
@@ -532,7 +536,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/trainingModule/TainingMaster"
             element={
@@ -543,7 +547,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/trainingModule/TrainingToFeedback"
             element={
@@ -554,7 +558,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/attendance/AddIndividualAttendance"
             element={
@@ -565,7 +569,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/attendance/UploadBulkAttendance"
             element={
@@ -576,7 +580,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/attendance/AddOverTime"
             element={
@@ -587,7 +591,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/attendance/ViewOtReport"
             element={
@@ -598,7 +602,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/attendance/MonthwiseReport"
             element={
@@ -609,7 +613,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/ShiftManagement/AddShift"
             element={
@@ -621,7 +625,7 @@ function App() {
           />
         )}
         {logged &&
-          (role === "ADMIN" || role === "HR" || role === "EMPLOYEE") && (
+          (role.has('ADMIN') || role.has('HR') || role.has('EMPLOYEE')) && (
             <Route
               path="/ShiftManagement/ViewEmployeeShift"
               element={
@@ -632,7 +636,7 @@ function App() {
               }
             />
           )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/Training/Training"
             element={
@@ -643,7 +647,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/Training/Event"
             element={
@@ -654,7 +658,7 @@ function App() {
             }
           />
         )}
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/performance/addEmployeeperformance"
             element={
@@ -666,7 +670,7 @@ function App() {
           />
         )}
         
-        {logged && (role === "ADMIN" || role === "HR") && (
+        {logged && (role.has('ADMIN') || role.has('HR')) && (
           <Route
             path="/branch/Branch"
             element={

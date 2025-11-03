@@ -12,7 +12,7 @@ export default function UserMaster() {
     userName: "",
     password: "",
     confirmPassword: "",
-    roles: "",
+    roleName: "",
     employeeName: "",
   };
 
@@ -59,7 +59,7 @@ export default function UserMaster() {
     }));
 
     // Update selected role
-    if (name === "roles") {
+    if (name === "roleName") {
       setSelectedRole(value);
     }
   };
@@ -93,7 +93,7 @@ export default function UserMaster() {
           userName: res?.userName || res?.response,
           password: res?.password,
           confirmPassword: res.confirmPassword || res?.error_message,
-          roles: res?.roles,
+          roles: res?.roles || res?.error_message,
           employeeName: res?.employeeName,
         });
         setErrorShow(true);
@@ -180,7 +180,7 @@ export default function UserMaster() {
                 controlId="validationCustom07"
                 className="form-select"
                 aria-label="Default select example"
-                name="roles"
+                name="roleName"
                 onChange={handleChange}
                 value={selectedRole}
               >
@@ -190,7 +190,7 @@ export default function UserMaster() {
                 <option value="ADMIN">ADMIN</option>
               </select>
               {errorShow && (
-                <span className="Errorsmessage">{errors.roles}</span>
+                <span className="Errorsmessage">{errors.roleName}</span>
               )}
             </Form.Group>
             <Form.Group
