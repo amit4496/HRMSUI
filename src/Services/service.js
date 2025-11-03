@@ -68,7 +68,12 @@ export const get_permission_urls = "/permission/urls";
 export const post_permission = "/permission/save";
 export const put_permission = "/permission/save";
 export const delete_permission = "/permission/save";
-export const get_permissions = "/permission/getAll";
+export const get_permissions = "/permission/urls";
+
+// Role Module Management APIs
+export const save_role_modules = "/roleModule/save";
+export const get_all_role_modules = "/roleModule/getAll";
+export const delete_role_modules = "/roleModule/delete";
 
 export const get_employee_roles = "/employees/roles";
 export const post_employee_role = "/employees/{id}/roles";

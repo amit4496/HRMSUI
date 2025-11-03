@@ -189,3 +189,4 @@ export async function getData(urlPath) {
 export const isUnauthorizedResponse = (response) => {
   return response && response.isUnauthorized === true;
 };
+

@@ -1,9 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import MaterialTable from "@material-table/core";
 import swal from "sweetalert";
 import Swal from "sweetalert2";
 import { getData, postData, deleteData } from "../../../Services/Api";
-import { post_permission, put_permission, delete_permission, get_permissions, get_roles } from "../../../Services/service";
+import { 
+  get_roles,
+  save_role_modules,
+  get_all_role_modules,
+  delete_role_modules
+} from "../../../Services/service";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { Trash2, Plus } from "lucide-react";
@@ -59,7 +64,7 @@ const ModuleMaster = () => {
     // Allow alphanumeric and special characters for URLs and controller names
     if (event.target.name === 'controller_url' || event.target.name === 'controller_name') {
       // Allow more characters for URLs and controller names
-      if (!/^[a-zA-Z0-9\s\/_.-]+$/.test(key)) {
+      if (!/^[a-zA-Z0-9\s/_.-]+$/.test(key)) {
         event.preventDefault();
       }
     } else if (event.target.name === 'module_id') {
@@ -92,22 +97,48 @@ const ModuleMaster = () => {
       return;
     }
 
-    try {
-      const resp = await postData(data, post_permission);
-      const res = await resp.json();
+    // Validate that at least one role is selected
+    if (!data.roleIds || data.roleIds.length === 0) {
+      swal("Error", "Please select at least one role", "error");
+      return;
+    }
 
-      if (res.Status === 200) {
-        console.log("Module Permission Added Successfully");
-        swal("Success", "Module Permission Added Successfully", "success");
+    try {
+      // Create module-role assignments directly using roleModule API
+      // Each role gets its own entry with this module
+      const successfulAssignments = [];
+      const failedAssignments = [];
+
+      for (const roleId of data.roleIds) {
+        try {
+          const roleModuleUrl = `${save_role_modules}?roleId=${roleId}&moduleIds=${data.module_id}&controllerName=${encodeURIComponent(data.controller_name)}&controllerUrl=${encodeURIComponent(data.controller_url)}`;
+
+          const roleResponse = await postData({}, roleModuleUrl);
+          const roleResult = await roleResponse.json();
+          
+          if (roleResult.Status === 201 || roleResult.Status === 200) {
+            successfulAssignments.push(roleId);
+          } else {
+            failedAssignments.push({ roleId, message: roleResult.Message });
+            console.warn(`Failed to assign module to role ${roleId}: ${roleResult.Message}`);
+          }
+        } catch (error) {
+          failedAssignments.push({ roleId, message: error.message });
+          console.error(`Error assigning module to role ${roleId}:`, error);
+        }
+      }
+
+      if (successfulAssignments.length > 0) {
+        let message = "Module Permission Added Successfully";
+        if (failedAssignments.length > 0) {
+          message += ` (${failedAssignments.length} role assignments failed)`;
+        }
+        
+        swal("Success", message, "success");
         FetchData();
         resetForm();
       } else {
-        setErrors({
-          module_id: res?.module_id || res?.error_message || "",
-          controller_name: res?.controller_name || "",
-          controller_url: res?.controller_url || "",
-        });
-        setErrorShow(true);
+        swal("Error", "Failed to assign module to any roles", "error");
       }
     } catch (err) {
       console.log(err);
@@ -148,45 +179,101 @@ const ModuleMaster = () => {
         confirmButtonText: "Yes, delete it!",
         cancelButtonText: "No, cancel!",
       })
-      .then((result) => {
+      .then(async (result) => {
         if (result.isConfirmed) {
-          swalWithBootstrapButtons.fire({
-            title: "Deleted!",
-            text: "Module permission has been deleted.",
-            icon: "success",
-            timer: 1000,
-            showConfirmButton: false,
-          });
-          
-          // Using the delete endpoint as specified in API requirements
-          const deletePayload = { id: id };
-          deleteData(deletePayload, delete_permission)
-            .then((result) => result.json())
-            .then((response) => {
-              console.log(response);
-              if (response?.Status === 200) {
-                FetchData();
+          try {
+            // Find the module to delete
+            const moduleToDelete = ticketDetails.find(item => item.id === id);
+            
+            if (moduleToDelete && moduleToDelete.assignedRoles) {
+              // Remove from all assigned roles using roleModule API
+              const deletionPromises = [];
+              
+              for (const roleObj of moduleToDelete.assignedRoles) {
+                const deleteRoleModuleUrl = `${delete_role_modules}?roleId=${roleObj.roleId}&moduleIds=${moduleToDelete.module_id}`;
+                deletionPromises.push(deleteData({}, deleteRoleModuleUrl));
               }
-            })
-            .catch((error) => {
-              console.error("Delete error:", error);
-              swal("Error", "Failed to delete module permission", "error");
+              
+              // Wait for all deletions to complete
+              const deletionResults = await Promise.allSettled(deletionPromises);
+              
+              // Check if any deletions failed
+              const failedDeletions = deletionResults.filter(result => 
+                result.status === 'rejected' || 
+                (result.status === 'fulfilled' && result.value.status !== 200)
+              );
+              
+              if (failedDeletions.length > 0) {
+                console.warn(`Failed to delete ${failedDeletions.length} role assignments`);
+              }
+            }
+            
+            // Since we're using roleModule as single source of truth, 
+            // deleting all role assignments effectively removes the module
+            swalWithBootstrapButtons.fire({
+              title: "Deleted!",
+              text: "Module and all its role assignments have been deleted.",
+              icon: "success",
+              timer: 1000,
+              showConfirmButton: false,
             });
+            FetchData();
+          } catch (error) {
+            console.error("Delete error:", error);
+            swal("Error", "Failed to delete module assignments", "error");
+          }
         }
       });
   };
 
   const FetchData = () => {
-    getData(get_permissions)
+    // Use roleModule/getAll as single source of truth for module data and role assignments
+    getData(get_all_role_modules)
       .then((response) => response.json())
       .then((res) => {
         if (res.Status === 200) {
-          setTicketDetails(res?.Data || []);
+          const roleModuleData = res?.Data || [];
+          
+          // Transform role module data to create unique module entries with their assigned roles
+          const moduleMap = new Map();
+          
+          roleModuleData.forEach(roleModule => {
+            const moduleId = roleModule.moduleId;
+            
+            if (!moduleMap.has(moduleId)) {
+              // Create new module entry
+              moduleMap.set(moduleId, {
+                id: roleModule.id, // Use first occurrence ID as primary
+                module_id: roleModule.moduleId,
+                controller_name: roleModule.controllerName || roleModule.controller_name || '',
+                controller_url: roleModule.controllerUrl || roleModule.controller_url || '',
+                assignedRoles: []
+              });
+            }
+            
+            // Add roles to this module
+            const moduleEntry = moduleMap.get(moduleId);
+            if (roleModule.assignedRoles && Array.isArray(roleModule.assignedRoles)) {
+              // Extract role objects and merge, removing duplicates by roleId
+              const currentRoles = moduleEntry.assignedRoles;
+              const currentRoleIds = currentRoles.map(r => r.roleId);
+              
+              const newRoles = roleModule.assignedRoles.filter(role => 
+                !currentRoleIds.includes(role.roleId)
+              );
+              
+              moduleEntry.assignedRoles = [...currentRoles, ...newRoles];
+            }
+          });
+          
+          // Convert map to array for display
+          const moduleArray = Array.from(moduleMap.values());
+          setTicketDetails(moduleArray);
         }
       })
       .catch((err) => {
         console.error(err);
-        swal("Error", "Failed to fetch module permissions", "error");
+        swal("Error", "Failed to fetch module data", "error");
       });
   };
 
@@ -204,9 +291,20 @@ const ModuleMaster = () => {
       });
   };
 
-  useEffect(() => {
+  // Function to refresh data after operations - now just calls FetchData since it's the single source
+  const FetchRoleModules = () => {
+    // Since FetchData now handles both module and role data from roleModule/getAll,
+    // we just need to call FetchData to refresh everything
     FetchData();
-    FetchRoles();
+  };
+
+  useEffect(() => {
+    const fetchAllData = () => {
+      FetchData(); // Now fetches modules and role assignments from roleModule/getAll
+      FetchRoles(); // Still need roles for the form dropdowns
+    };
+    
+    fetchAllData();
   }, []);
 
   const handleEdit = (rowData) => {
@@ -216,21 +314,22 @@ const ModuleMaster = () => {
   };
 
   const handleUpdate = async () => {
-    const url = `${BASE_URL}/permission/update/${selectedRow.id}`;
     try {
-      const response = await axios.put(url, editData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-      });
-      console.log("Update response:", response);
+      // Since we're using roleModule as single source of truth,
+      // we need to update all role assignments for this module
+      // This is complex - for now, show a message that editing should be done through role management
+      swal("Info", "To edit module details, please delete and recreate the module, or use the 'Manage Roles' feature to modify role assignments.", "info");
       setShowModal(false);
-      swal("Success", "Module Permission Updated Successfully", "success");
-      FetchData();
+      
+      // TODO: Implement proper update logic that handles roleModule entries
+      // This would require:
+      // 1. Finding all roleModule entries for this moduleId
+      // 2. Updating each entry's controllerName and controllerUrl
+      // 3. Handling the complexity of multiple API calls
+      
     } catch (error) {
       console.error("Error:", error);
-      swal("Error", "Failed to update module permission", "error");
+      swal("Error", "Failed to update module information", "error");
     }
   };
 
@@ -242,34 +341,85 @@ const ModuleMaster = () => {
     }));
   };
 
-  const handleManageRoles = (rowData) => {
+  const handleManageRoles = useCallback((rowData) => {
     setSelectedRow(rowData);
-    // You would typically fetch the roles assigned to this module
-    setSelectedModuleRoles([]);
+    
+    // Get current role assignments for this module
+    const currentRoles = rowData.assignedRoles || [];
+    const currentRoleIds = currentRoles.map(roleObj => String(roleObj.roleId));
+    setSelectedModuleRoles(currentRoleIds);
     setShowRoleModal(true);
-  };
+  }, [roles]);
 
   const handleRoleAssignment = async () => {
-    // Logic to save role assignments to the module
+    // Logic to save role assignments to the module using roleModule API
     try {
-      const payload = {
-        moduleId: selectedRow.id,
-        roleIds: selectedModuleRoles
-      };
-      
-      const resp = await postData(payload, "/permission/assignRoles");
-      const res = await resp.json();
-      
-      if (res.Status === 200) {
-        swal("Success", "Role assignments updated successfully", "success");
-        setShowRoleModal(false);
-        FetchData();
-      } else {
-        swal("Error", "Failed to update role assignments", "error");
+      // Get current role assignments for this module
+      const currentModule = ticketDetails.find(item => item.id === selectedRow.id);
+      const currentRoleObjects = currentModule?.assignedRoles || [];
+      const currentRoleIds = currentRoleObjects.map(roleObj => String(roleObj.roleId));
+
+      // Find roles to add and remove
+      const rolesToAdd = selectedModuleRoles.filter(roleId => !currentRoleIds.includes(String(roleId)));
+      const rolesToRemove = currentRoleIds.filter(roleId => !selectedModuleRoles.includes(String(roleId)));
+
+      const operations = [];
+
+      // Add new role assignments
+      for (const roleId of rolesToAdd) {
+        const addRoleModuleUrl = `${save_role_modules}?roleId=${roleId}&moduleIds=${selectedRow.module_id}&controllerName=${encodeURIComponent(selectedRow.controller_name)}&controllerUrl=${encodeURIComponent(selectedRow.controller_url)}`;
+        operations.push(
+          postData({}, addRoleModuleUrl).then(response => ({ 
+            type: 'add', 
+            roleId, 
+            response 
+          }))
+        );
       }
+
+      // Remove old role assignments
+      for (const roleId of rolesToRemove) {
+        const removeRoleModuleUrl = `${delete_role_modules}?roleId=${roleId}&moduleIds=${selectedRow.module_id}`;
+        operations.push(
+          deleteData({}, removeRoleModuleUrl).then(response => ({ 
+            type: 'remove', 
+            roleId, 
+            response 
+          }))
+        );
+      }
+
+      // Execute all operations
+      const results = await Promise.allSettled(operations);
+      
+      // Check results
+      const failures = [];
+      for (const result of results) {
+        if (result.status === 'fulfilled') {
+          const { type, roleId, response } = result.value;
+          const jsonResponse = await response.json();
+          const expectedStatus = type === 'add' ? [200, 201] : [200];
+          
+          if (!expectedStatus.includes(jsonResponse.Status)) {
+            failures.push(`Failed to ${type} role ${roleId}: ${jsonResponse.Message}`);
+          }
+        } else {
+          failures.push(`Operation failed: ${result.reason}`);
+        }
+      }
+      
+      if (failures.length === 0) {
+        swal("Success", "Role assignments updated successfully", "success");
+      } else {
+        console.warn("Some operations failed:", failures);
+        swal("Warning", `Role assignments updated with ${failures.length} failures. Check console for details.`, "warning");
+      }
+      
+      setShowRoleModal(false);
+      FetchData();
     } catch (error) {
       console.error("Error:", error);
-      swal("Error", "Failed to update role assignments", "error");
+      swal("Error", error.message || "Failed to update role assignments", "error");
     }
   };
 
@@ -418,23 +568,25 @@ const ModuleMaster = () => {
                 field: "assignedRoles",
                 render: (rowData) => (
                   <span>
-                    {rowData.assignedRoles ? rowData.assignedRoles.join(", ") : "No roles assigned"}
+                    {rowData.assignedRoles && rowData.assignedRoles.length > 0 
+                      ? rowData.assignedRoles.map(role => role.roleName).join(", ") 
+                      : "No roles assigned"}
                   </span>
                 ),
               },
-              {
-                title: "Manage Roles",
-                field: "manageRoles",
-                render: (rowData) => (
-                  <Button
-                    variant="info"
-                    size="sm"
-                    onClick={() => handleManageRoles(rowData)}
-                  >
-                    <Plus size={16} /> Roles
-                  </Button>
-                ),
-              },
+              // {
+              //   title: "Manage Roles",
+              //   field: "manageRoles",
+              //   render: (rowData) => (
+              //     <Button
+              //       variant="info"
+              //       size="sm"
+              //       onClick={() => handleManageRoles(rowData)}
+              //     >
+              //       <Plus size={16} /> Roles
+              //     </Button>
+              //   ),
+              // },
               {
                 title: "Delete",
                 field: "actions",
@@ -538,7 +690,11 @@ const ModuleMaster = () => {
 
       {/* Role Assignment Modal */}
       <div className="container">
-        <Modal show={showRoleModal} onHide={() => setShowRoleModal(false)} size="md">
+        <Modal show={showRoleModal} onHide={() => {
+          setShowRoleModal(false);
+          setSelectedModuleRoles([]);
+          setSelectedRow(null);
+        }} size="md">
           <Modal.Header closeButton>
             <Modal.Title>Manage Role Assignments</Modal.Title>
           </Modal.Header>
@@ -546,31 +702,43 @@ const ModuleMaster = () => {
             <p><strong>Module:</strong> {selectedRow?.controller_name} ({selectedRow?.controller_url})</p>
             <hr />
             <Form>
-              {roles.map((role) => (
-                <div key={role.id} className="form-check mb-2">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    value={role.id}
-                    id={`modal-role-${role.id}`}
-                    checked={selectedModuleRoles.includes(role.id)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedModuleRoles([...selectedModuleRoles, role.id]);
-                      } else {
-                        setSelectedModuleRoles(selectedModuleRoles.filter(id => id !== role.id));
-                      }
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor={`modal-role-${role.id}`}>
-                    {role.roleName} - {role.description}
-                  </label>
-                </div>
-              ))}
+              {roles.map((role) => {
+                const roleId = String(role.id); // Keep as string for consistency
+                const isChecked = selectedModuleRoles.includes(roleId);
+                
+                return (
+                  <div key={role.id} className="form-check mb-2">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      id={`modal-role-${role.id}`}
+                      checked={isChecked}
+                      onChange={() => {
+                        if (isChecked) {
+                          // Remove from selection
+                          const newRoles = selectedModuleRoles.filter(id => id !== roleId);
+                          setSelectedModuleRoles(newRoles);
+                        } else {
+                          // Add to selection
+                          const newRoles = [...selectedModuleRoles, roleId];
+                          setSelectedModuleRoles(newRoles);
+                        }
+                      }}
+                    />
+                    <label className="form-check-label" htmlFor={`modal-role-${role.id}`}>
+                      {role.roleName} - {role.description || ''}
+                    </label>
+                  </div>
+                );
+              })}
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowRoleModal(false)}>
+            <Button variant="secondary" onClick={() => {
+              setShowRoleModal(false);
+              setSelectedModuleRoles([]);
+              setSelectedRow(null);
+            }}>
               Close
             </Button>
             <Button variant="primary" onClick={handleRoleAssignment}>
