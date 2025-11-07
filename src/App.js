@@ -1,5 +1,5 @@
 import "./App.css";
-import SideBar from "./components/Sidebar/SideBar";
+import MainLayout from "./components/Layout/MainLayout";
 import {
   BrowserRouter,
   Route,
@@ -60,7 +60,7 @@ import TotalLeaveRequest from "./pages/Screening & Approval/TotalLeaveRequest";
 import AdvanceSalary from "./pages/Payroll/PayRoll/AdvanceSalary";
 import Resignation from "./pages/SelfPortal/Resignation/Resignation";
 import ResignationDetails from "./pages/Screening & Approval/ResignationDetails";
-import DasNav from "./pages/Dashboard/Navbar/DasNav";
+// DasNav is now replaced by the Header component in MainLayout
 
 import ForgotPassword from "./components/ForgetPassword/ForgotPassword";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
@@ -77,7 +77,6 @@ import RequirementDetail from "./pages/Organisation Structure/RequirementDetail"
 import TicketRaise from "./pages/SelfPortal/TicketRaise/TicketRaise";
 import TotalRaiseTicket from "./pages/Screening & Approval/TotalRaiseTicket";
 import TestErrorHandling from "./components/TestErrorHandling/TestErrorHandling";
-//import AddEmployeePerformance from "./pages/Performance/AddEmployeePerformance.js";
 
 function App() {
   const [logged, setLogged] = useState(false);
@@ -115,9 +114,9 @@ function App() {
             <Route
               path="/Dashboard"
               element={
-                <SideBar>
+                <MainLayout>
                   <Dashboard />
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -125,11 +124,9 @@ function App() {
           <Route
             path="/menuMaster/UserMaster"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <UserMaster />
-
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -137,10 +134,9 @@ function App() {
           <Route
             path="/menuMaster/UserMasterData"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <UserMasterData />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -148,10 +144,9 @@ function App() {
           <Route
             path="/menuMaster/AddEmployee"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <AddEmployee />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -159,10 +154,9 @@ function App() {
           <Route
             path="/menuMaster/DepartmentMaster"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <DepartmentMaster />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -170,10 +164,9 @@ function App() {
           <Route
             path="/menuMaster/DesignationMaster"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <DesignationMaster />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -181,10 +174,9 @@ function App() {
           <Route
             path="/menuMaster/EmploymentTypeMaster"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <EmploymentTypeMaster />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -192,10 +184,9 @@ function App() {
           <Route
             path="/menuMaster/RoleMaster"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <RoleMaster />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -203,10 +194,9 @@ function App() {
           <Route
             path="/menuMaster/ModuleMaster"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <ModuleMaster />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -214,10 +204,9 @@ function App() {
           <Route
             path="/menuMaster/UserRoleMaster"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <UserRoleMaster />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -225,10 +214,9 @@ function App() {
           <Route
             path="/employeeDetails/employee/basicInfo"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <BasicInfo />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -236,10 +224,9 @@ function App() {
           <Route
             path="/employeeDetails/employee/workInfo"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <WorkInfo />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -247,10 +234,9 @@ function App() {
           <Route
             path="/employeeDetails/employee/bankInfo"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <BankInfo />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -258,10 +244,9 @@ function App() {
           <Route
             path="/employeeDetails/employee/emergencyInfo"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <EmergencyInfo />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -270,10 +255,9 @@ function App() {
             <Route
               path="/selfPortal/AttendanceDetails"
               element={
-                <SideBar>
-                  <DasNav />
+                <MainLayout>
                   <AttendanceDetail />
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -282,10 +266,9 @@ function App() {
             <Route
               path="/selfPortal/CreateLeave"
               element={
-                <SideBar>
-                  <DasNav />
+                <MainLayout>
                   <CreateLeave />
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -294,10 +277,9 @@ function App() {
             <Route
               path="/selfPortal/ViewShift"
               element={
-                <SideBar>
-                  <DasNav />
+                <MainLayout>
                   <ViewShift />
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -306,10 +288,9 @@ function App() {
             <Route
               path="/selfPortal/Resignation"
               element={
-                <SideBar>
-                  <DasNav />
+                <MainLayout>
                   <Resignation />
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -318,10 +299,9 @@ function App() {
             <Route
               path="/selfPortal/applyForWFH"
               element={
-                <SideBar>
-                  <DasNav />
+                <MainLayout>
                   <ApplyWFH/>
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -330,10 +310,9 @@ function App() {
             <Route
               path="/selfPortal/ticketRaise"
               element={
-                <SideBar>
-                  <DasNav />
+                <MainLayout>
                 <TicketRaise/>
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -341,10 +320,9 @@ function App() {
           <Route
             path="/screening&Approval/AttendanceDetails"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <AttendanceDetails />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -352,10 +330,9 @@ function App() {
           <Route
             path="/screening&Approval/PendingLeaveApproval"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <PendingLeaveApproval />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -363,10 +340,9 @@ function App() {
           <Route
             path="/screening&Approval/TotalLeaveRequest"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <TotalLeaveRequest />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -375,10 +351,9 @@ function App() {
             <Route
               path="/selfPortal/HolidayCalendar"
               element={
-                <SideBar>
-                  <DasNav />
+                <MainLayout>
                  <HolidayCalendar/>
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -386,10 +361,9 @@ function App() {
           <Route
             path="/leaveRecordDetails"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <LeaveRecordDetails/>
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -397,10 +371,9 @@ function App() {
           <Route
             path="/screening&Approval/ResignationDetails"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <ResignationDetails />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -408,10 +381,9 @@ function App() {
           <Route
             path="/screening&Approval/TotalRaiseTicket"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
              <TotalRaiseTicket/> 
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -419,10 +391,9 @@ function App() {
           <Route
             path="/approvalForWFH"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <WFHDetails/>
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -430,10 +401,9 @@ function App() {
           <Route
             path="/WFHfeedback"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <WFHfeedback/>
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -441,10 +411,9 @@ function App() {
           <Route
             path="/termination"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <Termination/>
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -452,10 +421,9 @@ function App() {
           <Route
             path="/payroll/SalarySetup"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <SalarySetup />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -463,10 +431,9 @@ function App() {
           <Route
             path="/payroll/salarySlipAll"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <SalarySlipAll />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -474,10 +441,9 @@ function App() {
           <Route
             path="/payroll/advanceSalary"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <AdvanceSalary />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -485,10 +451,9 @@ function App() {
           <Route
             path="/payroll/deduction"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <Deduction />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -496,10 +461,9 @@ function App() {
           <Route
             path="/organisationStructure/AddHoliday"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <AddHoliday />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -507,10 +471,9 @@ function App() {
           <Route
             path="/organisationStructure/LeaveType"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <LeaveType />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -518,10 +481,9 @@ function App() {
           <Route
             path="/organisationStructure/requirementdetail"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <RequirementDetail/>
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -529,10 +491,9 @@ function App() {
           <Route
             path="/trainingModule/RegisterEmployee"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <RegisterEmployee />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -540,10 +501,9 @@ function App() {
           <Route
             path="/trainingModule/TainingMaster"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <TrainingMaster />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -551,10 +511,9 @@ function App() {
           <Route
             path="/trainingModule/TrainingToFeedback"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <TrainingToFeedback />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -562,10 +521,9 @@ function App() {
           <Route
             path="/attendance/AddIndividualAttendance"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <AddIndividualAttendance />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -573,10 +531,9 @@ function App() {
           <Route
             path="/attendance/UploadBulkAttendance"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <UploadBulkAttendance />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -584,10 +541,9 @@ function App() {
           <Route
             path="/attendance/AddOverTime"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <AddOverTime />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -595,10 +551,9 @@ function App() {
           <Route
             path="/attendance/ViewOtReport"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <ViewOtReport />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -606,10 +561,9 @@ function App() {
           <Route
             path="/attendance/MonthwiseReport"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <MonthwiseReport />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -617,10 +571,9 @@ function App() {
           <Route
             path="/ShiftManagement/AddShift"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <AddShift />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -629,10 +582,9 @@ function App() {
             <Route
               path="/ShiftManagement/ViewEmployeeShift"
               element={
-                <SideBar>
-                  <DasNav />
+                <MainLayout>
                   <ViewEmployeeShift />
-                </SideBar>
+                </MainLayout>
               }
             />
           )}
@@ -640,10 +592,9 @@ function App() {
           <Route
             path="/Training/Training"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <Training />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -651,10 +602,9 @@ function App() {
           <Route
             path="/Training/Event"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <Event />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -662,10 +612,9 @@ function App() {
           <Route
             path="/performance/addEmployeeperformance"
             element={
-              <SideBar>
-                <DasNav/>
+              <MainLayout>
                 <AddEmployeePerformance/>
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -674,10 +623,9 @@ function App() {
           <Route
             path="/branch/Branch"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <Branch />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -685,10 +633,9 @@ function App() {
           <Route
             path="*"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <NotFound />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}
@@ -698,10 +645,9 @@ function App() {
           <Route
             path="/test-error-handling"
             element={
-              <SideBar>
-                <DasNav />
+              <MainLayout>
                 <TestErrorHandling />
-              </SideBar>
+              </MainLayout>
             }
           />
         )}

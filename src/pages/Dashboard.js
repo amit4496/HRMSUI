@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import Calender from "./Dashboard/Calender/Calender";
-import DasNav from "./Dashboard/Navbar/DasNav";
 import "./dashboard.css";
 import nodataimg from "../components/img/nodata.png";
 
@@ -451,8 +450,6 @@ function Dashboard() {
 
   return (
     <div style={{ maxWidth: "100%" }}>
-      <DasNav />
-      
       <div className="carddisplay">
         <div className="card card1">
           <h3>Permanent Employee</h3>
