@@ -1,0 +1,43 @@
+/* ModernSidebar specific styles to match original sidebar functionality */
+
+.modern-sidebar-link {
+  background: transparent;
+  color: #374151;
+}
+
+.modern-sidebar-link:hover:not(.active) {
+  background: #f1f5f9;
+  color: #f97316;
+}
+
+.modern-sidebar-link.active {
+  background: linear-gradient(135deg, #f97316, #3b82f6);
+  color: white;
+}
+
+.modern-sidebar-sublink {
+  background: transparent;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.modern-sidebar-sublink:hover:not(.active) {
+  background: rgba(249, 115, 22, 0.05);
+  color: #f97316;
+}
+
+.modern-sidebar-sublink.active {
+  background: rgba(249, 115, 22, 0.1);
+  color: #f97316;
+  font-weight: 600;
+}
+
+.modern-sidebar-parent-active {
+  background: linear-gradient(135deg, #f97316, #3b82f6);
+  color: white;
+}
+
+.modern-sidebar-parent-active:hover {
+  background: linear-gradient(135deg, #f97316, #3b82f6);
+  color: white;
+}

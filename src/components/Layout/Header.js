@@ -6,7 +6,7 @@ import { FolderUp } from 'lucide-react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { BASE_URL } from '../../pages/helper';
 
-const Header = ({ toggleSidebar, isSidebarOpen }) => {
+const Header = ({ toggleSidebar, isSidebarOpen, isMobile }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [user, setUser] = useState({ name: 'User', role: 'Employee' });
   const [showNotification, setShowNotification] = useState(false);
@@ -134,20 +134,25 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
     }}>
       {/* Left side */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <button
-          onClick={toggleSidebar}
-          style={{
-            background: 'rgba(255,255,255,0.2)',
-            border: 'none',
-            color: 'white',
-            padding: '0.5rem',
-            borderRadius: '0.5rem',
-            cursor: 'pointer',
-            fontSize: '1.2rem'
-          }}
-        >
-          ☰
-        </button>
+        {isMobile && (
+          <button
+            onClick={toggleSidebar}
+            style={{
+              background: 'rgba(255,255,255,0.2)',
+              border: 'none',
+              color: 'white',
+              padding: '0.5rem',
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              fontSize: '1.2rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            ☰
+          </button>
+        )}
         <img 
           src="/Ahom Logo.png" 
           alt="Ahom Logo" 
@@ -343,7 +348,7 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
               <span>🖼️</span> Edit Picture
             </button>
             
-            <button
+            {/* <button
               onClick={() => setShowProfileMenu(false)}
               style={{
                 width: '100%',
@@ -385,7 +390,7 @@ const Header = ({ toggleSidebar, isSidebarOpen }) => {
               onMouseOut={(e) => e.target.style.background = 'white'}
             >
               <span>⚙️</span> Settings
-            </button>
+            </button> */}
             
             <button
               onClick={handleLogout}
