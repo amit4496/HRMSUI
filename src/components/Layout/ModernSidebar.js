@@ -367,10 +367,13 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
 
   // Filter routes based on user role
   useEffect(() => {
-    const roleName = localStorage.getItem("role");
+    const roleStr = localStorage.getItem("role") || '';
+    const role = new Map(
+        roleStr.split(',').map(v=>[v,v])
+    );
     let filteredRoutes = [...routes];
 
-    if (roleName === "EMPLOYEE") {
+    if (role.has("EMPLOYEE")) {
       filteredRoutes = filteredRoutes.filter((route) => {
         return (
           route.path === "/Dashboard" || route.path.startsWith("/selfPortal")
@@ -499,7 +502,7 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
                     gap: '0.75rem'
                   }}
                 >
-                  <div style={{
+                  {/* <div style={{
                     width: '32px',
                     height: '32px',
                     background: 'rgba(255,255,255,0.2)',
@@ -510,7 +513,7 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
                     fontSize: '1.2rem'
                   }}>
                     🏢
-                  </div>
+                  </div> */}
                   <div>
                     <h1 style={{
                       margin: 0,
