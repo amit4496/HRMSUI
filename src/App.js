@@ -84,7 +84,7 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const roleStr = localStorage.getItem("role");
+  const roleStr = localStorage.getItem("role") || '';
   const role = new Map(
     roleStr.split(',').map(v=>[v,v])
   );
