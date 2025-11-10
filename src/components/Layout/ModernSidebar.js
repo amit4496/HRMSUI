@@ -27,7 +27,7 @@ import { GrDocumentPerformance } from 'react-icons/gr';
 
 const routes = [
   {
-    path: "/Dashboard",
+    path: "/dashboard",
     name: "Dashboard",
     icon: <AiFillHome />,
   },
@@ -376,7 +376,7 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
     if (role.has("EMPLOYEE")) {
       filteredRoutes = filteredRoutes.filter((route) => {
         return (
-          route.path === "/Dashboard" || route.path.startsWith("/selfPortal")
+          route.path === "/dashboard" || route.path.startsWith("/selfPortal")
         );
       });
     }

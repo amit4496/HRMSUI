@@ -48,7 +48,7 @@ const SignInForm = (props) => {
         localStorage.setItem("role", data?.Data.roles);
         localStorage.setItem("employeeId", data?.Data.id);
         localStorage.setItem("email", data?.Data.email);
-        navigate("/Dashboard");
+        navigate("/dashboard");
       } else {
         setError("Invalid username or password");
       }

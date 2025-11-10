@@ -1,21 +1,16 @@
 import "./App.css";
 import MainLayout from "./components/Layout/MainLayout";
 import {
-  BrowserRouter,
   Route,
   Routes,
   useNavigate,
   useLocation,
 } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-// Error handling imports
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import { ErrorProvider } from "./contexts/ErrorContext";
 import GlobalErrorHandler from "./components/GlobalErrorHandler/GlobalErrorHandler";
 import ErrorContextConnector from "./components/ErrorContextConnector/ErrorContextConnector";
-
-// Import your page components
 import Dashboard from "./pages/Dashboard";
 import AddEmployee from "./pages/Menu Master/AddEmployee/AddEmployee";
 import SalarySetup from "./pages/Payroll/SalarySetup/SalarySetup";
@@ -43,7 +38,6 @@ import SignIn from "./pages/Signin/SignIn";
 import Event from "./pages/Training/Event";
 import ViewEmployeeShift from "./pages/Shift Management/ViewEmployeeShift";
 import UserMasterData from "./pages/Menu Master/User Master Data/UserMasterData";
-import EmployeeMaster from "./pages/Menu Master/EmployeeMaster/EmployeeMaster";
 
 import RegisterEmployee from "./pages/TrainingModule/RegisterEmployee/RegisterEmployee";
 import Branch from "./pages/Branch/Branch";
@@ -60,7 +54,6 @@ import TotalLeaveRequest from "./pages/Screening & Approval/TotalLeaveRequest";
 import AdvanceSalary from "./pages/Payroll/PayRoll/AdvanceSalary";
 import Resignation from "./pages/SelfPortal/Resignation/Resignation";
 import ResignationDetails from "./pages/Screening & Approval/ResignationDetails";
-// DasNav is now replaced by the Header component in MainLayout
 
 import ForgotPassword from "./components/ForgetPassword/ForgotPassword";
 import PasswordReset from "./components/ForgetPassword/PasswordReset";
@@ -95,7 +88,7 @@ function App() {
     if (token && role) {
       setLogged(true);
     } else {
-      // navigate("/");
+      navigate("/");
     }
   }, [location, navigate]);
 
@@ -112,7 +105,7 @@ function App() {
         {logged &&
           (role.has("ADMIN") || role.has('EMPLOYEE') || role.has('HR')) && (
             <Route
-              path="/Dashboard"
+              path="/dashboard"
               element={
                 <MainLayout>
                   <Dashboard />

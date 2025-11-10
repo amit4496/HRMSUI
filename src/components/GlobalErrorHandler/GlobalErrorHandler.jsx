@@ -13,7 +13,7 @@ const GlobalErrorHandler = () => {
 
   const handleGoHome = () => {
     clearUnauthorizedError();
-    window.location.href = '/Dashboard';
+    window.location.href = '/dashboard';
   };
 
   // Only render if there's an unauthorized error

@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from "react";
-
-import Calender from "./Dashboard/Calender/Calender";
+import { useEffect, useState } from "react";
 import "./dashboard.css";
 import nodataimg from "../components/img/nodata.png";
-
-// Test component for 403 error handling
-import TestApi403 from "../components/TestApi403/TestApi403";
-
 import { getData } from "../Services/Api";
 import { User, get_leaveDetails, work_data } from "../Services/service";
 import { get_leave } from "../Services/service";
 import { useNavigate } from "react-router";
 import { get_attendence } from "../Services/service";
-import { Pie } from "react-chartjs-2";
 import "chart.js/auto";
 import { PolarArea } from "react-chartjs-2";
-// import Chart from 'chart.js';
-import Chart from "chart.js/auto";
 
 function Dashboard() {
   const [filteredData, setFilteredData] = useState([]);

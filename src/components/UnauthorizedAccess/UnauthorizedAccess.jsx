@@ -12,7 +12,7 @@ const UnauthorizedAccess = ({
     if (onGoHome) {
       onGoHome();
     } else {
-      window.location.href = '/Dashboard';
+      window.location.href = '/dashboard';
     }
   };
 
