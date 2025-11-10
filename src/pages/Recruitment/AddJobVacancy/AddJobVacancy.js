@@ -85,10 +85,6 @@ useEffect(()=>
             <select valueType={data.jobTitle} class="form-select" aria-label="Default select example"name="jobTitle" onChange={inputChangeHandler}>
               <option selected disabled>Select Job Title</option>
               {show.map(e=>(<option value={e.jobTitles}>{e.jobTitles}</option>))}
-              {/* <option valueType="aman">Aman</option>
-              <option valueType="amit">Amit</option>
-              <option valueType="ranjan">Ranjan</option>
-              <option valueType="saurav">Saurav</option> */}
             </select>
           </div>
 
@@ -105,10 +101,6 @@ useEffect(()=>
             <select valueType={data.hiringManager}class="form-select" aria-label="Default select example" name="hiringManager" onChange={inputChangeHandler}>
               <option selected disabled>Select Hiring Manager</option>
               {itemshow.map(e=>(<option value={e.employeeName}>{e.employeeName}</option>))}
-              {/* <option valueType="aman">Aman</option>
-              <option valueType="amit">Amit</option>
-              <option valueType="ranjan">Ranjan</option>
-              <option valueType="saurav">Saurav</option> */}
             </select>
           </div>
 

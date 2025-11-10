@@ -26,7 +26,7 @@ useEffect(() => {
 
   return <>
   <div className="container">
-    <h4>Datewise Attendance Report</h4>
+    <h4>Date wise Attendance Report</h4>
     <hr className="100%" />
     <form onSubmit={submitHandler} className="bg-light">
    
@@ -38,11 +38,7 @@ useEffect(() => {
        <br/>  
        <select valueType={employee} class="form-select" aria-label="Default select example" name="selectemployee" onChange={(e)=>{setEmployee(e.target.value)}}>
     <option selected disabled>Select Employee</option>
-    {show.map(aman=>( <option valueType={aman.employeeName}>{aman.employeeName}</option>))}
-    {/* <option valueType="aman">Aman</option>
-    <option valueType="amit">Amit</option>
-    <option valueType="ranjan">Ranjan</option>
-    <option valueType="saurav">Saurav</option> */}
+    {show.map(item=>( <option valueType={item.employeeName}>{item.employeeName}</option>))}
   </select>
   </div>
   

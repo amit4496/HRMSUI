@@ -53,10 +53,6 @@ useEffect(()=>
   
     <option selected disabled>Select Employee</option>
     {show.map(e=>(<option valueType={e.employeeName}>{e.employeeName}</option>))}
-    {/* <option valueType="aman">Aman</option>
-    <option valueType="amit">Amit</option>
-    <option valueType="ranjan">Ranjan</option>
-    <option valueType="saurav">Saurav</option> */}
   </select>
   </div>
   <div className="col-sm-4 mt-2">

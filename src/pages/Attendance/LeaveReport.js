@@ -1,5 +1,6 @@
 import { useState,useEffect } from "react";
 import swal from 'sweetalert';
+import { BASE_URL } from "../helper";
   const LeaveReport = () => {
   const [data,setData]=useState({
     Session:'',
@@ -19,7 +20,7 @@ import swal from 'sweetalert';
   console.log(JSON.stringify(data))
  }
  const fetchData = () => {
-  fetch("http://localhost:8080/basic/fetchdata", {
+  fetch(`${BASE_URL}/basic/fetchdata`, {
   })
     .then((response) => {
       return response.json();
@@ -62,12 +63,12 @@ useEffect(() => {
     <option value="February">February</option>
     <option value="March">March</option>
     <option value="April">April</option>
-    <option value="aman">May</option>
+    <option value="May">May</option>
     <option value="June">June</option>
     <option value="July">July</option>
     <option value="August">August</option>
     <option value="September">September</option>
-    <option value="Octuber">Octuber</option>
+    <option value="October">October</option>
     <option value="November">November</option>
     <option value="December">December</option>
   </select>
@@ -78,11 +79,7 @@ useEffect(() => {
        <br/>  
        <select value={data.Chooseemployee} class="form-select" aria-label="Default select example" name="Chooseemployee" onChange={inputChangeHandler}>
     <option selected disabled>Choose Emoloyee</option>
-    {show.map(aman=>( <option valueType={aman.employeeName}>{aman.employeeName}</option>))}
-    {/* <option value="aman">Aman</option>
-    <option value="amit">Amit</option>
-    <option value="ranjan">Ranjan</option>
-    <option value="saurav">Saurav</option> */}
+    {show.map(item=>( <option valueType={item.employeeName}>{item.employeeName}</option>))}
   </select>
   </div>
 
