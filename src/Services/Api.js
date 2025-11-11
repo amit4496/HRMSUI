@@ -19,28 +19,43 @@ async function enhancedFetch(url, options = {}, endpoint = '', method = 'GET') {
     const response = await fetch(url, options);
     
     // Handle API errors if error context is available
-    if (errorContextRef && response.status === 403) {
-      errorContextRef.setUnauthorizedError({
-        message: 'You are not authorized to access this resource',
-        endpoint,
-        method,
-        details: response.statusText
-      });
-      
-      // Return a special response object for 403 errors
-      return {
-        ...response,
-        isUnauthorized: true,
-        json: async () => ({ 
-          Status: 403, 
-          Message: 'Unauthorized access',
-          error_message: 'You are not authorized to access this resource' 
-        })
-      };
+    if (errorContextRef) {
+      if (response.status === 401) {
+        errorContextRef.handleAuthenticationError();
+        return {
+          ...response,
+          isAuthenticated: false,
+          json: async () => ({ 
+            Status: 401, 
+            Message: 'Authentication required',
+            error_message: 'Your session has expired. Please log in again.' 
+          })
+        };
+      }
+
+      if (response.status === 403) {
+        errorContextRef.setUnauthorizedError({
+          message: 'You are not authorized to access this resource',
+          endpoint,
+          method,
+          details: response.statusText
+        });
+        
+        // Return a special response object for 403 errors
+        return {
+          ...response,
+          isUnauthorized: true,
+          json: async () => ({ 
+            Status: 403, 
+            Message: 'Unauthorized access',
+            error_message: 'You are not authorized to access this resource' 
+          })
+        };
+      }
     }
     
     // Handle other errors
-    if (errorContextRef && response.status >= 400 && response.status !== 403) {
+    if (errorContextRef && response.status >= 400 && response.status !== 403 && response.status !== 401) {
       errorContextRef.addNetworkError({
         message: `Server error: ${response.status} ${response.statusText}`,
         details: {
@@ -188,5 +203,10 @@ export async function getData(urlPath) {
 // Utility function to check if response is unauthorized
 export const isUnauthorizedResponse = (response) => {
   return response && response.isUnauthorized === true;
+};
+
+// Utility function to check if response is unauthenticated
+export const isUnauthenticatedResponse = (response) => {
+  return response && response.isAuthenticated === false;
 };
 

@@ -33,6 +33,18 @@ async function enhancedFetch(url, options = {}, endpoint = '', method = 'GET') {
           })
         };
       }
+      if (wasHandled && response.status === 401) {
+        // Return a special response object for 401 errors
+        return {
+          ...response,
+          isAuthenticated: false,
+          json: async () => ({ 
+            Status: 401, 
+            Message: 'Authentication required',
+            error_message: 'Your session has expired. Please log in again.' 
+          })
+        };
+      }
     }
 
     return response;
@@ -174,9 +186,22 @@ export const isUnauthorizedResponse = (response) => {
   return response && response.isUnauthorized === true;
 };
 
+// Utility function to check if response is unauthenticated
+export const isUnauthenticatedResponse = (response) => {
+  return response && response.isAuthenticated === false;
+};
+
 // Utility function to handle response with automatic error detection
 export const handleApiResponse = async (response, onSuccess, onError) => {
   try {
+    if (isUnauthenticatedResponse(response)) {
+      // 401 error is already handled by the error context (redirects to login)
+      if (onError) {
+        onError(new Error('Authentication required'));
+      }
+      return null;
+    }
+
     if (isUnauthorizedResponse(response)) {
       // 403 error is already handled by the error context
       if (onError) {

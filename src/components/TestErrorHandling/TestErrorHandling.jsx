@@ -4,7 +4,7 @@ import { useError } from '../../contexts/ErrorContext';
 
 const TestErrorHandling = () => {
   const { apiGet, apiPost, isLoading } = useApi();
-  const { setUnauthorizedError, clearUnauthorizedError, unauthorizedError, errors } = useError();
+  const { setUnauthorizedError, clearUnauthorizedError, unauthorizedError, errors, handleAuthenticationError } = useError();
   const [testResults, setTestResults] = useState([]);
 
   const addTestResult = (test, success, message) => {
@@ -17,7 +17,7 @@ const TestErrorHandling = () => {
     }]);
   };
 
-  // Test 403 error by triggering it manually
+    // Test 403 error by triggering it manually
   const test403Error = () => {
     setUnauthorizedError({
       message: 'This is a simulated 403 error for testing purposes',
@@ -25,6 +25,15 @@ const TestErrorHandling = () => {
       method: 'GET'
     });
     addTestResult('Manual 403 Error', true, 'Successfully triggered 403 error display');
+  }
+  
+  // Test 401 error by triggering authentication error (will redirect to login)
+  const test401Error = () => {
+    addTestResult('Manual 401 Error', true, 'Triggered 401 error - should redirect to login page');
+    // Small delay to show the message before redirect
+    setTimeout(() => {
+      handleAuthenticationError();
+    }, 1000);
   };
 
   // Test API call with simulated 403 response
@@ -79,9 +88,23 @@ const TestErrorHandling = () => {
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
       <h2>Error Handling Test Panel</h2>
-      <p>This component helps test the 403 error handling implementation.</p>
+      <p>This component helps test the 401 and 403 error handling implementation.</p>
 
       <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+        <button 
+          onClick={test401Error}
+          style={{ 
+            padding: '10px 20px', 
+            backgroundColor: '#9b59b6', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '5px',
+            cursor: 'pointer'
+          }}
+        >
+          Test 401 Error (Redirect)
+        </button>
+
         <button 
           onClick={test403Error}
           style={{ 
@@ -93,7 +116,7 @@ const TestErrorHandling = () => {
             cursor: 'pointer'
           }}
         >
-          Test 403 Error (Manual)
+          Test 403 Error (Modal)
         </button>
 
         <button 

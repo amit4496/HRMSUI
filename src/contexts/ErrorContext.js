@@ -5,7 +5,8 @@ const ERROR_TYPES = {
   UNAUTHORIZED: 'UNAUTHORIZED',
   GENERAL: 'GENERAL',
   NETWORK: 'NETWORK',
-  VALIDATION: 'VALIDATION'
+  VALIDATION: 'VALIDATION',
+  AUTHENTICATION: 'AUTHENTICATION'
 };
 
 // Initial state
@@ -172,8 +173,22 @@ export const ErrorProvider = ({ children }) => {
     });
   }, []);
 
+  // Handle authentication error (401) - clear session and redirect to login
+  const handleAuthenticationError = useCallback(() => {
+    // Clear session data
+    sessionStorage.removeItem('token');
+    localStorage.clear();
+    // Redirect to login
+    window.location.href = '/';
+  }, []);
+
   // Handle API response errors
   const handleApiError = useCallback((response, endpoint, method) => {
+    if (response.status === 401) {
+      handleAuthenticationError();
+      return true; // Indicates 401 error was handled
+    }
+
     if (response.status === 403) {
       setUnauthorizedError({
         message: 'You are not authorized to access this resource',
@@ -198,7 +213,7 @@ export const ErrorProvider = ({ children }) => {
     }
 
     return false; // No error
-  }, [setUnauthorizedError, addNetworkError]);
+  }, [setUnauthorizedError, addNetworkError, handleAuthenticationError]);
 
   const value = {
     // State
@@ -216,6 +231,7 @@ export const ErrorProvider = ({ children }) => {
     removeError,
     clearAllErrors,
     handleApiError,
+    handleAuthenticationError,
     
     // Constants
     ERROR_TYPES
