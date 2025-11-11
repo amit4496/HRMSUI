@@ -9,7 +9,8 @@ import {
   FaUserEdit,
   FaUsers,
   FaChevronDown,
-  FaChevronRight
+  FaChevronRight,
+  FaBriefcase
 } from 'react-icons/fa';
 import {
   AiFillAccountBook,
@@ -24,6 +25,7 @@ import {
   BsPersonLinesFill,
 } from 'react-icons/bs';
 import { GrDocumentPerformance } from 'react-icons/gr';
+import { HIRING_PORTAL_API_URL, HIRING_PORTAL_URL } from '../../pages/helper';
 
 const routes = [
   {
@@ -357,6 +359,12 @@ const routes = [
         icon: <AiOutlineCaretRight />,
       }
     ]
+  },
+  {
+    path: "/recruitment",
+    name: "Recruitment",
+    icon: <FaBriefcase />,
+    isExternal: true, // Flag to indicate external link with API call
   }
 ];
 
@@ -364,6 +372,7 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
   const location = useLocation();
   const [modifiedRoutes, setModifiedRoutes] = useState([]);
   const [expandedMenus, setExpandedMenus] = useState({});
+  const [isLoadingRecruitment, setIsLoadingRecruitment] = useState(false);
 
   // Filter routes based on user role
   useEffect(() => {
@@ -436,6 +445,65 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
   const handleLinkClick = () => {
     if (isMobile && isOpen) {
       toggleSidebar();
+    }
+  };
+
+  const handleRecruitmentClick = async (e) => {
+    e.preventDefault();
+    setIsLoadingRecruitment(true);
+    
+    try {
+      // Get current user token for authorization
+      const currentToken = localStorage.getItem('token');
+      
+      if (!currentToken) {
+        alert('You must be logged in to access the recruitment portal.');
+        setIsLoadingRecruitment(false);
+        return;
+      }
+      
+      // Fetch the recruitment authorization API
+      const response = await fetch(`${HIRING_PORTAL_API_URL}/api/register-authorize`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${currentToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Validate response data before storing
+      if (!data) {
+        throw new Error('Invalid response from recruitment portal');
+      }
+
+      // Store the response data in sessionStorage
+      if (data.name) {
+        sessionStorage.setItem('name', data.name);
+      }
+      if (data.email) {
+        sessionStorage.setItem('email', data.email);
+      }
+      if (data.token) {
+        sessionStorage.setItem('token', data.token);
+      }
+      if (data.roles) {
+        // Handle roles - can be string or array
+        const rolesValue = Array.isArray(data.roles) ? data.roles.join(',') : data.roles;
+        sessionStorage.setItem('roles', rolesValue);
+      }
+
+      // Redirect to the recruitment portal
+      window.location.href = `${HIRING_PORTAL_URL}/dashboard`;
+    } catch (error) {
+      console.error('Recruitment portal access error:', error);
+      alert('Unable to access recruitment portal. Please try again later.');
+      setIsLoadingRecruitment(false);
     }
   };
 
@@ -642,6 +710,60 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
                       <FaChevronDown />
                     </motion.span>
                   )}
+                </button>
+              ) : route.isExternal ? (
+                <button
+                  onClick={handleRecruitmentClick}
+                  disabled={isLoadingRecruitment}
+                  className='modern-sidebar-link'
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    padding: '0.75rem',
+                    border: 'none',
+                    textDecoration: 'none',
+                    borderRadius: '0.75rem',
+                    fontSize: '0.9rem',
+                    fontWeight: '500',
+                    transition: 'all 0.2s ease',
+                    cursor: isLoadingRecruitment ? 'not-allowed' : 'pointer',
+                    opacity: isLoadingRecruitment ? 0.6 : 1
+                  }}
+                  onMouseOver={(e) => {
+                    if (!isLoadingRecruitment) {
+                      e.target.style.background = '#f1f5f9';
+                      e.target.style.color = '#f97316';
+                    }
+                  }}
+                  onMouseOut={(e) => {
+                    if (!isLoadingRecruitment) {
+                      e.target.style.background = 'transparent';
+                      e.target.style.color = '#374151';
+                    }
+                  }}
+                >
+                  <span style={{
+                    fontSize: '1.1rem',
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}>
+                    {route.icon}
+                  </span>
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.span
+                        initial={{ opacity: 0, width: 0 }}
+                        animate={{ opacity: 1, width: 'auto' }}
+                        exit={{ opacity: 0, width: 0 }}
+                        transition={{ duration: 0.2 }}
+                        style={{ whiteSpace: 'nowrap' }}
+                      >
+                        {isLoadingRecruitment ? 'Loading...' : route.name}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
                 </button>
               ) : (
                 <NavLink
