@@ -33,7 +33,6 @@ const Header = ({ toggleSidebar, isSidebarOpen, isMobile }) => {
 
   const handleLogout = async () => {
     await fetch('/logout');
-    sessionStorage.removeItem('token');
     localStorage.clear();
     window.location.href = '/';
   };

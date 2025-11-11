@@ -176,7 +176,6 @@ export const ErrorProvider = ({ children }) => {
   // Handle authentication error (401) - clear session and redirect to login
   const handleAuthenticationError = useCallback(() => {
     // Clear session data
-    sessionStorage.removeItem('token');
     localStorage.clear();
     // Redirect to login
     window.location.href = '/';

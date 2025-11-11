@@ -83,7 +83,7 @@ function App() {
   console.log(role, 'role is')
   console.log(role.has("ADMIN"))
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     if (token && role) {
       setLogged(true);

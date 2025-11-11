@@ -42,7 +42,6 @@ const SignInForm = (props) => {
       });
       const data = await response.json();
       if (data?.Data?.token) {
-        sessionStorage.setItem("token", JSON.stringify(data?.Data.token));
         localStorage.setItem("token", data?.Data.token);
         localStorage.setItem("user", data?.Data.userName);
         localStorage.setItem("role", data?.Data.roles);
