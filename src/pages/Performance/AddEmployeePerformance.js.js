@@ -198,8 +198,8 @@ import { BASE_URL } from "../helper";
               required
             />
             <datalist id="employee">
-              {xyz.map((saurabh) => (
-                <option value={saurabh.employeeName} key={saurabh.employeeName}></option>
+              {xyz.map((item) => (
+                <option value={item.employeeName} key={item.employeeName}></option>
               ))}
             </datalist>
             {error ? (

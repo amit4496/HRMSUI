@@ -919,7 +919,7 @@ const AddEmployee = () => {
                         </option>
                         <option value="technical">Technical</option>
                         <option value="Nontechnical">Non-Technical</option>
-                        {/* {show.map(saurabh=>( <option valueType={saurabh.workType}>{saurabh.workType}</option>))} */}
+                        {/* {show.map(item=>( <option valueType={item.workType}>{item.workType}</option>))} */}
                       </select>
                       {errorShow1 && (
                         <span className="Errorsmessage">

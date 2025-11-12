@@ -142,8 +142,8 @@ function AttendanceDetails() {
                 required
               />
               <datalist id="employee">
-                {xyz.map((saurabh) => (
-                  <option value={saurabh.employeeName}></option>
+                {xyz.map((item) => (
+                  <option value={item.employeeName}></option>
                 ))}
               </datalist>
               {error ? (

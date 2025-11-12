@@ -14,7 +14,7 @@ function SignIn(props) {
 
   return (
     <div className={classes.body}>
-      <div className={classes.saurabh}>
+      <div className={classes.item}>
         <div className={classes.appForm}>
           <div className={classes.logo }>
             <img src={ahom} alt="logo" />

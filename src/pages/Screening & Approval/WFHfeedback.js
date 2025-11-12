@@ -171,10 +171,10 @@ function WFHfeedback() {
               required
             />
             <datalist id="employee">
-              {xyz.map((saurabh) => (
+              {xyz.map((item) => (
                 <option
-                  value={saurabh.employeeName}
-                  key={saurabh.employeeName}
+                  value={item.employeeName}
+                  key={item.employeeName}
                 ></option>
               ))}
             </datalist>
