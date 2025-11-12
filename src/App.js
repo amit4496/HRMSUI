@@ -69,7 +69,6 @@ import HolidayCalendar from "./pages/SelfPortal/Holidaycalendar/HolidayCalendar"
 import RequirementDetail from "./pages/Organisation Structure/RequirementDetail";
 import TicketRaise from "./pages/SelfPortal/TicketRaise/TicketRaise";
 import TotalRaiseTicket from "./pages/Screening & Approval/TotalRaiseTicket";
-import TestErrorHandling from "./components/TestErrorHandling/TestErrorHandling";
 
 function App() {
   const [logged, setLogged] = useState(false);
@@ -628,18 +627,6 @@ function App() {
             element={
               <MainLayout>
                 <NotFound />
-              </MainLayout>
-            }
-          />
-        )}
-        
-        {/* Test route for error handling - remove in production */}
-        {logged && (
-          <Route
-            path="/test-error-handling"
-            element={
-              <MainLayout>
-                <TestErrorHandling />
               </MainLayout>
             }
           />

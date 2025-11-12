@@ -9,6 +9,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { initializeApp } from "firebase/app";
 import { getMessaging } from 'firebase/messaging';
+import { basename } from './config/paths';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB51UpROKbFDiEnPtrsuaMYlKSqCBJlImg",
@@ -23,7 +24,7 @@ firebase.initializeApp(firebaseConfig);
 const messaging = getMessaging();
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename={basename}>
     <App />
   </BrowserRouter>,
   document.getElementById('root')

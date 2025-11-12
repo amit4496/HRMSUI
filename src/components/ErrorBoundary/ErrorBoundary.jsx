@@ -1,5 +1,6 @@
 import React from 'react';
 import './ErrorBoundary.css';
+import { navigateTo } from '../../config/paths';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class ErrorBoundary extends React.Component {
               </button>
               <button 
                 className="home-button"
-                onClick={() => window.location.href = '/dashboard'}
+                onClick={() => navigateTo('/dashboard')}
               >
                 Go to Dashboard
               </button>

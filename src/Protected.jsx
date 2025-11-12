@@ -8,9 +8,8 @@ const Protected = (props) => {
 
     useEffect(() => {
         const userData = localStorage.getItem('token')
-        // if (userData == undefined || userData == null) {
-        //     navigate('/')
-        // }
+        // Note: navigate() from useNavigate automatically handles base path
+        // because we configured BrowserRouter with basename
         if (!userData) {
             navigate('/')
         }

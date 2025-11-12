@@ -5,6 +5,7 @@ import { FaTimes } from 'react-icons/fa';
 import { FolderUp } from 'lucide-react';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { BASE_URL } from '../../pages/helper';
+import { navigateTo } from '../../config/paths';
 
 const Header = ({ toggleSidebar, isSidebarOpen, isMobile }) => {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -34,7 +35,7 @@ const Header = ({ toggleSidebar, isSidebarOpen, isMobile }) => {
   const handleLogout = async () => {
     await fetch('/logout');
     localStorage.clear();
-    window.location.href = '/';
+    navigateTo('/');
   };
 
   const closePopup = () => {

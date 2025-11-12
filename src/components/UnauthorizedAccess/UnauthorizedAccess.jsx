@@ -1,5 +1,6 @@
 import React from 'react';
 import './UnauthorizedAccess.css';
+import { navigateTo } from '../../config/paths';
 
 const UnauthorizedAccess = ({ 
   onRetry, 
@@ -12,7 +13,7 @@ const UnauthorizedAccess = ({
     if (onGoHome) {
       onGoHome();
     } else {
-      window.location.href = '/dashboard';
+      navigateTo('/dashboard');
     }
   };
 

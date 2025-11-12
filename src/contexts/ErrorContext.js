@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useCallback } from 'react';
+import { navigateTo } from '../config/paths';
 
 // Error types
 const ERROR_TYPES = {
@@ -178,7 +179,7 @@ export const ErrorProvider = ({ children }) => {
     // Clear session data
     localStorage.clear();
     // Redirect to login
-    window.location.href = '/';
+    navigateTo('/');
   }, []);
 
   // Handle API response errors
