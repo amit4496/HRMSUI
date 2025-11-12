@@ -463,7 +463,9 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
       }
       const uData = {
         email: localStorage.getItem('email') || '',
-        roles: localStorage.getItem('roles') || '',
+        role: localStorage.getItem('role') || '',
+        employeeId: localStorage.getItem('employeeId') || '',
+        user: localStorage.getItem('user') || '',
       }
       // Fetch the recruitment authorization API
       const response = await fetch(`${HIRING_PORTAL_API_URL}/api/register-authorize`, {
@@ -482,28 +484,28 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
       const data = await response.json();
 
       // Validate response data before storing
-      if (!data) {
-        throw new Error('Invalid response from recruitment portal');
-      }
+      // if (!data) {
+      //   throw new Error('Invalid response from recruitment portal');
+      // }
 
-      // Store the response data in sessionStorage
-      if (data.name) {
-        sessionStorage.setItem('name', data.name);
-      }
-      if (data.email) {
-        sessionStorage.setItem('email', data.email);
-      }
-      if (data.token) {
-        sessionStorage.setItem('token', data.token);
-      }
-      if (data.roles) {
-        // Handle roles - can be string or array
-        const rolesValue = Array.isArray(data.roles) ? data.roles.join(',') : data.roles;
-        sessionStorage.setItem('roles', rolesValue);
-      }
+      // // Store the response data in sessionStorage
+      // if (data.name) {
+      //   sessionStorage.setItem('name', data.name);
+      // }
+      // if (data.email) {
+      //   sessionStorage.setItem('email', data.email);
+      // }
+      // if (data.token) {
+      //   sessionStorage.setItem('token', data.token);
+      // }
+      // if (data.roles) {
+      //   // Handle roles - can be string or array
+      //   const rolesValue = Array.isArray(data.roles) ? data.roles.join(',') : data.roles;
+      //   sessionStorage.setItem('roles', rolesValue);
+      // }
 
       // Redirect to the recruitment portal
-      window.location.href = `${HIRING_PORTAL_URL}/dashboard`;
+      window.location.href = data.redirectUrl;
     } catch (error) {
       console.error('Recruitment portal access error:', error);
       alert('Unable to access recruitment portal. Please try again later.');
