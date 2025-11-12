@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BASE_URL } from "../helper";
 
   const LoanMaster = () => {
   const [data,setData]=useState({
@@ -13,7 +14,7 @@ import { useState } from "react";
  const submitHandler=(e)=>{
   console.log(JSON.stringify(data))
 
-  fetch("http://localhost:8080/loan_master/save",{
+  fetch(`${BASE_URL}/loan_master/save`,{
     method:"POST",
     headers:{"content-Type": "application/json", "Accept": "application/json"},
     body:JSON.stringify(data)

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ExportCsv, ExportPdf } from "@material-table/exporters";
+import { BASE_URL } from "../../helper";
 
   const PayRoll = () => {
     const [data,setData]=useState({
@@ -18,7 +19,7 @@ import { ExportCsv, ExportPdf } from "@material-table/exporters";
    const submitHandler=(e)=>{
     console.log(JSON.stringify(data))
 
-    fetch("http://localhost:8080/payrolls/payroll",{
+    fetch(`${BASE_URL}/payrolls/payroll`,{
       method:"POST",
       headers:{"content-Type":"application/json","Accept":"application/json"},
       body:JSON.stringify(data)

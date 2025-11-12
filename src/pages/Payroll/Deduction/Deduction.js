@@ -1,6 +1,7 @@
 
 
 import { useState } from "react";
+import { BASE_URL } from "../../helper";
 
 const Deduction = () => {
 const [data,setData]=useState({
@@ -15,7 +16,7 @@ const inputChangeHandler=(e)=>{
  const submitHandler=(e)=>{
   e.preventDefault();
   console.log(JSON.stringify(data))
-  fetch("http://localhost:8080/deductions/deduction",{
+  fetch(`${BASE_URL}/deductions/deduction`,{
   method:"POST",
   headers:{"content-Type":"application/json","Accept":"application/json"},
   body:JSON.stringify(data)

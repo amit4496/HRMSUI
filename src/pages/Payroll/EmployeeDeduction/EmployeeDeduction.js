@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BASE_URL } from "../../helper";
 
   const EmployeeDeduction = () => {
     const [data,setData]=useState({
@@ -17,7 +18,7 @@ import { useState } from "react";
    }
    const submitHandler=(e)=>{
     console.log(JSON.stringify(data))
-    fetch("http://localhost:8080/employeededuction/empdeduction",{
+    fetch(`${BASE_URL}/employeededuction/empdeduction`,{
       method:"POST",
       headers:{"content-Type":"application/json","Accept":"application/json"},
       body:JSON.stringify(data)

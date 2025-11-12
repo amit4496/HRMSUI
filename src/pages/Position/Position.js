@@ -1,6 +1,7 @@
 
 
 import { useState } from "react";
+import { BASE_URL } from "../helper";
 
 const Position = () => {
 const [data,setData]=useState({
@@ -21,7 +22,7 @@ const inputChangeHandler=(e)=>{
   const submitHandler=(e)=>{
     console.log(JSON.stringify(data))
    
-    fetch("http://localhost:8080/position",{
+    fetch(`${BASE_URL}/position`,{
       method:"POST",
       headers:{"Content-Type":"application/json","Accept":"application/json"},
       body:JSON.stringify(data)

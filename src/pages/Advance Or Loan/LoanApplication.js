@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react";
+import { BASE_URL } from "../helper";
 
   const LoanApplication = () => {
   const [data,setData]=useState({
@@ -14,7 +15,7 @@ import { useState,useEffect } from "react";
  const submitHandler=(e)=>{
   console.log(JSON.stringify(data))
   
-   fetch("http://localhost:8080/loan_application/save",{
+   fetch(`${BASE_URL}/loan_application/save`,{
      method:"POST",
      headers:{"content-Type": "application/json", "Accept": "application/json"},
      body:JSON.stringify(data)
@@ -24,7 +25,7 @@ import { useState,useEffect } from "react";
   
 }
 const fetchData1 = () =>{
-  fetch("http://localhost:8080/basic/fetchdata",{
+  fetch(`${BASE_URL}/basic/fetchdata`,{
   })
   .then((response) =>{
     return response.json();

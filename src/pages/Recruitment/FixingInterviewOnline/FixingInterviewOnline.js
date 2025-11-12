@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BASE_URL } from "../../helper";
 
 const FixingInterviewOnline = () => {
   const [data, setData] = useState({
@@ -19,7 +20,7 @@ const FixingInterviewOnline = () => {
   }
   const submitHandler = (e) => {
     console.log(JSON.stringify(data))
-    fetch("http://localhost:8080/intreview/save", {
+    fetch(`${BASE_URL}/intreview/save`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "appliction/json" },
       body: JSON.stringify(data)

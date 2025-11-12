@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BASE_URL } from "../../helper";
 
   const Allowances = () => {
     const [data,setData]=useState({
@@ -13,7 +14,7 @@ import { useState } from "react";
    const submitHandler= (e)=>{
       e.preventDefault();
       console.log(JSON.stringify(data))
-      fetch("http://localhost:8080/allowance/allowances",{
+      fetch(`${BASE_URL}/allowance/allowances`,{
       method:"POST",
       headers:{"content-Type":"application/json","Accept":"application/json"},
       body:JSON.stringify(data)

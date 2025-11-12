@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BASE_URL } from "../helper";
 const DatewiseAttendaceReport = () => {
   const [employee,setEmployee]=useState('');
   const [fromDate,setFromDate]=useState('');
@@ -11,7 +12,7 @@ const DatewiseAttendaceReport = () => {
     console.log(JSON.stringify(values))
  }
  const fetchData = () => {
-  fetch("http://localhost:8080/basic/fetchdata", {
+  fetch(`${BASE_URL}/basic/fetchdata`, {
   })
     .then((response) => {
       return response.json();

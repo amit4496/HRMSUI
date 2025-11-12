@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BASE_URL } from "../../helper";
 
 const OnlineApplication = () => {
   const [data, setData] = useState({
@@ -21,7 +22,7 @@ const OnlineApplication = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(JSON.stringify(data));
-    fetch("http://localhost:8080/application/save", {
+    fetch(`${BASE_URL}/application/save`, {
       method: "POST",
 
       headers: {

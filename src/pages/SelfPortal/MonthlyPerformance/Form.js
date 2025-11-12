@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import classes from './Form.module.css'
+import { BASE_URL } from "../../helper";
 function Form() {
   
   const [data, setData] = useState({
@@ -17,16 +18,6 @@ function Form() {
     setData(newdata);
     console.log(JSON.stringify(newdata));
   }
-  const fetchData1 = () =>{
-    fetch("http://localhost:8080/basic/fetchdata",{
-    })
-    .then((response) =>{
-      return response.json();
-    })
-    .then((data) =>{
-      setShow(data)
-    })
-  }
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -38,7 +29,7 @@ function Form() {
         console.log(res.data);
       });
   };
-  fetch("http://localhost:8080/MonthlyPerformance",{
+  fetch(`${BASE_URL}/MonthlyPerformance`,{
     method:"POST",
     headers:{"Content-Type":"application/json","Accept":"application/json"},
     body:JSON.stringify(data)

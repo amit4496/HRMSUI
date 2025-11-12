@@ -461,14 +461,18 @@ const ModernSidebar = ({ isOpen, toggleSidebar, isMobile, setIsOpen }) => {
         setIsLoadingRecruitment(false);
         return;
       }
-      
+      const uData = {
+        email: localStorage.getItem('email') || '',
+        roles: localStorage.getItem('roles') || '',
+      }
       // Fetch the recruitment authorization API
       const response = await fetch(`${HIRING_PORTAL_API_URL}/api/register-authorize`, {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${currentToken}`,
         },
+        body: JSON.stringify(uData)
       });
 
       if (!response.ok) {
