@@ -2,7 +2,6 @@
   "name": "react-side-bar",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/hrms",
   "dependencies": {
     "@coreui/bootstrap-react": "^1.0.0-beta.0",
     "@coreui/react": "^4.9.1",
